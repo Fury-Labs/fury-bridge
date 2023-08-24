@@ -170,7 +170,7 @@ Similar to how only ERC20 tokens that originate from Ethereum can be bridged
 from Fury to Ethereum, converting cosmos coins to Fury ERC20 can only be done
 with coins that originated from the Fury EVM. This means assets that are native
 Cosmos coins such as SWP, HARD, native FURY, IBC tokens, etc. **cannot** be
-converted this way. New token pairs must be added to the [params](https://github.com/Four4Two/fury-bridge/blob/main/x/bridge/spec/05_params.md) and added to the module via governance proposal.
+converted this way. New token pairs must be added to the [params](https://github.com/Fury-Labs/fury-bridge/blob/main/x/bridge/spec/05_params.md) and added to the module via governance proposal.
 
 Conversions back to Fury ERC20 are as follows.
 
