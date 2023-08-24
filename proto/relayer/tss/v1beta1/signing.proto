@@ -3,7 +3,7 @@ package tss.v1beta1;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/kava-labs/kava-bridge/relayer/mp_tss/types";
+option go_package = "github.com/fury-labs/fury-bridge/relayer/mp_tss/types";
 
 option (gogoproto.goproto_getters_all) = false;
 

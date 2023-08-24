@@ -1,4 +1,4 @@
-module github.com/kava-labs/kava-bridge
+module github.com/fury-labs/fury-bridge
 
 go 1.17
 

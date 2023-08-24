@@ -24,11 +24,11 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-// ERC20BridgePair defines an ERC20 token bridged between external and Kava EVM
+// ERC20BridgePair defines an ERC20 token bridged between external and Fury EVM
 type ERC20BridgePair struct {
 	// external_erc20_address represents the external EVM ERC20 address
 	ExternalERC20Address HexBytes `protobuf:"bytes,1,opt,name=external_erc20_address,json=externalErc20Address,proto3,casttype=HexBytes" json:"external_erc20_address,omitempty"`
-	// internal_erc20_address represents the corresponding internal Kava EVM ERC20 address
+	// internal_erc20_address represents the corresponding internal Fury EVM ERC20 address
 	InternalERC20Address HexBytes `protobuf:"bytes,2,opt,name=internal_erc20_address,json=internalErc20Address,proto3,casttype=HexBytes" json:"internal_erc20_address,omitempty"`
 }
 

@@ -3,10 +3,10 @@ package bridge_test
 import (
 	"testing"
 
-	"github.com/kava-labs/kava-bridge/app"
-	"github.com/kava-labs/kava-bridge/x/bridge"
-	"github.com/kava-labs/kava-bridge/x/bridge/testutil"
-	"github.com/kava-labs/kava-bridge/x/bridge/types"
+	"github.com/fury-labs/fury-bridge/app"
+	"github.com/fury-labs/fury-bridge/x/bridge"
+	"github.com/fury-labs/fury-bridge/x/bridge/testutil"
+	"github.com/fury-labs/fury-bridge/x/bridge/types"
 	"github.com/stretchr/testify/suite"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
@@ -41,10 +41,10 @@ func (suite *genesisTestSuite) Test_InitGenesis_Validation() {
 						),
 						types.NewEnabledERC20Token(
 							testutil.MustNewExternalEVMAddressFromString("0x000000000000000000000000000000000000000A"),
-							"Wrapped Kava",
-							"WKAVA",
+							"Wrapped Fury",
+							"WFURY",
 							6,
-							testutil.MinWKavaWithdrawAmount,
+							testutil.MinWFuryWithdrawAmount,
 						),
 						types.NewEnabledERC20Token(
 							testutil.MustNewExternalEVMAddressFromString("0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"),
@@ -89,10 +89,10 @@ func (suite *genesisTestSuite) Test_InitGenesis_Validation() {
 						),
 						types.NewEnabledERC20Token(
 							testutil.MustNewExternalEVMAddressFromString("0x000000000000000000000000000000000000000A"),
-							"Wrapped Kava",
-							"WKAVA",
+							"Wrapped Fury",
+							"WFURY",
 							6,
-							testutil.MinWKavaWithdrawAmount,
+							testutil.MinWFuryWithdrawAmount,
 						),
 					},
 					nil,
@@ -125,10 +125,10 @@ func (suite *genesisTestSuite) Test_InitGenesis_Validation() {
 						),
 						types.NewEnabledERC20Token(
 							testutil.MustNewExternalEVMAddressFromString("0x000000000000000000000000000000000000000A"),
-							"Wrapped Kava",
-							"WKAVA",
+							"Wrapped Fury",
+							"WFURY",
 							6,
-							testutil.MinWKavaWithdrawAmount,
+							testutil.MinWFuryWithdrawAmount,
 						),
 					},
 					sdk.AccAddress{},
@@ -161,10 +161,10 @@ func (suite *genesisTestSuite) Test_InitGenesis_Validation() {
 						),
 						types.NewEnabledERC20Token(
 							testutil.MustNewExternalEVMAddressFromString("0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2"),
-							"Wrapped Kava but actually WETH",
-							"WKAVA",
+							"Wrapped Fury but actually WETH",
+							"WFURY",
 							6,
-							testutil.MinWKavaWithdrawAmount,
+							testutil.MinWFuryWithdrawAmount,
 						),
 					},
 					sdk.AccAddress("hi"),
@@ -198,10 +198,10 @@ func (suite *genesisTestSuite) Test_InitGenesis_Validation() {
 						),
 						types.NewEnabledERC20Token(
 							testutil.MustNewExternalEVMAddressFromString("000000000000000000000000000000000000000A"),
-							"Wrapped Kava",
-							"WKAVA",
+							"Wrapped Fury",
+							"WFURY",
 							6,
-							testutil.MinWKavaWithdrawAmount,
+							testutil.MinWFuryWithdrawAmount,
 						),
 					},
 					sdk.AccAddress("hi"),
@@ -296,8 +296,8 @@ func (suite *genesisTestSuite) Test_InitAndExportGenesis() {
 				),
 				types.NewEnabledERC20Token(
 					testutil.MustNewExternalEVMAddressFromString("0x000000000000000000000000000000000000000A"),
-					"Wrapped Kava",
-					"WKAVA",
+					"Wrapped Fury",
+					"WFURY",
 					6,
 					sdk.NewInt(2_000_000),
 				),
@@ -344,10 +344,10 @@ func (suite *genesisTestSuite) Test_Marshall() {
 				),
 				types.NewEnabledERC20Token(
 					testutil.MustNewExternalEVMAddressFromString("0x000000000000000000000000000000000000000A"),
-					"Wrapped Kava",
-					"WKAVA",
+					"Wrapped Fury",
+					"WFURY",
 					6,
-					testutil.MinWKavaWithdrawAmount,
+					testutil.MinWFuryWithdrawAmount,
 				),
 			},
 			sdk.AccAddress("hello"),
@@ -398,10 +398,10 @@ func (suite *genesisTestSuite) Test_LegacyJSONConversion() {
 				),
 				types.NewEnabledERC20Token(
 					testutil.MustNewExternalEVMAddressFromString("0x000000000000000000000000000000000000000A"),
-					"Wrapped Kava",
-					"WKAVA",
+					"Wrapped Fury",
+					"WFURY",
 					6,
-					testutil.MinWKavaWithdrawAmount,
+					testutil.MinWFuryWithdrawAmount,
 				),
 			},
 			sdk.AccAddress("hello"),

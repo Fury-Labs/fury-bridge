@@ -37,14 +37,14 @@ import (
 	servercfg "github.com/tharsis/ethermint/server/config"
 	srvflags "github.com/tharsis/ethermint/server/flags"
 
-	"github.com/kava-labs/kava-bridge/app"
-	"github.com/kava-labs/kava-bridge/app/params"
-	bridgeclient "github.com/kava-labs/kava-bridge/client"
+	"github.com/fury-labs/fury-bridge/app"
+	"github.com/fury-labs/fury-bridge/app/params"
+	bridgeclient "github.com/fury-labs/fury-bridge/client"
 )
 
 const EnvPrefix = "BRIDGE"
 
-// NewRootCmd creates a new root command for the kava bridge blockchain.
+// NewRootCmd creates a new root command for the fury bridge blockchain.
 func NewRootCmd() *cobra.Command {
 	app.SetSDKConfig().Seal()
 
@@ -62,8 +62,8 @@ func NewRootCmd() *cobra.Command {
 		WithViper(EnvPrefix)
 
 	rootCmd := &cobra.Command{
-		Use:   "kava-bridged",
-		Short: "Kava Bridge Daemon",
+		Use:   "fury-bridged",
+		Short: "Fury Bridge Daemon",
 		PersistentPreRunE: func(cmd *cobra.Command, _ []string) error {
 			cmd.SetOut(cmd.OutOrStdout())
 			cmd.SetErr(cmd.ErrOrStderr())
@@ -82,7 +82,7 @@ func NewRootCmd() *cobra.Command {
 				return err
 			}
 
-			customAppTemplate, customAppConfig := servercfg.AppConfig("ukava")
+			customAppTemplate, customAppConfig := servercfg.AppConfig("ufury")
 
 			return sdkserver.InterceptConfigsPreRunHandler(cmd, customAppTemplate, customAppConfig)
 		},

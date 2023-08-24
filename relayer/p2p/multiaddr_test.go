@@ -3,7 +3,7 @@ package p2p_test
 import (
 	"testing"
 
-	"github.com/kava-labs/kava-bridge/relayer/p2p"
+	"github.com/fury-labs/fury-bridge/relayer/p2p"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/stretchr/testify/require"
 )

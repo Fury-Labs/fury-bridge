@@ -3,14 +3,14 @@ package types_test
 import (
 	"testing"
 
-	"github.com/kava-labs/kava-bridge/app"
-	"github.com/kava-labs/kava-bridge/x/bridge/types"
+	"github.com/fury-labs/fury-bridge/app"
+	"github.com/fury-labs/fury-bridge/x/bridge/types"
 	"github.com/stretchr/testify/require"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 )
 
-func TestMsgBridgeEthereumToKava(t *testing.T) {
+func TestMsgBridgeEthereumToFury(t *testing.T) {
 	type args struct {
 		relayer              string
 		ethereumERC20Address string
@@ -142,7 +142,7 @@ func TestMsgBridgeEthereumToKava(t *testing.T) {
 
 	for _, tc := range tests {
 		t.Run(tc.name, func(t *testing.T) {
-			msg := types.NewMsgBridgeEthereumToKava(
+			msg := types.NewMsgBridgeEthereumToFury(
 				tc.args.relayer,
 				tc.args.ethereumERC20Address,
 				tc.args.amount,
@@ -161,10 +161,10 @@ func TestMsgBridgeEthereumToKava(t *testing.T) {
 	}
 }
 
-func TestMsgBridgeEthereumToKavaSigners(t *testing.T) {
+func TestMsgBridgeEthereumToFurySigners(t *testing.T) {
 	relayer := sdk.AccAddress("hi")
 
-	msg := types.NewMsgBridgeEthereumToKava(
+	msg := types.NewMsgBridgeEthereumToFury(
 		relayer.String(),
 		"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
 		sdk.NewInt(1234),
@@ -177,8 +177,8 @@ func TestMsgBridgeEthereumToKavaSigners(t *testing.T) {
 	require.Equal(t, relayer, signers[0])
 }
 
-func TestMsgBridgeEthereumToKavaSigners_Invalid(t *testing.T) {
-	msg := types.NewMsgBridgeEthereumToKava(
+func TestMsgBridgeEthereumToFurySigners_Invalid(t *testing.T) {
+	msg := types.NewMsgBridgeEthereumToFury(
 		"not a valid address",
 		"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
 		sdk.NewInt(1234),
@@ -208,7 +208,7 @@ func TestMsgConvertCoinToERC20(t *testing.T) {
 	}{
 		{
 			"valid",
-			"kava123fxg0l602etulhhcdm0vt7l57qya5wjcrwhzz",
+			"fury123fxg0l602etulhhcdm0vt7l57qya5wjcrwhzz",
 			"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
 			sdk.NewCoin("erc20/weth", sdk.NewInt(1234)),
 			errArgs{
@@ -217,7 +217,7 @@ func TestMsgConvertCoinToERC20(t *testing.T) {
 		},
 		{
 			"invalid - odd length hex address",
-			"kava123fxg0l602etulhhcdm0vt7l57qya5wjcrwhzz",
+			"fury123fxg0l602etulhhcdm0vt7l57qya5wjcrwhzz",
 			"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc",
 			sdk.NewCoin("erc20/weth", sdk.NewInt(1234)),
 			errArgs{
@@ -227,7 +227,7 @@ func TestMsgConvertCoinToERC20(t *testing.T) {
 		},
 		{
 			"invalid - zero amount",
-			"kava123fxg0l602etulhhcdm0vt7l57qya5wjcrwhzz",
+			"fury123fxg0l602etulhhcdm0vt7l57qya5wjcrwhzz",
 			"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
 			sdk.NewCoin("erc20/weth", sdk.NewInt(0)),
 			errArgs{
@@ -237,7 +237,7 @@ func TestMsgConvertCoinToERC20(t *testing.T) {
 		},
 		{
 			"invalid - negative amount",
-			"kava123fxg0l602etulhhcdm0vt7l57qya5wjcrwhzz",
+			"fury123fxg0l602etulhhcdm0vt7l57qya5wjcrwhzz",
 			"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
 			// Create manually so there is no validation
 			sdk.Coin{Denom: "erc20/weth", Amount: sdk.NewInt(-1234)},
@@ -248,7 +248,7 @@ func TestMsgConvertCoinToERC20(t *testing.T) {
 		},
 		{
 			"invalid - empty denom",
-			"kava123fxg0l602etulhhcdm0vt7l57qya5wjcrwhzz",
+			"fury123fxg0l602etulhhcdm0vt7l57qya5wjcrwhzz",
 			"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
 			sdk.Coin{Denom: "", Amount: sdk.NewInt(-1234)},
 			errArgs{
@@ -258,7 +258,7 @@ func TestMsgConvertCoinToERC20(t *testing.T) {
 		},
 		{
 			"invalid - invalid denom",
-			"kava123fxg0l602etulhhcdm0vt7l57qya5wjcrwhzz",
+			"fury123fxg0l602etulhhcdm0vt7l57qya5wjcrwhzz",
 			"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
 			sdk.Coin{Denom: "h", Amount: sdk.NewInt(-1234)},
 			errArgs{

@@ -5,7 +5,7 @@ import (
 	"encoding/hex"
 	"testing"
 
-	"github.com/kava-labs/kava-bridge/relayer/p2p"
+	"github.com/fury-labs/fury-bridge/relayer/p2p"
 	"github.com/libp2p/go-libp2p-core/crypto"
 	"github.com/stretchr/testify/require"
 )

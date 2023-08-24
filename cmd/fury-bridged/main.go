@@ -6,8 +6,8 @@ import (
 	"github.com/cosmos/cosmos-sdk/server"
 	svrcmd "github.com/cosmos/cosmos-sdk/server/cmd"
 
-	"github.com/kava-labs/kava-bridge/app"
-	"github.com/kava-labs/kava-bridge/cmd/kava-bridged/cmd"
+	"github.com/fury-labs/fury-bridge/app"
+	"github.com/fury-labs/fury-bridge/cmd/fury-bridged/cmd"
 )
 
 func main() {

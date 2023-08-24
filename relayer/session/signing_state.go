@@ -5,8 +5,8 @@ import (
 
 	tss_common "github.com/binance-chain/tss-lib/common"
 	"github.com/binance-chain/tss-lib/tss"
-	"github.com/kava-labs/kava-bridge/relayer/mp_tss"
-	"github.com/kava-labs/kava-bridge/relayer/mp_tss/types"
+	"github.com/fury-labs/fury-bridge/relayer/mp_tss"
+	"github.com/fury-labs/fury-bridge/relayer/mp_tss/types"
 )
 
 // SigningSessionState is the state of a signing session.

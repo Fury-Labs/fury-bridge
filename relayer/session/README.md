@@ -47,4 +47,4 @@ stateDiagram-v2
 
 ### 3. Broadcast
 
-1. Broadcast message to destination chain Kava / Ethereum.
+1. Broadcast message to destination chain Fury / Ethereum.

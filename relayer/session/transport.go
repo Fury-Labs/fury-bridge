@@ -6,9 +6,9 @@ import (
 	"fmt"
 
 	"github.com/binance-chain/tss-lib/tss"
-	"github.com/kava-labs/kava-bridge/relayer/broadcast"
-	"github.com/kava-labs/kava-bridge/relayer/mp_tss"
-	mp_tss_types "github.com/kava-labs/kava-bridge/relayer/mp_tss/types"
+	"github.com/fury-labs/fury-bridge/relayer/broadcast"
+	"github.com/fury-labs/fury-bridge/relayer/mp_tss"
+	mp_tss_types "github.com/fury-labs/fury-bridge/relayer/mp_tss/types"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"golang.org/x/sync/errgroup"
 )

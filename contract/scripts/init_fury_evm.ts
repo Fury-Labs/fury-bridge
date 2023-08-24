@@ -1,5 +1,5 @@
 import { ethers } from "hardhat";
-import { Multicall, Multicall2, WKAVA } from "../typechain-types";
+import { Multicall, Multicall2, WFURY } from "../typechain-types";
 
 export async function main(): Promise<void> {
   // Hardhat always runs the compile task when running scripts with its command
@@ -21,17 +21,17 @@ export async function main(): Promise<void> {
 
   console.log("Completed contracts deployment");
 
-  const wkava = await deployWKAVA();
-  console.log("WKAVA deployed:\n\tAddress: %s", wkava.address);
+  const wfury = await deployWFURY();
+  console.log("WFURY deployed:\n\tAddress: %s", wfury.address);
 }
 
-export async function deployWKAVA(): Promise<WKAVA> {
-  const wkavaFactory = await ethers.getContractFactory("WKAVA");
-  const wkava = await wkavaFactory.deploy();
+export async function deployWFURY(): Promise<WFURY> {
+  const wfuryFactory = await ethers.getContractFactory("WFURY");
+  const wfury = await wfuryFactory.deploy();
 
-  await wkava.deployed();
+  await wfury.deployed();
 
-  return wkava;
+  return wfury;
 }
 
 export async function deployMulticall(): Promise<Multicall> {

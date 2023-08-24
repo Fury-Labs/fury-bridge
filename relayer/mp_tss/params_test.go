@@ -8,7 +8,7 @@ import (
 	"time"
 
 	"github.com/binance-chain/tss-lib/ecdsa/keygen"
-	"github.com/kava-labs/kava-bridge/relayer/testutil"
+	"github.com/fury-labs/fury-bridge/relayer/testutil"
 	"github.com/stretchr/testify/require"
 	"github.com/tendermint/tendermint/libs/os"
 )

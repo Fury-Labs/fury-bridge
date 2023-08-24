@@ -8,7 +8,7 @@ import "@openzeppelin/contracts/security/ReentrancyGuard.sol";
 import "./Sequence.sol";
 
 /// @title A contract for cross-chain ERC20 transfers using a single trusted relayer
-/// @author Kava Labs, LLC
+/// @author Fury Labs, LLC
 contract Bridge is ReentrancyGuard, Sequence(0) {
     using SafeERC20 for IERC20;
 
@@ -18,13 +18,13 @@ contract Bridge is ReentrancyGuard, Sequence(0) {
     /// @notice Represents an ERC20 token lock emitted during a lock call
     /// @param token The ERC20 token address
     /// @param sender The Ethereum address of the sender that locked the funds
-    /// @param toKavaAddr The Kava address to send the locked funds to
+    /// @param toFuryAddr The Fury address to send the locked funds to
     /// @param amount The amount that was locked
     /// @param lockSequence The unique lock sequence
     event Lock(
         address indexed token,
         address indexed sender,
-        address indexed toKavaAddr,
+        address indexed toFuryAddr,
         uint256 amount,
         uint256 lockSequence
     );
@@ -53,20 +53,20 @@ contract Bridge is ReentrancyGuard, Sequence(0) {
         return _relayer;
     }
 
-    /// @notice Locks an ERC20 amount and emits a Lock event with the Kava address to mint funds to
+    /// @notice Locks an ERC20 amount and emits a Lock event with the Fury address to mint funds to
     /// @param token The ERC20 token address
-    /// @param toKavaAddr The Kava address to send the locked funds to
+    /// @param toFuryAddr The Fury address to send the locked funds to
     /// @param amount The amount to lock
     /// @dev Emits a Lock event
     function lock(
         address token,
-        address toKavaAddr,
+        address toFuryAddr,
         uint256 amount
     ) public nonReentrant {
         incrementSequence();
         IERC20(token).safeTransferFrom(msg.sender, address(this), amount);
 
-        emit Lock(token, msg.sender, toKavaAddr, amount, getSequence());
+        emit Lock(token, msg.sender, toFuryAddr, amount, getSequence());
     }
 
     /// @notice Unlocks an ERC20 amount and emits an Unlock event

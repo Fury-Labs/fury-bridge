@@ -19,9 +19,9 @@ import (
 	"github.com/cosmos/cosmos-sdk/types/module"
 	simtypes "github.com/cosmos/cosmos-sdk/types/simulation"
 
-	"github.com/kava-labs/kava-bridge/x/bridge/client/cli"
-	"github.com/kava-labs/kava-bridge/x/bridge/keeper"
-	"github.com/kava-labs/kava-bridge/x/bridge/types"
+	"github.com/fury-labs/fury-bridge/x/bridge/client/cli"
+	"github.com/fury-labs/fury-bridge/x/bridge/keeper"
+	"github.com/fury-labs/fury-bridge/x/bridge/types"
 )
 
 var (

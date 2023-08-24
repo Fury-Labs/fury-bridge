@@ -8,9 +8,9 @@ import (
 
 	"github.com/ethereum/go-ethereum/common"
 
-	"github.com/kava-labs/kava-bridge/contract"
-	"github.com/kava-labs/kava-bridge/x/bridge/testutil"
-	"github.com/kava-labs/kava-bridge/x/bridge/types"
+	"github.com/fury-labs/fury-bridge/contract"
+	"github.com/fury-labs/fury-bridge/x/bridge/testutil"
+	"github.com/fury-labs/fury-bridge/x/bridge/types"
 )
 
 type ERC20TestSuite struct {

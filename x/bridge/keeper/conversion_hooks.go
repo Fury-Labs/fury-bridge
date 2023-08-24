@@ -9,8 +9,8 @@ import (
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	evmtypes "github.com/tharsis/ethermint/x/evm/types"
 
-	"github.com/kava-labs/kava-bridge/contract"
-	"github.com/kava-labs/kava-bridge/x/bridge/types"
+	"github.com/fury-labs/fury-bridge/contract"
+	"github.com/fury-labs/fury-bridge/x/bridge/types"
 )
 
 // Hooks wrapper struct for bridge keeper
@@ -26,7 +26,7 @@ func (k Keeper) ConversionHooks() ConversionHooks {
 }
 
 // PostTxProcessing implements EvmHooks.PostTxProcessing. This handles minting
-// sdk.Coin when ConvertToCoin() is called on an eligible Kava ERC20 contract.
+// sdk.Coin when ConvertToCoin() is called on an eligible Fury ERC20 contract.
 func (h ConversionHooks) PostTxProcessing(
 	ctx sdk.Context,
 	msg core.Message,

@@ -6,7 +6,7 @@ import (
 	"time"
 
 	logging "github.com/ipfs/go-log/v2"
-	"github.com/kava-labs/kava-bridge/relayer/allowlist"
+	"github.com/fury-labs/fury-bridge/relayer/allowlist"
 	"github.com/libp2p/go-libp2p"
 	"github.com/libp2p/go-libp2p-core/host"
 	"github.com/libp2p/go-libp2p-core/peer"

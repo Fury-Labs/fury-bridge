@@ -7,14 +7,14 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
 	"github.com/ethereum/go-ethereum/crypto"
-	"github.com/kava-labs/kava-bridge/contract"
-	"github.com/kava-labs/kava-bridge/x/bridge/types"
+	"github.com/fury-labs/fury-bridge/contract"
+	"github.com/fury-labs/fury-bridge/x/bridge/types"
 )
 
-// BridgeEthereumToKava mints the bridged amount at the corresponding
-// bridged ERC20 contract on Kava EVM, deploying the ERC20 contract first if it
+// BridgeEthereumToFury mints the bridged amount at the corresponding
+// bridged ERC20 contract on Fury EVM, deploying the ERC20 contract first if it
 // doesn't already exist.
-func (k Keeper) BridgeEthereumToKava(
+func (k Keeper) BridgeEthereumToFury(
 	ctx sdk.Context,
 	relayer sdk.AccAddress,
 	externalERC20Address types.ExternalEVMAddress,
@@ -46,10 +46,10 @@ func (k Keeper) BridgeEthereumToKava(
 	}
 
 	ctx.EventManager().EmitEvent(sdk.NewEvent(
-		types.EventTypeBridgeEthereumToKava,
+		types.EventTypeBridgeEthereumToFury,
 		sdk.NewAttribute(types.AttributeKeyRelayer, relayer.String()),
 		sdk.NewAttribute(types.AttributeKeyEthereumERC20Address, externalERC20Address.String()),
-		sdk.NewAttribute(types.AttributeKeyKavaERC20Address, internalAddress.String()),
+		sdk.NewAttribute(types.AttributeKeyFuryERC20Address, internalAddress.String()),
 		sdk.NewAttribute(types.AttributeKeyReceiver, receiver.String()),
 		sdk.NewAttribute(types.AttributeKeyAmount, amount.String()),
 		sdk.NewAttribute(types.AttributeKeySequence, sequence.String()),
@@ -69,7 +69,7 @@ func (k Keeper) GetOrDeployInternalERC20(
 	pair, found := k.GetBridgePairFromExternal(ctx, externalAddress)
 	if found {
 		// If external ERC20 address is already mapped in store, there is
-		// already a ERC20 deployed on Kava EVM.
+		// already a ERC20 deployed on Fury EVM.
 		return pair.GetInternalAddress(), nil
 	}
 
@@ -82,7 +82,7 @@ func (k Keeper) GetOrDeployInternalERC20(
 		return types.InternalEVMAddress{}, err
 	}
 
-	// Deploy the ERC20 contract on the Kava EVM
+	// Deploy the ERC20 contract on the Fury EVM
 	internalAddress, err := k.DeployMintableERC20Contract(ctx, enabledToken)
 	if err != nil {
 		return types.InternalEVMAddress{}, err

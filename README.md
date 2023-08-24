@@ -1,6 +1,6 @@
-# Kava Bridge
+# Fury Bridge
 
-Repository for Kava Ethereum Bridge
+Repository for Fury Ethereum Bridge
 
 ## Directories
 
@@ -14,7 +14,7 @@ Repository for Kava Ethereum Bridge
 make install
 ```
 
-Installs `kava-bridge` and `kava-relayer` to `$GOPATH/bin`
+Installs `fury-bridge` and `fury-relayer` to `$GOPATH/bin`
 
 ### Usage
 
@@ -32,7 +32,7 @@ cover                          Run tests with coverage and save to coverage.html
 golangci-lint                  Run golangci-lint
 help                           Display this help message
 install-devtools               Install solc and abigen used by compile-contracts
-install                        Install kava-bridge
+install                        Install fury-bridge
 lint                           Run golint
 proto-all                      Run all protobuf targets
 proto-check-breaking           Check for breaking changes against master
@@ -42,7 +42,7 @@ proto-lint                     Lint protobuf files
 proto-swagger-gen              Generate protobuf swagger
 proto-update-deps              Update proto
 start-geth                     Start private geth chain locally with the Bridge contract
-start                          Start kava-bridge chain locally
+start                          Start fury-bridge chain locally
 test-integration               Run go integration tests
 test                           Run go test
 vet                            Run go vet
@@ -81,19 +81,19 @@ subject to change. These only exist on the local Ethereum node.
 * Multicall Address: `0xB94efB606287D37732Fe871BDdD015c5E7Ab2e76`
 * Multicall2 Address: `0x77C3c07d77a5E99Fffdc2635CcdB66b16e3a1Bed`
 
-#### Kava EVM
+#### Fury EVM
 
-Kava EVM also has some contracts included in the genesis state. Note that the
-`WETH` specific contract does **not** exist on Kava EVM. When it is bridged from
+Fury EVM also has some contracts included in the genesis state. Note that the
+`WETH` specific contract does **not** exist on Fury EVM. When it is bridged from
 Ethereum, it is a [`ERC20MintableBurnable.sol`] deployed by the bridge module.
 
 * Multicall Address: `0xeA7100edA2f805356291B0E55DaD448599a72C6d`
 * Multicall2 Address: `0x62d2f38dAA1153b381c6ed2A48e7f4673303ac9A`
-* WKAVA Address `0x70C79B608aBBC502c2F61f38E04190fB407BefCF`
+* WFURY Address `0x70C79B608aBBC502c2F61f38E04190fB407BefCF`
 
-These contracts were first deployed manually to Kava EVM, exported as Kava
+These contracts were first deployed manually to Fury EVM, exported as Fury
 JSON state, then copied over to the `init-new-chain.sh` script. The following
-is **not** necessary to deploy Multicall and WKAVA, only when adding additional
+is **not** necessary to deploy Multicall and WFURY, only when adding additional
 smart contracts to the genesis state.
 
 ```bash
@@ -102,11 +102,11 @@ smart contracts to the genesis state.
 make start
 
 cd contract
-npx hardhat run scripts/init_kava_evm.ts --network kava
+npx hardhat run scripts/init_fury_evm.ts --network fury
 
 # Stop chain, then export. Copy over necessary values to init-new-chain.sh
 # app_state.auth.accounts and app_state.evm.accounts
-kava-bridged export | jq > export.json
+fury-bridged export | jq > export.json
 ```
 
 [`ERC20MintableBurnable.sol`]: ./contract/contracts/ERC20MintableBurnable.sol

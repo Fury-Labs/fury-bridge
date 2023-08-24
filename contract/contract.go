@@ -20,7 +20,7 @@ import (
 	"encoding/json"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/kava-labs/kava-bridge/x/bridge/types"
+	"github.com/fury-labs/fury-bridge/x/bridge/types"
 	evmtypes "github.com/tharsis/ethermint/x/evm/types"
 )
 

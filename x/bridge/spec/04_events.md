@@ -2,11 +2,11 @@
 
 The `x/bridge` module emits the events detailed in the [protobuf docs][proto-docs].
 
-## EventBridgeEthereumToKava
+## EventBridgeEthereumToFury
 
-Emitted on `MsgBridgeEthereumToKava`.
+Emitted on `MsgBridgeEthereumToFury`.
 
-## EventBridgeKavaToEthereum
+## EventBridgeFuryToEthereum
 
 Emitted when `Withdraw` is called on bridged ERC20.
 

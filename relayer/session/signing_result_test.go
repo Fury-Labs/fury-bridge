@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/binance-chain/tss-lib/common"
-	"github.com/kava-labs/kava-bridge/relayer/session"
+	"github.com/fury-labs/fury-bridge/relayer/session"
 	"github.com/stretchr/testify/require"
 )
 

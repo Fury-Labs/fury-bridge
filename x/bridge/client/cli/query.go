@@ -12,7 +12,7 @@ import (
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/spf13/cobra"
 
-	"github.com/kava-labs/kava-bridge/x/bridge/types"
+	"github.com/fury-labs/fury-bridge/x/bridge/types"
 )
 
 // GetQueryCmd returns the cli query commands for this module
@@ -109,8 +109,8 @@ func QueryERC20BridgePairsCmd() *cobra.Command {
 // QueryERC20BridgePairCmd queries the bridge module for a bridged ERC20 pair
 func QueryERC20BridgePairCmd() *cobra.Command {
 	return &cobra.Command{
-		Use:   "erc20-pair [Ethereum or Kava address]",
-		Short: "Query a bridged ERC20 pair by Ethereum or Kava address",
+		Use:   "erc20-pair [Ethereum or Fury address]",
+		Short: "Query a bridged ERC20 pair by Ethereum or Fury address",
 		Example: fmt.Sprintf(
 			"%[1]s q %[2]s erc20-pair 0x404F9466d758eA33eA84CeBE9E444b06533b369e",
 			version.AppName, types.ModuleName,

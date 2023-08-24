@@ -6,7 +6,7 @@ set -eo pipefail
 
 protoc_gen_gocosmos() {
   if ! grep "github.com/gogo/protobuf => github.com/regen-network/protobuf" go.mod &>/dev/null ; then
-    echo -e "\tPlease run this command from somewhere inside the root kava-bridge folder."
+    echo -e "\tPlease run this command from somewhere inside the root fury-bridge folder."
     return 1
   fi
 
@@ -44,5 +44,5 @@ go mod tidy -compat=1.17
 # Mgoogle/protobuf/any.proto=github.com/cosmos/cosmos-sdk/codec/types:. ./testutil/testdata/*.proto
 
 # move proto files to the right places
-cp -r github.com/kava-labs/kava-bridge/* ./
+cp -r github.com/fury-labs/fury-bridge/* ./
 rm -rf github.com

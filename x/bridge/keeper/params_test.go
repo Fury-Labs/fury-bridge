@@ -4,8 +4,8 @@ import (
 	"testing"
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
-	"github.com/kava-labs/kava-bridge/x/bridge/testutil"
-	"github.com/kava-labs/kava-bridge/x/bridge/types"
+	"github.com/fury-labs/fury-bridge/x/bridge/testutil"
+	"github.com/fury-labs/fury-bridge/x/bridge/types"
 	"github.com/stretchr/testify/suite"
 )
 

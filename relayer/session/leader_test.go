@@ -7,8 +7,8 @@ import (
 	"testing"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/kava-labs/kava-bridge/relayer/session"
-	"github.com/kava-labs/kava-bridge/relayer/testutil"
+	"github.com/fury-labs/fury-bridge/relayer/session"
+	"github.com/fury-labs/fury-bridge/relayer/testutil"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/stretchr/testify/require"
 )

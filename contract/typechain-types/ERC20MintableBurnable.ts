@@ -165,7 +165,7 @@ export type ApprovalEventFilter = TypedEventFilter<ApprovalEvent>;
 
 export type ConvertToCoinEvent = TypedEvent<
   [string, string, BigNumber],
-  { sender: string; toKavaAddr: string; amount: BigNumber }
+  { sender: string; toFuryAddr: string; amount: BigNumber }
 >;
 
 export type ConvertToCoinEventFilter = TypedEventFilter<ConvertToCoinEvent>;
@@ -235,7 +235,7 @@ export interface ERC20MintableBurnable extends BaseContract {
     balanceOf(account: string, overrides?: CallOverrides): Promise<[BigNumber]>;
 
     convertToCoin(
-      toKavaAddr: string,
+      toFuryAddr: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -319,7 +319,7 @@ export interface ERC20MintableBurnable extends BaseContract {
   balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
   convertToCoin(
-    toKavaAddr: string,
+    toFuryAddr: string,
     amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -403,7 +403,7 @@ export interface ERC20MintableBurnable extends BaseContract {
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     convertToCoin(
-      toKavaAddr: string,
+      toFuryAddr: string,
       amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -484,12 +484,12 @@ export interface ERC20MintableBurnable extends BaseContract {
 
     "ConvertToCoin(address,address,uint256)"(
       sender?: string | null,
-      toKavaAddr?: string | null,
+      toFuryAddr?: string | null,
       amount?: null
     ): ConvertToCoinEventFilter;
     ConvertToCoin(
       sender?: string | null,
-      toKavaAddr?: string | null,
+      toFuryAddr?: string | null,
       amount?: null
     ): ConvertToCoinEventFilter;
 
@@ -541,7 +541,7 @@ export interface ERC20MintableBurnable extends BaseContract {
     balanceOf(account: string, overrides?: CallOverrides): Promise<BigNumber>;
 
     convertToCoin(
-      toKavaAddr: string,
+      toFuryAddr: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -629,7 +629,7 @@ export interface ERC20MintableBurnable extends BaseContract {
     ): Promise<PopulatedTransaction>;
 
     convertToCoin(
-      toKavaAddr: string,
+      toFuryAddr: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;

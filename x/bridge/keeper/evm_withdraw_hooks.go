@@ -24,8 +24,8 @@ import (
 	ethtypes "github.com/ethereum/go-ethereum/core/types"
 	evmtypes "github.com/tharsis/ethermint/x/evm/types"
 
-	"github.com/kava-labs/kava-bridge/contract"
-	"github.com/kava-labs/kava-bridge/x/bridge/types"
+	"github.com/fury-labs/fury-bridge/contract"
+	"github.com/fury-labs/fury-bridge/x/bridge/types"
 )
 
 // Hooks wrapper struct for bridge keeper
@@ -105,7 +105,7 @@ func (h WithdrawHook) PostTxProcessing(
 		enabledERC20, err := h.k.GetEnabledERC20TokenFromExternal(ctx, pair.GetExternalAddress())
 		if err != nil {
 			// This will error only if an existing erc20 was enabled in params,
-			// had the Kava erc20 contract deployed, then later removed. Doing
+			// had the Fury erc20 contract deployed, then later removed. Doing
 			// so does *not* remove the ERC20 contract from erc20 bridge pairs
 			// state.
 
@@ -140,9 +140,9 @@ func (h WithdrawHook) PostTxProcessing(
 		}
 
 		ctx.EventManager().EmitEvent(sdk.NewEvent(
-			types.EventTypeBridgeKavaToEthereum,
+			types.EventTypeBridgeFuryToEthereum,
 			sdk.NewAttribute(types.AttributeKeyEthereumERC20Address, externalERC20Addr.String()),
-			sdk.NewAttribute(types.AttributeKeyKavaERC20Address, contractAddr.String()),
+			sdk.NewAttribute(types.AttributeKeyFuryERC20Address, contractAddr.String()),
 			sdk.NewAttribute(types.AttributeKeyReceiver, toAddr.String()),
 			sdk.NewAttribute(types.AttributeKeyAmount, amount.String()),
 			sdk.NewAttribute(types.AttributeKeySequence, sequence.String()),

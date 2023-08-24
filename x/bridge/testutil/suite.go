@@ -38,15 +38,15 @@ import (
 	evmtypes "github.com/tharsis/ethermint/x/evm/types"
 	feemarkettypes "github.com/tharsis/ethermint/x/feemarket/types"
 
-	"github.com/kava-labs/kava-bridge/app"
-	"github.com/kava-labs/kava-bridge/contract"
-	"github.com/kava-labs/kava-bridge/x/bridge/keeper"
-	"github.com/kava-labs/kava-bridge/x/bridge/types"
+	"github.com/fury-labs/fury-bridge/app"
+	"github.com/fury-labs/fury-bridge/contract"
+	"github.com/fury-labs/fury-bridge/x/bridge/keeper"
+	"github.com/fury-labs/fury-bridge/x/bridge/types"
 )
 
 var (
 	MinWETHWithdrawAmount  = sdk.NewInt(10_000_000_000_000_000)
-	MinWKavaWithdrawAmount = sdk.NewInt(2_000_000)
+	MinWFuryWithdrawAmount = sdk.NewInt(2_000_000)
 	MinUSDCWithdrawAmount  = sdk.NewInt(10_000_000)
 )
 
@@ -96,7 +96,7 @@ func (suite *Suite) SetupTest() {
 	suite.Key2, err = ethsecp256k1.GenerateKey()
 	suite.Require().NoError(err)
 
-	coins := sdk.NewCoins(sdk.NewInt64Coin("ukava", 1000_000_000_000_000_000))
+	coins := sdk.NewCoins(sdk.NewInt64Coin("ufury", 1000_000_000_000_000_000))
 	authGS := app.NewFundedGenStateWithSameCoins(cdc, coins, []sdk.AccAddress{
 		sdk.AccAddress(suite.Key1.PubKey().Address()),
 		sdk.AccAddress(suite.Key2.PubKey().Address()),
@@ -104,7 +104,7 @@ func (suite *Suite) SetupTest() {
 
 	// Genesis states
 	evmGs := evmtypes.NewGenesisState(
-		evmtypes.NewParams("ukava", true, true, evmtypes.DefaultChainConfig()),
+		evmtypes.NewParams("ufury", true, true, evmtypes.DefaultChainConfig()),
 		nil,
 	)
 
@@ -121,10 +121,10 @@ func (suite *Suite) SetupTest() {
 				),
 				types.NewEnabledERC20Token(
 					MustNewExternalEVMAddressFromString("0x000000000000000000000000000000000000000A"),
-					"Wrapped Kava",
-					"WKAVA",
+					"Wrapped Fury",
+					"WFURY",
 					6,
-					MinWKavaWithdrawAmount,
+					MinWFuryWithdrawAmount,
 				),
 				types.NewEnabledERC20Token(
 					MustNewExternalEVMAddressFromString("0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"),
@@ -172,7 +172,7 @@ func (suite *Suite) SetupTest() {
 	// InitializeFromGenesisStates commits first block so we start at 2 here
 	suite.Ctx = suite.App.NewContext(false, tmproto.Header{
 		Height:          suite.App.LastBlockHeight() + 1,
-		ChainID:         "kavatest_1-1",
+		ChainID:         "furytest_1-1",
 		Time:            time.Now().UTC(),
 		ProposerAddress: suite.ConsAddress.Bytes(),
 		Version: tmversion.Consensus{
@@ -350,7 +350,7 @@ func (suite *Suite) SendTx(
 	// Mint the max gas to the FeeCollector to ensure balance in case of refund
 	suite.MintFeeCollector(sdk.NewCoins(
 		sdk.NewCoin(
-			"ukava",
+			"ufury",
 			sdk.NewInt(baseFee.Int64()*int64(gasRes.Gas*2)),
 		)))
 

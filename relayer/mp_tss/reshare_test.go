@@ -9,8 +9,8 @@ import (
 	"github.com/binance-chain/tss-lib/ecdsa/keygen"
 	"github.com/binance-chain/tss-lib/test"
 	"github.com/binance-chain/tss-lib/tss"
-	"github.com/kava-labs/kava-bridge/relayer/mp_tss"
-	"github.com/kava-labs/kava-bridge/relayer/testutil"
+	"github.com/fury-labs/fury-bridge/relayer/mp_tss"
+	"github.com/fury-labs/fury-bridge/relayer/testutil"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

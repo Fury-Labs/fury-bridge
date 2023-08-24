@@ -94,11 +94,11 @@ import (
 	feemarketkeeper "github.com/tharsis/ethermint/x/feemarket/keeper"
 	feemarkettypes "github.com/tharsis/ethermint/x/feemarket/types"
 
-	"github.com/kava-labs/kava-bridge/app/ante"
-	bridgeparams "github.com/kava-labs/kava-bridge/app/params"
-	"github.com/kava-labs/kava-bridge/x/bridge"
-	bridgekeeper "github.com/kava-labs/kava-bridge/x/bridge/keeper"
-	bridgetypes "github.com/kava-labs/kava-bridge/x/bridge/types"
+	"github.com/fury-labs/fury-bridge/app/ante"
+	bridgeparams "github.com/fury-labs/fury-bridge/app/params"
+	"github.com/fury-labs/fury-bridge/x/bridge"
+	bridgekeeper "github.com/fury-labs/fury-bridge/x/bridge/keeper"
+	bridgetypes "github.com/fury-labs/fury-bridge/x/bridge/types"
 	// _ "github.com/ethereum/go-ethereum/eth/tracers/js"
 	// _ "github.com/ethereum/go-ethereum/eth/tracers/native"
 )
@@ -109,10 +109,10 @@ func init() {
 		panic(err)
 	}
 
-	DefaultNodeHome = filepath.Join(userHomeDir, ".kava-bridged")
+	DefaultNodeHome = filepath.Join(userHomeDir, ".fury-bridged")
 }
 
-const appName = "kava-bridge"
+const appName = "fury-bridge"
 
 var (
 	// DefaultNodeHome default home directories for the application daemon
@@ -220,7 +220,7 @@ type BridgeApp struct {
 	configurator module.Configurator
 }
 
-// NewApp returns a reference to a new initialized kava bridge application.
+// NewApp returns a reference to a new initialized fury bridge application.
 func NewApp(
 	logger log.Logger,
 	db dbm.DB,
@@ -258,7 +258,7 @@ func NewApp(
 		feegrant.StoreKey, authzkeeper.StoreKey,
 		// ethermint keys
 		evmtypes.StoreKey, feemarkettypes.StoreKey,
-		// kava bridge keys
+		// fury bridge keys
 		bridgetypes.StoreKey,
 	)
 
@@ -413,7 +413,7 @@ func NewApp(
 		evm.NewAppModule(app.EvmKeeper, app.AccountKeeper),
 		feemarket.NewAppModule(app.FeeMarketKeeper),
 
-		// Kava bridge modules
+		// Fury bridge modules
 		bridge.NewAppModule(app.BridgeKeeper, app.AccountKeeper),
 	)
 
@@ -496,7 +496,7 @@ func NewApp(
 		// Ethermint modules
 		evmtypes.ModuleName,
 		feemarkettypes.ModuleName,
-		// Kava bridge module
+		// Fury bridge module
 		bridgetypes.ModuleName,
 
 		// NOTE: crisis module must go at the end to check for invariants on each module
@@ -747,7 +747,7 @@ func initParamsKeeper(
 	// ethermint subspaces
 	paramsKeeper.Subspace(evmtypes.ModuleName)
 	paramsKeeper.Subspace(feemarkettypes.ModuleName)
-	// Kava bridge subspaces
+	// Fury bridge subspaces
 	paramsKeeper.Subspace(bridgetypes.ModuleName)
 	return paramsKeeper
 }

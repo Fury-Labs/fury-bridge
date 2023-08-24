@@ -4,7 +4,7 @@ import (
 	"testing"
 
 	"github.com/binance-chain/tss-lib/tss"
-	"github.com/kava-labs/kava-bridge/relayer/mp_tss"
+	"github.com/fury-labs/fury-bridge/relayer/mp_tss"
 )
 
 func CreateAndConnectTransports(

@@ -7,10 +7,10 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/kava-labs/kava-bridge/contract"
-	"github.com/kava-labs/kava-bridge/x/bridge/keeper"
-	"github.com/kava-labs/kava-bridge/x/bridge/testutil"
-	"github.com/kava-labs/kava-bridge/x/bridge/types"
+	"github.com/fury-labs/fury-bridge/contract"
+	"github.com/fury-labs/fury-bridge/x/bridge/keeper"
+	"github.com/fury-labs/fury-bridge/x/bridge/testutil"
+	"github.com/fury-labs/fury-bridge/x/bridge/types"
 	"github.com/stretchr/testify/suite"
 	evmtypes "github.com/tharsis/ethermint/x/evm/types"
 )
@@ -77,7 +77,7 @@ func (suite *ConversionHooksTestSuite) submitBridgeERC20Msg(
 	amount sdk.Int,
 	receiver common.Address,
 ) {
-	msg := types.NewMsgBridgeEthereumToKava(
+	msg := types.NewMsgBridgeEthereumToFury(
 		suite.RelayerAddress.String(),
 		contractAddr.String(),
 		amount,
@@ -85,13 +85,13 @@ func (suite *ConversionHooksTestSuite) submitBridgeERC20Msg(
 		sdk.NewInt(1),
 	)
 
-	_, err := suite.msgServer.BridgeEthereumToKava(sdk.WrapSDKContext(suite.Ctx), &msg)
+	_, err := suite.msgServer.BridgeEthereumToFury(sdk.WrapSDKContext(suite.Ctx), &msg)
 	suite.Require().NoError(err)
 }
 
 func (suite *ConversionHooksTestSuite) ConvertToCoin(
 	contractAddr types.InternalEVMAddress,
-	toKavaAddr sdk.AccAddress,
+	toFuryAddr sdk.AccAddress,
 	amount *big.Int,
 ) *evmtypes.MsgEthereumTxResponse {
 	// Prevents out of gas error
@@ -100,7 +100,7 @@ func (suite *ConversionHooksTestSuite) ConvertToCoin(
 	// method is lowercase but event is upper
 	data, err := suite.erc20Abi.Pack(
 		"convertToCoin",
-		common.BytesToAddress(toKavaAddr.Bytes()),
+		common.BytesToAddress(toFuryAddr.Bytes()),
 		amount,
 	)
 	suite.Require().NoError(err)
@@ -113,10 +113,10 @@ func (suite *ConversionHooksTestSuite) ConvertToCoin(
 }
 
 func (suite *ConversionHooksTestSuite) TestConvertToCoin() {
-	toKavaAddr := sdk.AccAddress(suite.Key2.PubKey().Address())
+	toFuryAddr := sdk.AccAddress(suite.Key2.PubKey().Address())
 	amount := big.NewInt(100)
 
-	_ = suite.ConvertToCoin(suite.conversionPair.GetAddress(), toKavaAddr, amount)
+	_ = suite.ConvertToCoin(suite.conversionPair.GetAddress(), toFuryAddr, amount)
 }
 
 func (suite *ConversionHooksTestSuite) TestConvertToCoin_BridgeDisabled() {
@@ -125,7 +125,7 @@ func (suite *ConversionHooksTestSuite) TestConvertToCoin_BridgeDisabled() {
 	params.BridgeEnabled = false
 	suite.Keeper.SetParams(suite.Ctx, params)
 
-	toKavaAddr := sdk.AccAddress(suite.Key2.PubKey().Address())
+	toFuryAddr := sdk.AccAddress(suite.Key2.PubKey().Address())
 	amount := big.NewInt(100)
 
 	// Manually create tx and send
@@ -134,7 +134,7 @@ func (suite *ConversionHooksTestSuite) TestConvertToCoin_BridgeDisabled() {
 	// method is lowercase but event is upper
 	data, err := suite.erc20Abi.Pack(
 		"convertToCoin",
-		common.BytesToAddress(toKavaAddr.Bytes()),
+		common.BytesToAddress(toFuryAddr.Bytes()),
 		amount,
 	)
 	suite.Require().NoError(err)
@@ -148,10 +148,10 @@ func (suite *ConversionHooksTestSuite) TestConvertToCoin_BridgeDisabled() {
 }
 
 func (suite *ConversionHooksTestSuite) TestConvertToCoin_Events() {
-	toKavaAddr := sdk.AccAddress(suite.Key2.PubKey().Address())
+	toFuryAddr := sdk.AccAddress(suite.Key2.PubKey().Address())
 	amount := big.NewInt(100)
 
-	res := suite.ConvertToCoin(suite.conversionPair.GetAddress(), toKavaAddr, amount)
+	res := suite.ConvertToCoin(suite.conversionPair.GetAddress(), toFuryAddr, amount)
 	suite.Require().False(res.Failed(), "tx should not fail")
 
 	coinAmount := sdk.NewCoin(suite.conversionPair.Denom, sdk.NewIntFromBigInt(amount))
@@ -159,7 +159,7 @@ func (suite *ConversionHooksTestSuite) TestConvertToCoin_Events() {
 		types.EventTypeConvertERC20ToCoin,
 		sdk.NewAttribute(types.AttributeKeyERC20Address, suite.conversionPair.GetAddress().String()),
 		sdk.NewAttribute(types.AttributeKeyInitiator, suite.key1Addr.String()),
-		sdk.NewAttribute(types.AttributeKeyReceiver, toKavaAddr.String()),
+		sdk.NewAttribute(types.AttributeKeyReceiver, toFuryAddr.String()),
 		sdk.NewAttribute(types.AttributeKeyAmount, coinAmount.String()),
 	))
 }
@@ -167,7 +167,7 @@ func (suite *ConversionHooksTestSuite) TestConvertToCoin_Events() {
 func (suite *ConversionHooksTestSuite) TestConvert_BalanceChange() {
 	suite.Commit()
 
-	toKavaAddr := sdk.AccAddress(suite.Key2.PubKey().Address())
+	toFuryAddr := sdk.AccAddress(suite.Key2.PubKey().Address())
 	amount := big.NewInt(100)
 
 	balBefore := suite.GetERC20BalanceOf(
@@ -180,10 +180,10 @@ func (suite *ConversionHooksTestSuite) TestConvert_BalanceChange() {
 		suite.conversionPair.GetAddress(),
 		types.NewInternalEVMAddress(types.ModuleEVMAddress),
 	)
-	recipientBalBefore := suite.App.BankKeeper.GetBalance(suite.Ctx, toKavaAddr, suite.conversionPair.Denom)
+	recipientBalBefore := suite.App.BankKeeper.GetBalance(suite.Ctx, toFuryAddr, suite.conversionPair.Denom)
 
 	// Sends from key1
-	res := suite.ConvertToCoin(suite.conversionPair.GetAddress(), toKavaAddr, amount)
+	res := suite.ConvertToCoin(suite.conversionPair.GetAddress(), toFuryAddr, amount)
 	suite.Require().False(res.Failed(), "tx should not fail")
 
 	balAfter := suite.GetERC20BalanceOf(
@@ -196,7 +196,7 @@ func (suite *ConversionHooksTestSuite) TestConvert_BalanceChange() {
 		suite.conversionPair.GetAddress(),
 		types.NewInternalEVMAddress(types.ModuleEVMAddress),
 	)
-	recipientBalAfter := suite.App.BankKeeper.GetBalance(suite.Ctx, toKavaAddr, suite.conversionPair.Denom)
+	recipientBalAfter := suite.App.BankKeeper.GetBalance(suite.Ctx, toFuryAddr, suite.conversionPair.Denom)
 
 	suite.Require().Equal(
 		new(big.Int).Sub(balBefore, amount),
@@ -211,14 +211,14 @@ func (suite *ConversionHooksTestSuite) TestConvert_BalanceChange() {
 	suite.Require().Equal(
 		recipientBalBefore.Amount.Add(sdk.NewIntFromBigInt(amount)),
 		recipientBalAfter.Amount,
-		"kava receiver balance after convert should increase by amount",
+		"fury receiver balance after convert should increase by amount",
 	)
 }
 
 func (suite *ConversionHooksTestSuite) TestConvert_InsufficientBalance() {
 	suite.Commit()
 
-	toKavaAddr := sdk.AccAddress(suite.Key2.PubKey().Address())
+	toFuryAddr := sdk.AccAddress(suite.Key2.PubKey().Address())
 	// Bal is 100
 	amount := big.NewInt(1000)
 
@@ -226,7 +226,7 @@ func (suite *ConversionHooksTestSuite) TestConvert_InsufficientBalance() {
 	// method is lowercase but event is upper
 	data, err := suite.erc20Abi.Pack(
 		"convertToCoin",
-		common.BytesToAddress(toKavaAddr.Bytes()),
+		common.BytesToAddress(toFuryAddr.Bytes()),
 		amount,
 	)
 	suite.Require().NoError(err)
@@ -238,7 +238,7 @@ func (suite *ConversionHooksTestSuite) TestConvert_InsufficientBalance() {
 
 func (suite *ConversionHooksTestSuite) TestConvertToCoin_NotEnabled() {
 	suite.Commit()
-	toKavaAddr := sdk.AccAddress(suite.Key2.PubKey().Address())
+	toFuryAddr := sdk.AccAddress(suite.Key2.PubKey().Address())
 	amount := big.NewInt(100)
 
 	balBefore := suite.GetERC20BalanceOf(
@@ -251,9 +251,9 @@ func (suite *ConversionHooksTestSuite) TestConvertToCoin_NotEnabled() {
 		suite.invalidConversionPair.GetAddress(),
 		types.NewInternalEVMAddress(types.ModuleEVMAddress),
 	)
-	recipientBalBefore := suite.App.BankKeeper.GetBalance(suite.Ctx, toKavaAddr, suite.invalidConversionPair.Denom)
+	recipientBalBefore := suite.App.BankKeeper.GetBalance(suite.Ctx, toFuryAddr, suite.invalidConversionPair.Denom)
 
-	res := suite.ConvertToCoin(suite.invalidConversionPair.GetAddress(), toKavaAddr, amount)
+	res := suite.ConvertToCoin(suite.invalidConversionPair.GetAddress(), toFuryAddr, amount)
 	suite.Require().False(res.Failed(), "tx should not fail")
 
 	balAfter := suite.GetERC20BalanceOf(
@@ -266,7 +266,7 @@ func (suite *ConversionHooksTestSuite) TestConvertToCoin_NotEnabled() {
 		suite.invalidConversionPair.GetAddress(),
 		types.NewInternalEVMAddress(types.ModuleEVMAddress),
 	)
-	recipientBalAfter := suite.App.BankKeeper.GetBalance(suite.Ctx, toKavaAddr, suite.invalidConversionPair.Denom)
+	recipientBalAfter := suite.App.BankKeeper.GetBalance(suite.Ctx, toFuryAddr, suite.invalidConversionPair.Denom)
 
 	suite.Require().Equal(
 		new(big.Int).Sub(balBefore, amount),

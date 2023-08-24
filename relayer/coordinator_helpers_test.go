@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	"github.com/kava-labs/kava-bridge/relayer"
+	"github.com/fury-labs/fury-bridge/relayer"
 )
 
 // payload is a payload only used for testing
@@ -39,8 +39,8 @@ func eth(height uint64, blockTime time.Time, payloads ...relayer.Payload) relaye
 	return relayer.NewBlock(relayer.Source, height, blockTime, payloads)
 }
 
-// kava is a test helper for returning a new kava block
-func kava(height uint64, blockTime time.Time, payloads ...relayer.Payload) relayer.Block {
+// fury is a test helper for returning a new fury block
+func fury(height uint64, blockTime time.Time, payloads ...relayer.Payload) relayer.Block {
 	return relayer.NewBlock(relayer.Destination, height, blockTime, payloads)
 }
 
@@ -67,7 +67,7 @@ func newOutput(nonce uint64, payload relayer.Payload) expectedOutput {
 	}
 }
 
-// newCoordinator is a test helper for creating a new default eth to kava coordinator
+// newCoordinator is a test helper for creating a new default eth to fury coordinator
 func newCoordinator() *relayer.Coordinator {
 	return relayer.NewCoordinator()
 }

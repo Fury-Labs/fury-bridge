@@ -2,29 +2,29 @@
 set -e
 
 validatorMnemonic="equip town gesture square tomorrow volume nephew minute witness beef rich gadget actress egg sing secret pole winter alarm law today check violin uncover"
-# kava1ffv7nhd3z6sych2qpqkk03ec6hzkmufy0r2s4c
+# fury1ffv7nhd3z6sych2qpqkk03ec6hzkmufy0r2s4c
 # 0xeDAA1E944aeAC85a8b2aC41fA741B3b20B783136
 faucetMnemonic="crash sort dwarf disease change advice attract clump avoid mobile clump right junior axis book fresh mask tube front require until face effort vault"
-# kava1adkm6svtzjsxxvg7g6rshg6kj9qwej8gwqadqd
+# fury1adkm6svtzjsxxvg7g6rshg6kj9qwej8gwqadqd
 # 0xeb6dBd418B14A063311e46870BA3569140ECC8e8
 userMnemonic="news tornado sponsor drastic dolphin awful plastic select true lizard width idle ability pigeon runway lift oppose isolate maple aspect safe jungle author hole"
 # --eth --coin-type 60
-# kava10wlnqzyss4accfqmyxwx5jy5x9nfkwh6qm7n4t
+# fury10wlnqzyss4accfqmyxwx5jy5x9nfkwh6qm7n4t
 # 0x7Bbf300890857b8c241b219C6a489431669b3aFA
 relayerMnemonic="never reject sniff east arctic funny twin feed upper series stay shoot vivid adapt defense economy pledge fetch invite approve ceiling admit gloom exit"
 # --eth --coin-type 60
-# kava15tmj37vh7ch504px9fcfglmvx6y9m70646ev8t
+# fury15tmj37vh7ch504px9fcfglmvx6y9m70646ev8t
 # 0xa2F728F997f62F47D4262a70947F6c36885dF9fa
 
 
-DATA=~/.kava-bridged
+DATA=~/.fury-bridged
 # remove any old state and config
 rm -rf $DATA
 
-BINARY=kava-bridged
+BINARY=fury-bridged
 
 # Create new data directory, overwriting any that alread existed
-chainID="kavabridgelocalnet_8888-1"
+chainID="furybridgelocalnet_8888-1"
 $BINARY init validator --chain-id $chainID
 $BINARY config chain-id $chainID
 
@@ -40,30 +40,30 @@ $BINARY config keyring-backend test
 # Create validator keys and add account to genesis
 validatorKeyName="validator"
 printf "$validatorMnemonic\n" | $BINARY keys add $validatorKeyName --recover
-$BINARY add-genesis-account $validatorKeyName 2000000000ukava,100000000000bnb
+$BINARY add-genesis-account $validatorKeyName 2000000000ufury,100000000000bnb
 
 # Create faucet keys and add account to genesis
 faucetKeyName="faucet"
 printf "$faucetMnemonic\n" | $BINARY keys add $faucetKeyName --recover
-$BINARY add-genesis-account $faucetKeyName 1000000000ukava,100000000000bnb
+$BINARY add-genesis-account $faucetKeyName 1000000000ufury,100000000000bnb
 
 userKeyName="user"
 printf "$userMnemonic\n" | $BINARY keys add $userKeyName --recover --eth --coin-type 60
-$BINARY add-genesis-account $userKeyName 100000000000000000000ukava
+$BINARY add-genesis-account $userKeyName 100000000000000000000ufury
 
 relayerKeyName="relayer"
 printf "$relayerMnemonic\n" | $BINARY keys add $relayerKeyName --recover --eth --coin-type 60
-$BINARY add-genesis-account $relayerKeyName 100000000000000000000ukava
+$BINARY add-genesis-account $relayerKeyName 100000000000000000000ufury
 
 # Create a delegation tx for the validator and add to genesis
-$BINARY gentx $validatorKeyName 1000000000ukava --keyring-backend test --chain-id $chainID
+$BINARY gentx $validatorKeyName 1000000000ufury --keyring-backend test --chain-id $chainID
 $BINARY collect-gentxs
 
-# Replace stake with ukava
-sed -in-place='' 's/stake/ukava/g' $DATA/config/genesis.json
+# Replace stake with ufury
+sed -in-place='' 's/stake/ufury/g' $DATA/config/genesis.json
 
-# Replace the default evm denom of aphoton with ukava
-sed -in-place='' 's/aphoton/ukava/g' $DATA/config/genesis.json
+# Replace the default evm denom of aphoton with ufury
+sed -in-place='' 's/aphoton/ufury/g' $DATA/config/genesis.json
 
 # Zero out the total supply so it gets recalculated during InitGenesis
 jq '.app_state.bank.supply = []' $DATA/config/genesis.json | sponge $DATA/config/genesis.json
@@ -72,7 +72,7 @@ jq '.app_state.bank.supply = []' $DATA/config/genesis.json | sponge $DATA/config
 jq '.app_state.bridge.params.bridge_enabled = true' $DATA/config/genesis.json | sponge $DATA/config/genesis.json
 
 # Set relayer to devnet relayer address
-jq '.app_state.bridge.params.relayer = "kava15tmj37vh7ch504px9fcfglmvx6y9m70646ev8t"' $DATA/config/genesis.json | sponge $DATA/config/genesis.json
+jq '.app_state.bridge.params.relayer = "fury15tmj37vh7ch504px9fcfglmvx6y9m70646ev8t"' $DATA/config/genesis.json | sponge $DATA/config/genesis.json
 
 # Set enabled erc20 tokens to match local geth testnet
 jq '.app_state.bridge.params.enabled_erc20_tokens = [
@@ -95,18 +95,18 @@ jq '.app_state.bridge.params.enabled_erc20_tokens = [
 # deploys
 jq '.app_state.bridge.params.enabled_conversion_pairs = [
     {
-        kava_erc20_address: "0x404F9466d758eA33eA84CeBE9E444b06533b369e",
+        fury_erc20_address: "0x404F9466d758eA33eA84CeBE9E444b06533b369e",
         denom: "erc20/weth",
     }]' $DATA/config/genesis.json | sponge $DATA/config/genesis.json
 
 # Add smart contract accounts
-# Multicall, WKAVA
+# Multicall, WFURY
 jq '.app_state.auth.accounts += [
     {
         "@type": "/ethermint.types.v1.EthAccount",
         "base_account": {
             "account_number": "0",
-            "address": "kava1afcspmdzlqzn2c53krj4mt2yskv6wtrds2jqht",
+            "address": "fury1afcspmdzlqzn2c53krj4mt2yskv6wtrds2jqht",
             "pub_key": null,
             "sequence": "1"
         },
@@ -116,7 +116,7 @@ jq '.app_state.auth.accounts += [
         "@type": "/ethermint.types.v1.EthAccount",
         "base_account": {
             "account_number": "0",
-            "address": "kava1vtf08rd2z9fm8qwxa54y3el5vues8ty64qcdyr",
+            "address": "fury1vtf08rd2z9fm8qwxa54y3el5vues8ty64qcdyr",
             "pub_key": null,
             "sequence": "1"
         },
@@ -126,7 +126,7 @@ jq '.app_state.auth.accounts += [
         "@type": "/ethermint.types.v1.EthAccount",
         "base_account": {
             "account_number": "0",
-            "address": "kava1wrrekcy2h0zs9shkruuwqsvsldq8hm70yad4ke",
+            "address": "fury1wrrekcy2h0zs9shkruuwqsvsldq8hm70yad4ke",
             "pub_key": null,
             "sequence": "1"
         },

@@ -14,8 +14,8 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/cosmos/cosmos-sdk/version"
 
-	"github.com/kava-labs/kava-bridge/contract"
-	"github.com/kava-labs/kava-bridge/x/bridge/types"
+	"github.com/fury-labs/fury-bridge/contract"
+	"github.com/fury-labs/fury-bridge/x/bridge/types"
 )
 
 // GetTxCmd returns the transaction commands for this module
@@ -29,9 +29,9 @@ func GetTxCmd() *cobra.Command {
 	}
 
 	cmds := []*cobra.Command{
-		getCmdMsgBridgeEthereumToKava(),
+		getCmdMsgBridgeEthereumToFury(),
 		getCmdMsgConvertCoinToERC20(),
-		getCmdBridgeKavaToEthereum(),
+		getCmdBridgeFuryToEthereum(),
 		getCmdConvertERC20ToCoin(),
 	}
 
@@ -44,12 +44,12 @@ func GetTxCmd() *cobra.Command {
 	return bridgeTxCmd
 }
 
-func getCmdMsgBridgeEthereumToKava() *cobra.Command {
+func getCmdMsgBridgeEthereumToFury() *cobra.Command {
 	return &cobra.Command{
-		Use:   "bridge-eth-to-kava [token] [receiver] [amount] [sequence]",
-		Short: "mints ERC20 tokens locked on Ethereum to Kava EVM co-chain",
+		Use:   "bridge-eth-to-fury [token] [receiver] [amount] [sequence]",
+		Short: "mints ERC20 tokens locked on Ethereum to Fury EVM co-chain",
 		Example: fmt.Sprintf(
-			`%s tx %s bridge-eth-to-kava 0xc778417e063141139fce010982780140aa0cd5ab 0x6B1088f788b412Ad1280F95240d56B886A64bc05 1000000000000000 1 --from <key>`,
+			`%s tx %s bridge-eth-to-fury 0xc778417e063141139fce010982780140aa0cd5ab 0x6B1088f788b412Ad1280F95240d56B886A64bc05 1000000000000000 1 --from <key>`,
 			version.AppName, types.ModuleName,
 		),
 		Args: cobra.ExactArgs(4),
@@ -73,7 +73,7 @@ func getCmdMsgBridgeEthereumToKava() *cobra.Command {
 			}
 
 			signer := clientCtx.GetFromAddress()
-			msg := types.NewMsgBridgeEthereumToKava(signer.String(), token, amount, receiver, sequence)
+			msg := types.NewMsgBridgeEthereumToFury(signer.String(), token, amount, receiver, sequence)
 			if err := msg.ValidateBasic(); err != nil {
 				return err
 			}
@@ -83,12 +83,12 @@ func getCmdMsgBridgeEthereumToKava() *cobra.Command {
 	}
 }
 
-func getCmdBridgeKavaToEthereum() *cobra.Command {
+func getCmdBridgeFuryToEthereum() *cobra.Command {
 	return &cobra.Command{
-		Use:   "bridge-kava-to-eth [Ethereum receiver address] [Kava ERC20 address] [amount]",
-		Short: "burns ERC20 tokens on Kava EVM co-chain and unlocks on Ethereum",
+		Use:   "bridge-fury-to-eth [Ethereum receiver address] [Fury ERC20 address] [amount]",
+		Short: "burns ERC20 tokens on Fury EVM co-chain and unlocks on Ethereum",
 		Example: fmt.Sprintf(
-			`%s tx %s bridge-kava-to-eth 0x21E360e198Cde35740e88572B59f2CAdE421E6b1 0x8223259205A3E31C54469fCbfc9F7Cf83D515ff6 1000000000000000 --from <key>`,
+			`%s tx %s bridge-fury-to-eth 0x21E360e198Cde35740e88572B59f2CAdE421E6b1 0x8223259205A3E31C54469fCbfc9F7Cf83D515ff6 1000000000000000 --from <key>`,
 			version.AppName, types.ModuleName,
 		),
 		Args: cobra.ExactArgs(3),
@@ -144,7 +144,7 @@ func getCmdBridgeKavaToEthereum() *cobra.Command {
 func getCmdMsgConvertCoinToERC20() *cobra.Command {
 	return &cobra.Command{
 		Use:   "convert-coin-to-erc20 [receiver] [coin]",
-		Short: "converts sdk.Coin to erc20 tokens on Kava eth co-chain",
+		Short: "converts sdk.Coin to erc20 tokens on Fury eth co-chain",
 		Example: fmt.Sprintf(
 			`%s tx %s convert-coin-to-erc20 0x6B1088f788b412Ad1280F95240d56B886A64bc05 100000000weth --from <key>`,
 			version.AppName, types.ModuleName,
@@ -179,11 +179,11 @@ func getCmdMsgConvertCoinToERC20() *cobra.Command {
 
 func getCmdConvertERC20ToCoin() *cobra.Command {
 	return &cobra.Command{
-		Use:   "convert-erc20-to-coin [Kava receiver address] [Kava ERC20 address or Denom] [amount]",
-		Short: "burns ERC20 tokens on Kava EVM co-chain and unlocks on Ethereum",
+		Use:   "convert-erc20-to-coin [Fury receiver address] [Fury ERC20 address or Denom] [amount]",
+		Short: "burns ERC20 tokens on Fury EVM co-chain and unlocks on Ethereum",
 		Example: fmt.Sprintf(`
 %[1]s tx %[2]s convert-erc20-to-coin 0x8223259205A3E31C54469fCbfc9F7Cf83D515ff6 0x21E360e198Cde35740e88572B59f2CAdE421E6b1 1000000000000000 --from <key>
-%[1]s tx %[2]s convert-erc20-to-coin kava10wlnqzyss4accfqmyxwx5jy5x9nfkwh6qm7n4t erc20/weth 1000000000000000 --from <key>
+%[1]s tx %[2]s convert-erc20-to-coin fury10wlnqzyss4accfqmyxwx5jy5x9nfkwh6qm7n4t erc20/weth 1000000000000000 --from <key>
 `,
 			version.AppName, types.ModuleName,
 		),

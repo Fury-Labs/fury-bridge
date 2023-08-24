@@ -10,8 +10,8 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 
-	"github.com/kava-labs/kava-bridge/cmd/kava-relayer/cmd/key"
-	"github.com/kava-labs/kava-bridge/cmd/kava-relayer/cmd/network"
+	"github.com/fury-labs/fury-bridge/cmd/fury-relayer/cmd/key"
+	"github.com/fury-labs/fury-bridge/cmd/fury-relayer/cmd/network"
 )
 
 var (
@@ -20,7 +20,7 @@ var (
 )
 
 const (
-	defaultAppDirName = ".kava-relayer"
+	defaultAppDirName = ".fury-relayer"
 	defaultConfigFile = "config"
 	defaultConfigType = "yaml"
 )
@@ -36,9 +36,9 @@ func NewRootCmd() (*cobra.Command, error) {
 	defaultAppDir := path.Join(userHomeDir, defaultAppDirName)
 
 	rootCmd := &cobra.Command{
-		Use:   "kava-relayer",
-		Short: "Kava-relayer relays funds between ethereum and kava",
-		Long:  `The kava relayer processes ethereum and kava blocks to transfer ERC20 tokens between chains.`,
+		Use:   "fury-relayer",
+		Short: "Fury-relayer relays funds between ethereum and fury",
+		Long:  `The fury relayer processes ethereum and fury blocks to transfer ERC20 tokens between chains.`,
 	}
 
 	// TODO: allow configuration of config and data separately

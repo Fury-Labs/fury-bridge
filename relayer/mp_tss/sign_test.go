@@ -8,8 +8,8 @@ import (
 	"math/big"
 	"testing"
 
-	"github.com/kava-labs/kava-bridge/relayer/mp_tss"
-	"github.com/kava-labs/kava-bridge/relayer/testutil"
+	"github.com/fury-labs/fury-bridge/relayer/mp_tss"
+	"github.com/fury-labs/fury-bridge/relayer/testutil"
 
 	"github.com/binance-chain/tss-lib/common"
 	"github.com/binance-chain/tss-lib/tss"

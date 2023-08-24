@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/suite"
 	"github.com/tharsis/ethermint/crypto/ethsecp256k1"
 
-	"github.com/kava-labs/kava-bridge/x/bridge/testutil"
+	"github.com/fury-labs/fury-bridge/x/bridge/testutil"
 )
 
 type RelayerTestSuite struct {

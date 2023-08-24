@@ -4,8 +4,8 @@ import (
 	"context"
 	"testing"
 
-	"github.com/kava-labs/kava-bridge/relayer/allowlist"
-	"github.com/kava-labs/kava-bridge/relayer/testutil"
+	"github.com/fury-labs/fury-bridge/relayer/allowlist"
+	"github.com/fury-labs/fury-bridge/relayer/testutil"
 	"github.com/libp2p/go-libp2p-core/host"
 	"github.com/stretchr/testify/suite"
 )

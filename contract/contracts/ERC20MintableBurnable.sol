@@ -6,14 +6,14 @@ import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
 /// @title A contract for an mintable and burnable ERC20 that is handled by the bridge Cosmos SDK module account
-/// @author Kava Labs, LLC
-/// @custom:security-contact security@kava.io
+/// @author Fury Labs, LLC
+/// @custom:security-contact security@fury.io
 contract ERC20MintableBurnable is ERC20, Ownable {
     /// @notice The decimals places of the token.
     uint8 private immutable _decimals;
 
     /// @notice Represents an ERC20 token lock emitted during a lock call
-    /// @param sender The Kava address of the sender that locked the funds
+    /// @param sender The Fury address of the sender that locked the funds
     /// @param toAddr The Ethereum address to send the funds to
     /// @param amount The amount that was locked
     event Withdraw(
@@ -23,12 +23,12 @@ contract ERC20MintableBurnable is ERC20, Ownable {
     );
 
     /// @notice Represents a conversion from ERC20 to sdk.Coin
-    /// @param sender The Kava address of the sender that converted coins
-    /// @param toKavaAddr The Kava address where to send the converted coins to
+    /// @param sender The Fury address of the sender that converted coins
+    /// @param toFuryAddr The Fury address where to send the converted coins to
     /// @param amount The amount that was converted
     event ConvertToCoin(
         address indexed sender,
-        address indexed toKavaAddr,
+        address indexed toFuryAddr,
         uint256 amount
     );
 
@@ -91,10 +91,10 @@ contract ERC20MintableBurnable is ERC20, Ownable {
     /// @notice Converts an amount of tokens to Cosmos sdk.Coin
     /// @dev Transfers amount of tokens to the owner address (module account)
     ///      and emits a ConvertToCoin event.
-    /// @param toKavaAddr The Kava address where to send the converted coins to.
+    /// @param toFuryAddr The Fury address where to send the converted coins to.
     /// @param amount The amount of the token to convert.
-    function convertToCoin(address toKavaAddr, uint256 amount) public virtual {
+    function convertToCoin(address toFuryAddr, uint256 amount) public virtual {
         _transfer(msg.sender, owner(), amount);
-        emit ConvertToCoin(msg.sender, toKavaAddr, amount);
+        emit ConvertToCoin(msg.sender, toFuryAddr, amount);
     }
 }

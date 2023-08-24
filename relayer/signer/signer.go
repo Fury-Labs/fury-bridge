@@ -14,12 +14,12 @@ import (
 	"github.com/binance-chain/tss-lib/tss"
 	eth_common "github.com/ethereum/go-ethereum/common"
 
-	"github.com/kava-labs/kava-bridge/relayer/broadcast"
-	"github.com/kava-labs/kava-bridge/relayer/broadcast/types"
-	"github.com/kava-labs/kava-bridge/relayer/mp_tss"
-	mp_tss_types "github.com/kava-labs/kava-bridge/relayer/mp_tss/types"
-	"github.com/kava-labs/kava-bridge/relayer/p2p"
-	"github.com/kava-labs/kava-bridge/relayer/session"
+	"github.com/fury-labs/fury-bridge/relayer/broadcast"
+	"github.com/fury-labs/fury-bridge/relayer/broadcast/types"
+	"github.com/fury-labs/fury-bridge/relayer/mp_tss"
+	mp_tss_types "github.com/fury-labs/fury-bridge/relayer/mp_tss/types"
+	"github.com/fury-labs/fury-bridge/relayer/p2p"
+	"github.com/fury-labs/fury-bridge/relayer/session"
 )
 
 var log = logging.Logger("signer")

@@ -3,7 +3,7 @@
 pragma solidity ^0.8.9;
 
 /// @title A contract for an incrementing sequence
-/// @author Kava Labs, LLC
+/// @author Fury Labs, LLC
 abstract contract Sequence {
     /// @notice The incrementing sequence. This *can* overflow and is expected behavior.
     uint256 private _sequence;

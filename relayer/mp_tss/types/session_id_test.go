@@ -3,7 +3,7 @@ package types_test
 import (
 	"testing"
 
-	"github.com/kava-labs/kava-bridge/relayer/mp_tss/types"
+	"github.com/fury-labs/fury-bridge/relayer/mp_tss/types"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )

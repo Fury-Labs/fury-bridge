@@ -17,17 +17,17 @@ import (
 	"github.com/libp2p/go-libp2p-core/network"
 	"github.com/libp2p/go-libp2p-core/peer"
 
-	"github.com/kava-labs/kava-bridge/relayer/broadcast/pending_store"
-	"github.com/kava-labs/kava-bridge/relayer/broadcast/types"
-	"github.com/kava-labs/kava-bridge/relayer/stream"
+	"github.com/fury-labs/fury-bridge/relayer/broadcast/pending_store"
+	"github.com/fury-labs/fury-bridge/relayer/broadcast/types"
+	"github.com/fury-labs/fury-bridge/relayer/stream"
 )
 
 var log = logging.Logger("broadcast")
 var tracer = otel.Tracer("Broadcaster")
 
 const (
-	ProtocolID  = "/kava-relayer/broadcast/1.0.0"
-	ServiceName = "kava-relayer.broadcast"
+	ProtocolID  = "/fury-relayer/broadcast/1.0.0"
+	ServiceName = "fury-relayer.broadcast"
 )
 
 // P2PBroadcaster is a reliable broadcaster to ensure that all connected peers

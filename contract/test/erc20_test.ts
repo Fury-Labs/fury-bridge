@@ -16,7 +16,7 @@ describe("ERC20MintableBurnable", function () {
 
   beforeEach(async function () {
     erc20Factory = await ethers.getContractFactory("ERC20MintableBurnable");
-    erc20 = await erc20Factory.deploy("Wrapped Kava", "WKAVA", 6n);
+    erc20 = await erc20Factory.deploy("Wrapped Fury", "WFURY", 6n);
     [owner, sender, ethAddr, receiver] = await ethers.getSigners();
   });
 
@@ -171,7 +171,7 @@ describe("ERC20MintableBurnable", function () {
       toAddr = await receiver.getAddress();
     });
 
-    it("should emit a ConvertToCoin event with (sender, toKavaAddr, amount)", async function () {
+    it("should emit a ConvertToCoin event with (sender, toFuryAddr, amount)", async function () {
       const withdrawTx = erc20.convertToCoin(toAddr, amount);
 
       await expect(withdrawTx)
@@ -190,7 +190,7 @@ describe("ERC20MintableBurnable", function () {
       expect(tokenParam.name).to.equal("sender");
       expect(tokenParam.indexed).to.equal(true);
 
-      expect(toAddrParam.name).to.equal("toKavaAddr");
+      expect(toAddrParam.name).to.equal("toFuryAddr");
       expect(toAddrParam.indexed).to.equal(true);
 
       expect(amountParam.name).to.equal("amount");

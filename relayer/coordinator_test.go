@@ -6,26 +6,26 @@ import (
 	"testing"
 	"time"
 
-	"github.com/kava-labs/kava-bridge/relayer"
+	"github.com/fury-labs/fury-bridge/relayer"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
-// TestCoordinator_EthToKavaSigning tests that the coordinator produces the correct
+// TestCoordinator_EthToFurySigning tests that the coordinator produces the correct
 // signing outputs for all permuations of block sequences.  This ensures that relayers
 // receiving blocks in any order in real time or during syncing always produce the
 // same signing outputs.
 //
-// There are (len(eth) + len(kava)) choose len(eth) possible permunations, so it's
+// There are (len(eth) + len(fury)) choose len(eth) possible permunations, so it's
 // important to keep the number of blocks in each example low.
-func TestCoordinator_EthToKavaSigning(t *testing.T) {
+func TestCoordinator_EthToFurySigning(t *testing.T) {
 	refTime := time.Now()
 	confTime := refTime.Add(-5 * time.Minute)
 
 	testCases := []struct {
 		name            string
 		ethblocks       []relayer.Block
-		kavablocks      []relayer.Block
+		furyblocks      []relayer.Block
 		expectedOutputs [][]expectedOutput
 	}{
 		{
@@ -38,7 +38,7 @@ func TestCoordinator_EthToKavaSigning(t *testing.T) {
 				eth(5, addSecond(confTime, 4)),
 			),
 			blocks(
-				kava(1, addSecond(refTime, 0)),
+				fury(1, addSecond(refTime, 0)),
 			),
 			outputs(),
 		},
@@ -53,12 +53,12 @@ func TestCoordinator_EthToKavaSigning(t *testing.T) {
 				eth(6, addSecond(confTime, 5)),
 			),
 			blocks(
-				kava(1, addSecond(refTime, 0)),
-				kava(2, addSecond(refTime, 1)),
-				kava(3, addSecond(refTime, 2)),
-				kava(4, addSecond(refTime, 3)),
-				kava(5, addSecond(refTime, 4)),
-				kava(6, addSecond(refTime, 5)),
+				fury(1, addSecond(refTime, 0)),
+				fury(2, addSecond(refTime, 1)),
+				fury(3, addSecond(refTime, 2)),
+				fury(4, addSecond(refTime, 3)),
+				fury(5, addSecond(refTime, 4)),
+				fury(6, addSecond(refTime, 5)),
 			),
 			outputs(
 				output(
@@ -84,9 +84,9 @@ func TestCoordinator_EthToKavaSigning(t *testing.T) {
 				eth(4, addSecond(refTime, 2)),
 			),
 			blocks(
-				kava(1, addSecond(refTime, 0)),
-				kava(2, addSecond(refTime, 1), newPayload(10)),
-				kava(3, addSecond(refTime, 3)),
+				fury(1, addSecond(refTime, 0)),
+				fury(2, addSecond(refTime, 1), newPayload(10)),
+				fury(3, addSecond(refTime, 3)),
 			),
 			outputs(
 				output(
@@ -107,9 +107,9 @@ func TestCoordinator_EthToKavaSigning(t *testing.T) {
 				eth(5, addSecond(refTime, 2)),
 			),
 			blocks(
-				kava(1, addSecond(refTime, 0)),
-				kava(2, addSecond(refTime, 1), newPayload(1)),
-				kava(3, addSecond(refTime, 3)),
+				fury(1, addSecond(refTime, 0)),
+				fury(2, addSecond(refTime, 1), newPayload(1)),
+				fury(3, addSecond(refTime, 3)),
 			),
 			outputs(
 				output(
@@ -134,13 +134,13 @@ func TestCoordinator_EthToKavaSigning(t *testing.T) {
 				eth(6, addSecond(refTime, 50)),
 			),
 			blocks(
-				kava(1, addSecond(refTime, 1)),
-				kava(2, addSecond(refTime, 9), newPayload(1)),
-				kava(3, addSecond(refTime, 19)),
-				kava(4, addSecond(refTime, 29), newPayload(3), newPayload(4)),
-				kava(5, addSecond(refTime, 39), newPayload(5)),
-				kava(6, addSecond(refTime, 49), newPayload(6)),
-				kava(7, addSecond(refTime, 59)),
+				fury(1, addSecond(refTime, 1)),
+				fury(2, addSecond(refTime, 9), newPayload(1)),
+				fury(3, addSecond(refTime, 19)),
+				fury(4, addSecond(refTime, 29), newPayload(3), newPayload(4)),
+				fury(5, addSecond(refTime, 39), newPayload(5)),
+				fury(6, addSecond(refTime, 49), newPayload(6)),
+				fury(7, addSecond(refTime, 59)),
 			),
 			outputs(
 				output(
@@ -174,7 +174,7 @@ func TestCoordinator_EthToKavaSigning(t *testing.T) {
 			defer cancel()
 
 			permutations := [][]relayer.Block{}
-			orderedBlockPermutations(&permutations, []relayer.Block{}, tc.ethblocks, tc.kavablocks)
+			orderedBlockPermutations(&permutations, []relayer.Block{}, tc.ethblocks, tc.furyblocks)
 
 			for index, permutation := range permutations {
 				coordinator := newCoordinator()
@@ -199,7 +199,7 @@ func TestCoordinator_EthToKavaSigning(t *testing.T) {
 }
 
 // TestCoordinator_InvalidSequences ensures blocks are never processed in a sequence
-// that would result in non-deterministic actions on the destination (kava) chain.
+// that would result in non-deterministic actions on the destination (fury) chain.
 //
 // This ensures the coordinator is protected from faults in block processing and provides
 // enough error information for a block processor to recover.  In addition, we can be
@@ -217,27 +217,27 @@ func TestCoordinator_InvalidSequences(t *testing.T) {
 		expectedErr error
 	}{
 		// A block with the same height can not be added
-		{"kava same height", blocks(kava(1, refTime)), kava(1, addSecond(refTime, 1)), relayer.ErrInvalidBlockHeight},
-		{"eth same height", blocks(kava(1, refTime), eth(1, addSecond(refTime, -2))), eth(1, addSecond(refTime, -1)), relayer.ErrInvalidBlockHeight},
+		{"fury same height", blocks(fury(1, refTime)), fury(1, addSecond(refTime, 1)), relayer.ErrInvalidBlockHeight},
+		{"eth same height", blocks(fury(1, refTime), eth(1, addSecond(refTime, -2))), eth(1, addSecond(refTime, -1)), relayer.ErrInvalidBlockHeight},
 		// A block with a previous height can not be added
-		{"kava previous height", blocks(kava(1, refTime), kava(2, addSecond(refTime, 1))), kava(2, addSecond(refTime, 2)), relayer.ErrInvalidBlockHeight},
-		{"eth previous height", blocks(kava(1, refTime), eth(1, addSecond(refTime, -3)), eth(2, addSecond(refTime, -2))), eth(1, addSecond(refTime, -1)), relayer.ErrInvalidBlockHeight},
+		{"fury previous height", blocks(fury(1, refTime), fury(2, addSecond(refTime, 1))), fury(2, addSecond(refTime, 2)), relayer.ErrInvalidBlockHeight},
+		{"eth previous height", blocks(fury(1, refTime), eth(1, addSecond(refTime, -3)), eth(2, addSecond(refTime, -2))), eth(1, addSecond(refTime, -1)), relayer.ErrInvalidBlockHeight},
 		// A block with a skipped height can not be added
-		{"kava previous height", blocks(kava(1, refTime)), kava(3, addSecond(refTime, 1)), relayer.ErrInvalidBlockHeight},
-		{"eth previous height", blocks(kava(1, refTime), eth(1, addSecond(refTime, -2))), eth(3, addSecond(refTime, -1)), relayer.ErrInvalidBlockHeight},
+		{"fury previous height", blocks(fury(1, refTime)), fury(3, addSecond(refTime, 1)), relayer.ErrInvalidBlockHeight},
+		{"eth previous height", blocks(fury(1, refTime), eth(1, addSecond(refTime, -2))), eth(3, addSecond(refTime, -1)), relayer.ErrInvalidBlockHeight},
 		// A block with the same timestamp can not be added
-		{"kava previous height", blocks(kava(1, refTime)), kava(2, addSecond(refTime, 0)), relayer.ErrInvalidBlockTime},
-		{"eth previous height", blocks(kava(1, refTime), eth(1, addSecond(refTime, -1))), eth(2, addSecond(refTime, -1)), relayer.ErrInvalidBlockTime},
+		{"fury previous height", blocks(fury(1, refTime)), fury(2, addSecond(refTime, 0)), relayer.ErrInvalidBlockTime},
+		{"eth previous height", blocks(fury(1, refTime), eth(1, addSecond(refTime, -1))), eth(2, addSecond(refTime, -1)), relayer.ErrInvalidBlockTime},
 		// A block with a previous timestamp can not be added
-		{"kava previous height", blocks(kava(1, refTime)), kava(2, addSecond(refTime, -1)), relayer.ErrInvalidBlockTime},
-		{"eth previous height", blocks(kava(1, refTime), eth(1, addSecond(refTime, -1))), eth(2, addSecond(refTime, -2)), relayer.ErrInvalidBlockTime},
+		{"fury previous height", blocks(fury(1, refTime)), fury(2, addSecond(refTime, -1)), relayer.ErrInvalidBlockTime},
+		{"eth previous height", blocks(fury(1, refTime), eth(1, addSecond(refTime, -1))), eth(2, addSecond(refTime, -2)), relayer.ErrInvalidBlockTime},
 
-		// An eth block with a timestamp greater than the last kava block can not be added
-		{"first eth timestsamp greater than kava", blocks(kava(1, refTime)), eth(1, addSecond(refTime, 1)), relayer.ErrSourceBlockAhead},
-		{"next eth timestsamp greater than kava", blocks(kava(1, refTime), eth(1, addSecond(refTime, -1))), eth(2, addSecond(refTime, 1)), relayer.ErrSourceBlockAhead},
-		// An eth block with a timestamp equal than the last kava block can not be added
-		{"eth timestsamp equal to kava", blocks(kava(1, refTime)), eth(1, addSecond(refTime, 0)), relayer.ErrSourceBlockAhead},
-		{"next eth timestsamp equal than kava", blocks(kava(1, refTime), eth(1, addSecond(refTime, -1))), eth(2, addSecond(refTime, 0)), relayer.ErrSourceBlockAhead},
+		// An eth block with a timestamp greater than the last fury block can not be added
+		{"first eth timestsamp greater than fury", blocks(fury(1, refTime)), eth(1, addSecond(refTime, 1)), relayer.ErrSourceBlockAhead},
+		{"next eth timestsamp greater than fury", blocks(fury(1, refTime), eth(1, addSecond(refTime, -1))), eth(2, addSecond(refTime, 1)), relayer.ErrSourceBlockAhead},
+		// An eth block with a timestamp equal than the last fury block can not be added
+		{"eth timestsamp equal to fury", blocks(fury(1, refTime)), eth(1, addSecond(refTime, 0)), relayer.ErrSourceBlockAhead},
+		{"next eth timestsamp equal than fury", blocks(fury(1, refTime), eth(1, addSecond(refTime, -1))), eth(2, addSecond(refTime, 0)), relayer.ErrSourceBlockAhead},
 	}
 
 	for _, tc := range testCases {
@@ -268,41 +268,41 @@ func TestCoordinator_AllowedSequences(t *testing.T) {
 		name   string
 		blocks []relayer.Block
 	}{
-		// a single kava block to initialize the coordniator is always allowed
+		// a single fury block to initialize the coordniator is always allowed
 		{
-			"single kava block",
+			"single fury block",
 			blocks(
-				kava(1, refTime),
+				fury(1, refTime),
 			),
 		},
-		// kava blocks never cause actions, so any number can be added with disregard for eth blocks
+		// fury blocks never cause actions, so any number can be added with disregard for eth blocks
 		{
-			"kava blocks only",
+			"fury blocks only",
 			blocks(
-				kava(1, refTime),
-				kava(2, addSecond(refTime, 1)),
-				kava(3, addSecond(refTime, 2)),
-				kava(4, addSecond(refTime, 3)),
-				kava(5, addSecond(refTime, 4)),
+				fury(1, refTime),
+				fury(2, addSecond(refTime, 1)),
+				fury(3, addSecond(refTime, 2)),
+				fury(4, addSecond(refTime, 3)),
+				fury(5, addSecond(refTime, 4)),
 			),
 		},
-		// as long no validations are violated, we may alternate between kava and eth blocks
+		// as long no validations are violated, we may alternate between fury and eth blocks
 		{
 			"alternating blocks",
 			blocks(
-				kava(1, refTime),
+				fury(1, refTime),
 				eth(1, addSecond(refTime, -1)),
-				kava(2, addSecond(refTime, 1)),
+				fury(2, addSecond(refTime, 1)),
 				eth(2, addSecond(refTime, 0)),
-				kava(3, addSecond(refTime, 2)),
+				fury(3, addSecond(refTime, 2)),
 				eth(3, addSecond(refTime, 1)),
 			),
 		},
-		// any length sequence of eth blocks as long the timestamps are less than the last added kava block
+		// any length sequence of eth blocks as long the timestamps are less than the last added fury block
 		{
 			"sequence of eth blocks",
 			blocks(
-				kava(1, refTime),
+				fury(1, refTime),
 				eth(1, addSecond(refTime, -5)),
 				eth(2, addSecond(refTime, -4)),
 				eth(3, addSecond(refTime, -3)),
@@ -314,20 +314,20 @@ func TestCoordinator_AllowedSequences(t *testing.T) {
 		{
 			"alternating sequences",
 			blocks(
-				kava(1, addSecond(refTime, -4)),
-				kava(2, addSecond(refTime, -3)),
-				kava(3, addSecond(refTime, -2)),
-				kava(4, addSecond(refTime, -1)),
-				kava(5, addSecond(refTime, 0)),
+				fury(1, addSecond(refTime, -4)),
+				fury(2, addSecond(refTime, -3)),
+				fury(3, addSecond(refTime, -2)),
+				fury(4, addSecond(refTime, -1)),
+				fury(5, addSecond(refTime, 0)),
 				eth(1, addSecond(refTime, -5)),
 				eth(2, addSecond(refTime, -4)),
 				eth(3, addSecond(refTime, -3)),
 				eth(4, addSecond(refTime, -2)),
 				eth(5, addSecond(refTime, -1)),
-				kava(6, addSecond(refTime, 1)),
-				kava(7, addSecond(refTime, 2)),
-				kava(8, addSecond(refTime, 3)),
-				kava(9, addSecond(refTime, 4)),
+				fury(6, addSecond(refTime, 1)),
+				fury(7, addSecond(refTime, 2)),
+				fury(8, addSecond(refTime, 3)),
+				fury(9, addSecond(refTime, 4)),
 				eth(6, addSecond(refTime, 0)),
 				eth(7, addSecond(refTime, 1)),
 				eth(8, addSecond(refTime, 2)),
@@ -338,31 +338,31 @@ func TestCoordinator_AllowedSequences(t *testing.T) {
 		{
 			"overlapping timestamp ranges",
 			blocks(
-				kava(1, addSecond(refTime, -5)),
-				kava(2, addSecond(refTime, 0)),
+				fury(1, addSecond(refTime, -5)),
+				fury(2, addSecond(refTime, 0)),
 				eth(1, addSecond(refTime, -5)),
 				eth(2, addSecond(refTime, -4)),
 				eth(3, addSecond(refTime, -3)),
 				eth(4, addSecond(refTime, -2)),
 				eth(5, addSecond(refTime, -1)),
-				kava(3, addSecond(refTime, 10)),
+				fury(3, addSecond(refTime, 10)),
 				eth(6, addSecond(refTime, 0)),
 				eth(7, addSecond(refTime, 5)),
 				eth(8, addSecond(refTime, 8)),
 				eth(9, addSecond(refTime, 9)),
-				kava(4, addSecond(refTime, 11)),
+				fury(4, addSecond(refTime, 11)),
 			),
 		},
 		{
 			"large timestamp gaps",
 			blocks(
-				kava(1, addSecond(refTime, -1000)),
-				kava(2, addSecond(refTime, 0)),
+				fury(1, addSecond(refTime, -1000)),
+				fury(2, addSecond(refTime, 0)),
 				eth(1, addSecond(refTime, -999)),
 				eth(2, addSecond(refTime, -1)),
-				kava(3, addSecond(refTime, 1000)),
+				fury(3, addSecond(refTime, 1000)),
 				eth(3, addSecond(refTime, 500)),
-				kava(4, addSecond(refTime, 1001)),
+				fury(4, addSecond(refTime, 1001)),
 				eth(4, addSecond(refTime, 1000)),
 			),
 		},
@@ -371,7 +371,7 @@ func TestCoordinator_AllowedSequences(t *testing.T) {
 		//{
 		//	"start at any block height",
 		//	blocks(
-		//		kava(100, addSecond(refTime, 0)),
+		//		fury(100, addSecond(refTime, 0)),
 		//		eth(100, addSecond(refTime, -1)),
 		//	),
 		//},
@@ -379,28 +379,28 @@ func TestCoordinator_AllowedSequences(t *testing.T) {
 		{
 			"timestamps may start any an future time",
 			blocks(
-				kava(1, addSecond(refTime, 300)),
+				fury(1, addSecond(refTime, 300)),
 				eth(1, addSecond(refTime, 299)),
 			),
 		},
 		{
 			"timestamps may start any past time",
 			blocks(
-				kava(1, addSecond(refTime, -299)),
+				fury(1, addSecond(refTime, -299)),
 				eth(1, addSecond(refTime, -300)),
 			),
 		},
 		{
 			"multiple retries of a payload",
 			blocks(
-				kava(1, addSecond(refTime, 0)),
+				fury(1, addSecond(refTime, 0)),
 				eth(1, addSecond(refTime, -15), newPayload(1)),
-				kava(2, addSecond(refTime, 6), newPayload(1)),
-				kava(3, addSecond(refTime, 12), newPayload(1)),
+				fury(2, addSecond(refTime, 6), newPayload(1)),
+				fury(3, addSecond(refTime, 12), newPayload(1)),
 				eth(2, addSecond(refTime, 0)),
-				kava(4, addSecond(refTime, 18), newPayload(1)),
+				fury(4, addSecond(refTime, 18), newPayload(1)),
 				eth(3, addSecond(refTime, 15), newPayload(2)),
-				kava(5, addSecond(refTime, 24), newPayload(2)),
+				fury(5, addSecond(refTime, 24), newPayload(2)),
 			),
 		},
 	}
@@ -427,7 +427,7 @@ func TestCoordinator_AddBlockCancellation(t *testing.T) {
 	coordinator := newCoordinator()
 
 	ctx, cancel := context.WithTimeout(context.Background(), 1*time.Second)
-	err := coordinator.AddBlock(ctx, kava(1, refTime))
+	err := coordinator.AddBlock(ctx, fury(1, refTime))
 	require.NoError(t, err)
 
 	cancel()

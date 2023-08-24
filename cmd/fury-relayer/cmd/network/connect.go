@@ -7,7 +7,7 @@ import (
 	"time"
 
 	logging "github.com/ipfs/go-log/v2"
-	"github.com/kava-labs/kava-bridge/relayer/p2p"
+	"github.com/fury-labs/fury-bridge/relayer/p2p"
 	"github.com/multiformats/go-multibase"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"

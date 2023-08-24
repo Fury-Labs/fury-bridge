@@ -12,7 +12,7 @@ Before we can run the keygen process, we need the following:
 ### Generate and Distribute Network Secret
 
 1. One peer is designated to generate and distribute the network secret (likely
-   Kava Labs). This peer will be referenced as the "dealer."
+   Fury Labs). This peer will be referenced as the "dealer."
 2. Each peer should generate a new GPG public and private key pair and share the
    public key with the dealer if they are not the dealer.
    1. Generate a GPG key pair.
@@ -58,7 +58,7 @@ Before we can run the keygen process, we need the following:
 3. **Dealer only:** Generate a network secret.
    ```bash
    # Generate network secret.
-   kava-relayer network generate-network-secret
+   fury-relayer network generate-network-secret
    ```
 
 4. **Dealer only:** Encrypt the secret with each other peers' public key and
@@ -117,8 +117,8 @@ Requirements of key generation are:
 ### Generate node key for each peer.
 
 ```bash
-kava-relayer network generate-node-key
-kava-relayer network show-node-id
+fury-relayer network generate-node-key
+fury-relayer network show-node-id
 ```
 
 ### Pre-compute keygen pre-parameters.
@@ -129,7 +129,7 @@ does not require any communication between peers. All available CPU cores will
 be used. This is saved to disk and will be used in the next keygen phase.
 
 ```bash
-kava-relayer key precompute-preparams
+fury-relayer key precompute-preparams
 ```
 
 ### Generate key
@@ -142,7 +142,7 @@ threshold should be set in the configuration file or passed as an argument.
 
 ```bash
 # TODO: Not designed/implemented yet
-kava-relayer join keygen 3
+fury-relayer join keygen 3
 ```
 
 This will wait until all peers are connected before the keygen starts.

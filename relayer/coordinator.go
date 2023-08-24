@@ -141,8 +141,8 @@ func (c *Coordinator) addSourceBlock(ctx context.Context, block Block) error {
 		return ErrInvalidBlockTime
 	}
 
-	// TODO: add fixed time implementation for kava -> eth transfers
-	// This only works for eth -> kava
+	// TODO: add fixed time implementation for fury -> eth transfers
+	// This only works for eth -> fury
 	if !block.Time.Before(c.lastDestinationTime) {
 		return ErrSourceBlockAhead
 	}

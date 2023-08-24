@@ -8,7 +8,7 @@ import (
 
 	"github.com/gogo/protobuf/proto"
 	prototypes "github.com/gogo/protobuf/types"
-	"github.com/kava-labs/kava-bridge/relayer/stream"
+	"github.com/fury-labs/fury-bridge/relayer/stream"
 	"github.com/stretchr/testify/require"
 )
 

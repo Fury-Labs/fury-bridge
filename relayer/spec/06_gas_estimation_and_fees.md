@@ -3,8 +3,8 @@
 Every peer in a signing party has to estimate the gas with some margin, in
 addition to the fee to deduct from the transferred amount.
 
-As Ethereum gas fees are high and Kava fees are low, fees for transactions going
-into Kava are paid by the relayer and fees for outgoing transactions to Ethereum
+As Ethereum gas fees are high and Fury fees are low, fees for transactions going
+into Fury are paid by the relayer and fees for outgoing transactions to Ethereum
 are paid by deducting the corresponding gas fee amount from the amount being
 transferred.
 

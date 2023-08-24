@@ -35,7 +35,7 @@ const _abi = [
       {
         indexed: true,
         internalType: "address",
-        name: "toKavaAddr",
+        name: "toFuryAddr",
         type: "address",
       },
       {
@@ -94,7 +94,7 @@ const _abi = [
       },
       {
         internalType: "address",
-        name: "toKavaAddr",
+        name: "toFuryAddr",
         type: "address",
       },
       {

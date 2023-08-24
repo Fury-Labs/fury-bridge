@@ -17,7 +17,7 @@ export type { Withdrawer } from "./Withdrawer";
 export type { Multicall } from "./Multicall";
 export type { Multicall2 } from "./Multicall2";
 export type { WETH9 } from "./WETH9";
-export type { WKAVA } from "./WKAVA";
+export type { WFURY } from "./WFURY";
 
 export { Ownable__factory } from "./factories/Ownable__factory";
 export { ERC20__factory } from "./factories/ERC20__factory";
@@ -35,4 +35,4 @@ export { Withdrawer__factory } from "./factories/Withdrawer__factory";
 export { Multicall__factory } from "./factories/Multicall__factory";
 export { Multicall2__factory } from "./factories/Multicall2__factory";
 export { WETH9__factory } from "./factories/WETH9__factory";
-export { WKAVA__factory } from "./factories/WKAVA__factory";
+export { WFURY__factory } from "./factories/WFURY__factory";

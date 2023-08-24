@@ -6,10 +6,10 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/common/math"
-	"github.com/kava-labs/kava-bridge/contract"
-	"github.com/kava-labs/kava-bridge/x/bridge/keeper"
-	"github.com/kava-labs/kava-bridge/x/bridge/testutil"
-	"github.com/kava-labs/kava-bridge/x/bridge/types"
+	"github.com/fury-labs/fury-bridge/contract"
+	"github.com/fury-labs/fury-bridge/x/bridge/keeper"
+	"github.com/fury-labs/fury-bridge/x/bridge/testutil"
+	"github.com/fury-labs/fury-bridge/x/bridge/types"
 	"github.com/stretchr/testify/suite"
 )
 
@@ -28,7 +28,7 @@ func TestMsgServerSuite(t *testing.T) {
 	suite.Run(t, new(MsgServerSuite))
 }
 
-func (suite *MsgServerSuite) TestBridgeEthereumToKava() {
+func (suite *MsgServerSuite) TestBridgeEthereumToFury() {
 	type errArgs struct {
 		expectPass bool
 		contains   string
@@ -36,12 +36,12 @@ func (suite *MsgServerSuite) TestBridgeEthereumToKava() {
 
 	tests := []struct {
 		name    string
-		msg     types.MsgBridgeEthereumToKava
+		msg     types.MsgBridgeEthereumToFury
 		errArgs errArgs
 	}{
 		{
 			"valid - signer matches relayer in params",
-			types.NewMsgBridgeEthereumToKava(
+			types.NewMsgBridgeEthereumToFury(
 				suite.RelayerAddress.String(),
 				"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
 				sdk.NewInt(1234),
@@ -54,7 +54,7 @@ func (suite *MsgServerSuite) TestBridgeEthereumToKava() {
 		},
 		{
 			"invalid - signer mismatch",
-			types.NewMsgBridgeEthereumToKava(
+			types.NewMsgBridgeEthereumToFury(
 				sdk.AccAddress(suite.Key1.PubKey().Address()).String(),
 				"0x000000000000000000000000000000000000000A",
 				sdk.NewInt(10),
@@ -68,7 +68,7 @@ func (suite *MsgServerSuite) TestBridgeEthereumToKava() {
 		},
 		{
 			"invalid - token not enabled",
-			types.NewMsgBridgeEthereumToKava(
+			types.NewMsgBridgeEthereumToFury(
 				suite.RelayerAddress.String(),
 				"0x000000000000000000000000000000000000000B",
 				sdk.NewInt(10),
@@ -82,7 +82,7 @@ func (suite *MsgServerSuite) TestBridgeEthereumToKava() {
 		},
 		{
 			"invalid - malformed external address",
-			types.NewMsgBridgeEthereumToKava(
+			types.NewMsgBridgeEthereumToFury(
 				suite.RelayerAddress.String(),
 				"hi",
 				sdk.NewInt(10),
@@ -96,7 +96,7 @@ func (suite *MsgServerSuite) TestBridgeEthereumToKava() {
 		},
 		{
 			"invalid - malformed internal receiver address",
-			types.NewMsgBridgeEthereumToKava(
+			types.NewMsgBridgeEthereumToFury(
 				suite.RelayerAddress.String(),
 				"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
 				sdk.NewInt(10),
@@ -112,7 +112,7 @@ func (suite *MsgServerSuite) TestBridgeEthereumToKava() {
 
 	for _, tc := range tests {
 		suite.Run(tc.name, func() {
-			_, err := suite.msgServer.BridgeEthereumToKava(sdk.WrapSDKContext(suite.Ctx), &tc.msg)
+			_, err := suite.msgServer.BridgeEthereumToFury(sdk.WrapSDKContext(suite.Ctx), &tc.msg)
 
 			if tc.errArgs.expectPass {
 				suite.Require().NoError(err)
@@ -124,13 +124,13 @@ func (suite *MsgServerSuite) TestBridgeEthereumToKava() {
 	}
 }
 
-func (suite *MsgServerSuite) TestBridgeEthereumToKava_NilRelayer() {
+func (suite *MsgServerSuite) TestBridgeEthereumToFury_NilRelayer() {
 	// Set relayer to nil
 	params := suite.Keeper.GetParams(suite.Ctx)
 	params.Relayer = nil
 	suite.Keeper.SetParams(suite.Ctx, params)
 
-	msg := types.NewMsgBridgeEthereumToKava(
+	msg := types.NewMsgBridgeEthereumToFury(
 		suite.RelayerAddress.String(),
 		"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
 		sdk.NewInt(1234),
@@ -138,19 +138,19 @@ func (suite *MsgServerSuite) TestBridgeEthereumToKava_NilRelayer() {
 		sdk.NewInt(1),
 	)
 
-	_, err := suite.msgServer.BridgeEthereumToKava(sdk.WrapSDKContext(suite.Ctx), &msg)
+	_, err := suite.msgServer.BridgeEthereumToFury(sdk.WrapSDKContext(suite.Ctx), &msg)
 
 	suite.Require().Error(err)
 	suite.Require().ErrorIs(err, types.ErrNoRelayer)
 }
 
-func (suite *MsgServerSuite) TestBridgeEthereumToKava_EmptyRelayer() {
+func (suite *MsgServerSuite) TestBridgeEthereumToFury_EmptyRelayer() {
 	// Set relayer to empty address
 	params := suite.Keeper.GetParams(suite.Ctx)
 	params.Relayer = sdk.AccAddress{}
 	suite.Keeper.SetParams(suite.Ctx, params)
 
-	msg := types.NewMsgBridgeEthereumToKava(
+	msg := types.NewMsgBridgeEthereumToFury(
 		suite.RelayerAddress.String(),
 		"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
 		sdk.NewInt(1234),
@@ -158,13 +158,13 @@ func (suite *MsgServerSuite) TestBridgeEthereumToKava_EmptyRelayer() {
 		sdk.NewInt(1),
 	)
 
-	_, err := suite.msgServer.BridgeEthereumToKava(sdk.WrapSDKContext(suite.Ctx), &msg)
+	_, err := suite.msgServer.BridgeEthereumToFury(sdk.WrapSDKContext(suite.Ctx), &msg)
 
 	suite.Require().Error(err)
 	suite.Require().ErrorIs(err, types.ErrNoRelayer)
 }
 
-func (suite *MsgServerSuite) TestBridgeEthereumToKava_BridgeDisabled() {
+func (suite *MsgServerSuite) TestBridgeEthereumToFury_BridgeDisabled() {
 	// Disable bridge
 	params := suite.Keeper.GetParams(suite.Ctx)
 	params.BridgeEnabled = false
@@ -172,11 +172,11 @@ func (suite *MsgServerSuite) TestBridgeEthereumToKava_BridgeDisabled() {
 
 	tests := []struct {
 		name string
-		msg  types.MsgBridgeEthereumToKava
+		msg  types.MsgBridgeEthereumToFury
 	}{
 		{
 			"authorized signer",
-			types.NewMsgBridgeEthereumToKava(
+			types.NewMsgBridgeEthereumToFury(
 				suite.RelayerAddress.String(),
 				"0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2",
 				sdk.NewInt(1234),
@@ -186,7 +186,7 @@ func (suite *MsgServerSuite) TestBridgeEthereumToKava_BridgeDisabled() {
 		},
 		{
 			"unauthorized signer",
-			types.NewMsgBridgeEthereumToKava(
+			types.NewMsgBridgeEthereumToFury(
 				sdk.AccAddress(suite.Key1.PubKey().Address()).String(),
 				"0x000000000000000000000000000000000000000A",
 				sdk.NewInt(10),
@@ -198,7 +198,7 @@ func (suite *MsgServerSuite) TestBridgeEthereumToKava_BridgeDisabled() {
 
 	for _, tc := range tests {
 		suite.Run(tc.name, func() {
-			_, err := suite.msgServer.BridgeEthereumToKava(sdk.WrapSDKContext(suite.Ctx), &tc.msg)
+			_, err := suite.msgServer.BridgeEthereumToFury(sdk.WrapSDKContext(suite.Ctx), &tc.msg)
 
 			suite.Require().Error(err)
 			suite.Require().ErrorIs(err, types.ErrBridgeDisabled)
@@ -239,7 +239,7 @@ func (suite *MsgServerSuite) TestMint() {
 
 			for i, amount := range tc.mintAmounts {
 				total = total.Add(total, amount.BigInt())
-				msg := types.NewMsgBridgeEthereumToKava(
+				msg := types.NewMsgBridgeEthereumToFury(
 					suite.RelayerAddress.String(),
 					extContractAddr,
 					amount,
@@ -257,7 +257,7 @@ func (suite *MsgServerSuite) TestMint() {
 				err = externalAddress.UnmarshalText([]byte(msg.EthereumERC20Address))
 				suite.Require().NoError(err)
 
-				_, err = suite.msgServer.BridgeEthereumToKava(sdk.WrapSDKContext(suite.Ctx), &msg)
+				_, err = suite.msgServer.BridgeEthereumToFury(sdk.WrapSDKContext(suite.Ctx), &msg)
 				suite.Require().NoError(err)
 
 				pair, found := suite.App.BridgeKeeper.GetBridgePairFromExternal(suite.Ctx, externalAddress)
@@ -273,10 +273,10 @@ func (suite *MsgServerSuite) TestMint() {
 
 				suite.EventsContains(suite.GetEvents(),
 					sdk.NewEvent(
-						types.EventTypeBridgeEthereumToKava,
+						types.EventTypeBridgeEthereumToFury,
 						sdk.NewAttribute(types.AttributeKeyRelayer, msg.Relayer),
 						sdk.NewAttribute(types.AttributeKeyEthereumERC20Address, msg.EthereumERC20Address),
-						sdk.NewAttribute(types.AttributeKeyKavaERC20Address, pair.GetInternalAddress().String()),
+						sdk.NewAttribute(types.AttributeKeyFuryERC20Address, pair.GetInternalAddress().String()),
 						sdk.NewAttribute(types.AttributeKeyReceiver, receiver.String()),
 						sdk.NewAttribute(types.AttributeKeyAmount, amount.String()),
 						sdk.NewAttribute(types.AttributeKeySequence, msg.Sequence.String()),
@@ -287,7 +287,7 @@ func (suite *MsgServerSuite) TestMint() {
 }
 
 func (suite *MsgServerSuite) TestConvertCoinToERC20() {
-	invoker, err := sdk.AccAddressFromBech32("kava123fxg0l602etulhhcdm0vt7l57qya5wjcrwhzz")
+	invoker, err := sdk.AccAddressFromBech32("fury123fxg0l602etulhhcdm0vt7l57qya5wjcrwhzz")
 	suite.Require().NoError(err)
 
 	err = suite.App.FundAccount(suite.Ctx, invoker, sdk.NewCoins(sdk.NewCoin("erc20/usdc", sdk.NewInt(10000))))
@@ -392,7 +392,7 @@ func (suite *MsgServerSuite) TestConvertCoinToERC20_BridgeDisabled() {
 	params.BridgeEnabled = false
 	suite.Keeper.SetParams(suite.Ctx, params)
 
-	invoker, err := sdk.AccAddressFromBech32("kava123fxg0l602etulhhcdm0vt7l57qya5wjcrwhzz")
+	invoker, err := sdk.AccAddressFromBech32("fury123fxg0l602etulhhcdm0vt7l57qya5wjcrwhzz")
 	suite.Require().NoError(err)
 
 	err = suite.App.FundAccount(suite.Ctx, invoker, sdk.NewCoins(sdk.NewCoin("erc20/usdc", sdk.NewInt(10000))))
@@ -481,7 +481,7 @@ func (suite *MsgServerSuite) TestConvertERC20ToCoin() {
 			types.MsgConvertERC20ToCoin{
 				Initiator:        "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc",
 				Receiver:         invokerCosmosAddr.String(),
-				KavaERC20Address: contractAddr.String(),
+				FuryERC20Address: contractAddr.String(),
 				Amount:           sdk.NewInt(10_000),
 			},
 			math.MaxBig256,

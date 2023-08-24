@@ -1,7 +1,7 @@
 ################################################################################
 ###                             Project Settings                             ###
 ################################################################################
-PROJECT_NAME := kava-bridge
+PROJECT_NAME := fury-bridge
 PROJECT_DIR := $(patsubst %/,%,$(dir $(abspath $(lastword $(MAKEFILE_LIST)))))
 
 GO ?= go
@@ -17,14 +17,14 @@ help: ## Display this help message
 ###                                 Targets                                  ###
 ################################################################################
 .PHONY: install
-install: ## Install kava-bridge
-	$(GO) install -mod=readonly ./cmd/kava-bridged
-	$(GO) install -mod=readonly ./cmd/kava-relayer
+install: ## Install fury-bridge
+	$(GO) install -mod=readonly ./cmd/fury-bridged
+	$(GO) install -mod=readonly ./cmd/fury-relayer
 
 .PHONY: start
-start: install ## Start kava-bridge chain locally
+start: install ## Start fury-bridge chain locally
 	./contrib/devnet/init-new-chain.sh
-	kava-bridged start
+	fury-bridged start
 
 .PHONY: start-geth
 start-geth: ## Start private geth chain locally with the Bridge contract

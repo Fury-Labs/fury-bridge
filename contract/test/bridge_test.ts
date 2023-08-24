@@ -130,7 +130,7 @@ describe("Bridge", function () {
       }
     });
 
-    it("should index token, sender, toKavaAddr in the Lock event", async function () {
+    it("should index token, sender, toFuryAddr in the Lock event", async function () {
       const event =
         bridge.interface.events[
           "Lock(address,address,address,uint256,uint256)"
@@ -145,7 +145,7 @@ describe("Bridge", function () {
       expect(senderParam.indexed).to.equal(true);
 
       const toAddrParam = event.inputs[2];
-      expect(toAddrParam.name).to.equal("toKavaAddr");
+      expect(toAddrParam.name).to.equal("toFuryAddr");
       expect(toAddrParam.indexed).to.equal(true);
     });
 

@@ -12,9 +12,9 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	paramstypes "github.com/cosmos/cosmos-sdk/x/params/types"
 
-	"github.com/kava-labs/kava-bridge/app"
-	"github.com/kava-labs/kava-bridge/x/bridge/testutil"
-	"github.com/kava-labs/kava-bridge/x/bridge/types"
+	"github.com/fury-labs/fury-bridge/app"
+	"github.com/fury-labs/fury-bridge/x/bridge/testutil"
+	"github.com/fury-labs/fury-bridge/x/bridge/types"
 )
 
 type ParamsTestSuite struct {
@@ -277,10 +277,10 @@ func (suite *ParamsTestSuite) TestUnmarshalJSON() {
 		),
 		types.NewEnabledERC20Token(
 			testutil.MustNewExternalEVMAddressFromString("0x000000000000000000000000000000000000000A"),
-			"Wrapped Kava",
-			"WKAVA",
+			"Wrapped Fury",
+			"WFURY",
 			6,
-			testutil.MinWKavaWithdrawAmount,
+			testutil.MinWFuryWithdrawAmount,
 		),
 		types.NewEnabledERC20Token(
 			testutil.MustNewExternalEVMAddressFromString("0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"),
@@ -293,7 +293,7 @@ func (suite *ParamsTestSuite) TestUnmarshalJSON() {
 	enabledTokensJson, err := json.Marshal(enabledTokens)
 	suite.Require().NoError(err)
 
-	relayer, err := sdk.AccAddressFromBech32("kava1esagqd83rhqdtpy5sxhklaxgn58k2m3s3mnpea")
+	relayer, err := sdk.AccAddressFromBech32("fury1esagqd83rhqdtpy5sxhklaxgn58k2m3s3mnpea")
 	suite.Require().NoError(err)
 	relayerJson, err := json.Marshal(relayer)
 	suite.Require().NoError(err)
@@ -323,10 +323,10 @@ func (suite *ParamsTestSuite) TestMarshalYAML() {
 		),
 		types.NewEnabledERC20Token(
 			testutil.MustNewExternalEVMAddressFromString("0x000000000000000000000000000000000000000A"),
-			"Wrapped Kava",
-			"WKAVA",
+			"Wrapped Fury",
+			"WFURY",
 			6,
-			testutil.MinWKavaWithdrawAmount,
+			testutil.MinWFuryWithdrawAmount,
 		),
 		types.NewEnabledERC20Token(
 			testutil.MustNewExternalEVMAddressFromString("0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"),
@@ -337,7 +337,7 @@ func (suite *ParamsTestSuite) TestMarshalYAML() {
 		),
 	)
 
-	relayer, err := sdk.AccAddressFromBech32("kava1esagqd83rhqdtpy5sxhklaxgn58k2m3s3mnpea")
+	relayer, err := sdk.AccAddressFromBech32("fury1esagqd83rhqdtpy5sxhklaxgn58k2m3s3mnpea")
 	suite.Require().NoError(err)
 
 	conversionPairs := types.NewConversionPairs(

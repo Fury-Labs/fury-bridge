@@ -14,7 +14,7 @@ export async function main(): Promise<string> {
   // manually to make sure everything is compiled
   // await hre.run('compile');
   //
-  const addr = process.env.KAVA_BRIDGE_RELAYER_ADDRESS;
+  const addr = process.env.FURY_BRIDGE_RELAYER_ADDRESS;
 
   if (!addr) {
     throw new Error("relayer address not set");

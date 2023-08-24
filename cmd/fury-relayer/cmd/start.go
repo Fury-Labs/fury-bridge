@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"github.com/kava-labs/kava-bridge/relayer"
+	"github.com/fury-labs/fury-bridge/relayer"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -19,11 +19,11 @@ func newStartCmd() *cobra.Command {
 			// get config from env, flags, file, etc
 			ethRpcUrl := viper.GetString("eth.rpc")
 			ethBridgeAddr := viper.GetString("eth.bridge")
-			kavaGrpcUrl := viper.GetString("kava.grpc")
+			furyGrpcUrl := viper.GetString("fury.grpc")
 			relayerMnemonic := viper.GetString("relayer-mnemonic")
 
 			// create service, perform validations on parameters
-			srv, err := relayer.NewService(ethRpcUrl, ethBridgeAddr, kavaGrpcUrl, relayerMnemonic)
+			srv, err := relayer.NewService(ethRpcUrl, ethBridgeAddr, furyGrpcUrl, relayerMnemonic)
 			if err != nil {
 				return err
 			}
@@ -37,7 +37,7 @@ func newStartCmd() *cobra.Command {
 
 	cmd.Flags().String("eth.rpc", "", "Ethereum JSON-RPC URL")
 	cmd.Flags().String("eth.bridge", "", "Ethereum bridge contract address")
-	cmd.Flags().String("kava.grpc", "", "Kava GRPC endpoint")
+	cmd.Flags().String("fury.grpc", "", "Fury GRPC endpoint")
 	cmd.Flags().String("relayer-mnemonic", "", "Relayer Mnemonic for signing transactions")
 
 	return cmd

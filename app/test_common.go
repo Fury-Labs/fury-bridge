@@ -23,7 +23,7 @@ import (
 	paramskeeper "github.com/cosmos/cosmos-sdk/x/params/keeper"
 	slashingkeeper "github.com/cosmos/cosmos-sdk/x/slashing/keeper"
 	stakingkeeper "github.com/cosmos/cosmos-sdk/x/staking/keeper"
-	bridgekeeper "github.com/kava-labs/kava-bridge/x/bridge/keeper"
+	bridgekeeper "github.com/fury-labs/fury-bridge/x/bridge/keeper"
 	"github.com/stretchr/testify/require"
 	abci "github.com/tendermint/tendermint/abci/types"
 	"github.com/tendermint/tendermint/libs/log"
@@ -33,7 +33,7 @@ import (
 
 var (
 	emptyTime   time.Time
-	testChainID = "kavatest_1-1"
+	testChainID = "furytest_1-1"
 )
 
 // TestApp is a simple wrapper around an App. It exposes internal keepers for use in integration tests.

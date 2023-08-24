@@ -444,15 +444,15 @@ func RegisterQueryHandlerClient(ctx context.Context, mux *runtime.ServeMux, clie
 }
 
 var (
-	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"kava", "bridge", "v1beta1", "params"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_Params_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"fury", "bridge", "v1beta1", "params"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_ERC20BridgePairs_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"kava", "bridge", "v1beta1", "bridge-erc20-pairs"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_ERC20BridgePairs_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"fury", "bridge", "v1beta1", "bridge-erc20-pairs"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_ERC20BridgePair_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"kava", "bridge", "v1beta1", "bridge-erc20-pairs", "address"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_ERC20BridgePair_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"fury", "bridge", "v1beta1", "bridge-erc20-pairs", "address"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_ConversionPairs_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"kava", "bridge", "v1beta1", "conversion-pairs"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_ConversionPairs_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3}, []string{"fury", "bridge", "v1beta1", "conversion-pairs"}, "", runtime.AssumeColonVerbOpt(false)))
 
-	pattern_Query_ConversionPair_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"kava", "bridge", "v1beta1", "conversion-pairs", "address_or_denom"}, "", runtime.AssumeColonVerbOpt(false)))
+	pattern_Query_ConversionPair_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 2, 3, 1, 0, 4, 1, 5, 4}, []string{"fury", "bridge", "v1beta1", "conversion-pairs", "address_or_denom"}, "", runtime.AssumeColonVerbOpt(false)))
 )
 
 var (

@@ -3,7 +3,7 @@ package app
 import (
 	enccodec "github.com/tharsis/ethermint/encoding/codec"
 
-	"github.com/kava-labs/kava-bridge/app/params"
+	"github.com/fury-labs/fury-bridge/app/params"
 )
 
 // MakeEncodingConfig creates an EncodingConfig and registers the app's types on it.

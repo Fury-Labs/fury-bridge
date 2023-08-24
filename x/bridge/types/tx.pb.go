@@ -31,32 +31,32 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.GoGoProtoPackageIsVersion3 // please upgrade the proto package
 
-// MsgBridgeEthereumToKava defines a ERC20 bridge transfer from Ethereum to Kava.
-type MsgBridgeEthereumToKava struct {
+// MsgBridgeEthereumToFury defines a ERC20 bridge transfer from Ethereum to Fury.
+type MsgBridgeEthereumToFury struct {
 	// Address of the bridge relayer.
 	Relayer string `protobuf:"bytes,1,opt,name=relayer,proto3" json:"relayer,omitempty"`
 	// Originating Ethereum ERC20 contract address.
 	EthereumERC20Address string `protobuf:"bytes,2,opt,name=ethereum_erc20_address,json=ethereumErc20Address,proto3" json:"ethereum_erc20_address,omitempty"`
 	// ERC20 token amount to transfer.
 	Amount github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,3,opt,name=amount,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"amount"`
-	// Receiver hex address on Kava.
+	// Receiver hex address on Fury.
 	Receiver string `protobuf:"bytes,4,opt,name=receiver,proto3" json:"receiver,omitempty"`
 	// Unique sequence per bridge event.
 	Sequence github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,5,opt,name=sequence,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"sequence"`
 }
 
-func (m *MsgBridgeEthereumToKava) Reset()         { *m = MsgBridgeEthereumToKava{} }
-func (m *MsgBridgeEthereumToKava) String() string { return proto.CompactTextString(m) }
-func (*MsgBridgeEthereumToKava) ProtoMessage()    {}
-func (*MsgBridgeEthereumToKava) Descriptor() ([]byte, []int) {
+func (m *MsgBridgeEthereumToFury) Reset()         { *m = MsgBridgeEthereumToFury{} }
+func (m *MsgBridgeEthereumToFury) String() string { return proto.CompactTextString(m) }
+func (*MsgBridgeEthereumToFury) ProtoMessage()    {}
+func (*MsgBridgeEthereumToFury) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e83acf120314329f, []int{0}
 }
-func (m *MsgBridgeEthereumToKava) XXX_Unmarshal(b []byte) error {
+func (m *MsgBridgeEthereumToFury) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgBridgeEthereumToKava) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgBridgeEthereumToFury) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgBridgeEthereumToKava.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgBridgeEthereumToFury.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -66,56 +66,56 @@ func (m *MsgBridgeEthereumToKava) XXX_Marshal(b []byte, deterministic bool) ([]b
 		return b[:n], nil
 	}
 }
-func (m *MsgBridgeEthereumToKava) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgBridgeEthereumToKava.Merge(m, src)
+func (m *MsgBridgeEthereumToFury) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgBridgeEthereumToFury.Merge(m, src)
 }
-func (m *MsgBridgeEthereumToKava) XXX_Size() int {
+func (m *MsgBridgeEthereumToFury) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgBridgeEthereumToKava) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgBridgeEthereumToKava.DiscardUnknown(m)
+func (m *MsgBridgeEthereumToFury) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgBridgeEthereumToFury.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgBridgeEthereumToKava proto.InternalMessageInfo
+var xxx_messageInfo_MsgBridgeEthereumToFury proto.InternalMessageInfo
 
-func (m *MsgBridgeEthereumToKava) GetRelayer() string {
+func (m *MsgBridgeEthereumToFury) GetRelayer() string {
 	if m != nil {
 		return m.Relayer
 	}
 	return ""
 }
 
-func (m *MsgBridgeEthereumToKava) GetEthereumERC20Address() string {
+func (m *MsgBridgeEthereumToFury) GetEthereumERC20Address() string {
 	if m != nil {
 		return m.EthereumERC20Address
 	}
 	return ""
 }
 
-func (m *MsgBridgeEthereumToKava) GetReceiver() string {
+func (m *MsgBridgeEthereumToFury) GetReceiver() string {
 	if m != nil {
 		return m.Receiver
 	}
 	return ""
 }
 
-// MsgBridgeEthereumToKavaResponse defines the response value from
-// Msg/BridgeEthereumToKava.
-type MsgBridgeEthereumToKavaResponse struct {
+// MsgBridgeEthereumToFuryResponse defines the response value from
+// Msg/BridgeEthereumToFury.
+type MsgBridgeEthereumToFuryResponse struct {
 }
 
-func (m *MsgBridgeEthereumToKavaResponse) Reset()         { *m = MsgBridgeEthereumToKavaResponse{} }
-func (m *MsgBridgeEthereumToKavaResponse) String() string { return proto.CompactTextString(m) }
-func (*MsgBridgeEthereumToKavaResponse) ProtoMessage()    {}
-func (*MsgBridgeEthereumToKavaResponse) Descriptor() ([]byte, []int) {
+func (m *MsgBridgeEthereumToFuryResponse) Reset()         { *m = MsgBridgeEthereumToFuryResponse{} }
+func (m *MsgBridgeEthereumToFuryResponse) String() string { return proto.CompactTextString(m) }
+func (*MsgBridgeEthereumToFuryResponse) ProtoMessage()    {}
+func (*MsgBridgeEthereumToFuryResponse) Descriptor() ([]byte, []int) {
 	return fileDescriptor_e83acf120314329f, []int{1}
 }
-func (m *MsgBridgeEthereumToKavaResponse) XXX_Unmarshal(b []byte) error {
+func (m *MsgBridgeEthereumToFuryResponse) XXX_Unmarshal(b []byte) error {
 	return m.Unmarshal(b)
 }
-func (m *MsgBridgeEthereumToKavaResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+func (m *MsgBridgeEthereumToFuryResponse) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
 	if deterministic {
-		return xxx_messageInfo_MsgBridgeEthereumToKavaResponse.Marshal(b, m, deterministic)
+		return xxx_messageInfo_MsgBridgeEthereumToFuryResponse.Marshal(b, m, deterministic)
 	} else {
 		b = b[:cap(b)]
 		n, err := m.MarshalToSizedBuffer(b)
@@ -125,23 +125,23 @@ func (m *MsgBridgeEthereumToKavaResponse) XXX_Marshal(b []byte, deterministic bo
 		return b[:n], nil
 	}
 }
-func (m *MsgBridgeEthereumToKavaResponse) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_MsgBridgeEthereumToKavaResponse.Merge(m, src)
+func (m *MsgBridgeEthereumToFuryResponse) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MsgBridgeEthereumToFuryResponse.Merge(m, src)
 }
-func (m *MsgBridgeEthereumToKavaResponse) XXX_Size() int {
+func (m *MsgBridgeEthereumToFuryResponse) XXX_Size() int {
 	return m.Size()
 }
-func (m *MsgBridgeEthereumToKavaResponse) XXX_DiscardUnknown() {
-	xxx_messageInfo_MsgBridgeEthereumToKavaResponse.DiscardUnknown(m)
+func (m *MsgBridgeEthereumToFuryResponse) XXX_DiscardUnknown() {
+	xxx_messageInfo_MsgBridgeEthereumToFuryResponse.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_MsgBridgeEthereumToKavaResponse proto.InternalMessageInfo
+var xxx_messageInfo_MsgBridgeEthereumToFuryResponse proto.InternalMessageInfo
 
-// MsgConvertCoinToERC20 defines a conversion from sdk.Coin to Kava ERC20.
+// MsgConvertCoinToERC20 defines a conversion from sdk.Coin to Fury ERC20.
 type MsgConvertCoinToERC20 struct {
-	// Kava bech32 address initiating the conversion.
+	// Fury bech32 address initiating the conversion.
 	Initiator string `protobuf:"bytes,1,opt,name=initiator,proto3" json:"initiator,omitempty"`
-	// EVM hex address that will receive the converted Kava ERC20 tokens.
+	// EVM hex address that will receive the converted Fury ERC20 tokens.
 	Receiver string `protobuf:"bytes,2,opt,name=receiver,proto3" json:"receiver,omitempty"`
 	// Amount is the sdk.Coin amount to convert.
 	Amount *types.Coin `protobuf:"bytes,3,opt,name=amount,proto3" json:"amount,omitempty"`
@@ -239,14 +239,14 @@ func (m *MsgConvertCoinToERC20Response) XXX_DiscardUnknown() {
 
 var xxx_messageInfo_MsgConvertCoinToERC20Response proto.InternalMessageInfo
 
-// MsgConvertERC20ToCoin defines a conversion from Kava ERC20 to sdk.Coin.
+// MsgConvertERC20ToCoin defines a conversion from Fury ERC20 to sdk.Coin.
 type MsgConvertERC20ToCoin struct {
 	// EVM 0x hex address initiating the conversion.
 	Initiator string `protobuf:"bytes,1,opt,name=initiator,proto3" json:"initiator,omitempty"`
-	// Kava bech32 address that will receive the converted sdk.Coin.
+	// Fury bech32 address that will receive the converted sdk.Coin.
 	Receiver string `protobuf:"bytes,2,opt,name=receiver,proto3" json:"receiver,omitempty"`
 	// EVM 0x hex address of the ERC20 contract.
-	KavaERC20Address string `protobuf:"bytes,3,opt,name=kava_erc20_address,json=kavaErc20Address,proto3" json:"kava_erc20_address,omitempty"`
+	FuryERC20Address string `protobuf:"bytes,3,opt,name=fury_erc20_address,json=furyErc20Address,proto3" json:"fury_erc20_address,omitempty"`
 	// ERC20 token amount to convert.
 	Amount github_com_cosmos_cosmos_sdk_types.Int `protobuf:"bytes,4,opt,name=amount,proto3,customtype=github.com/cosmos/cosmos-sdk/types.Int" json:"amount"`
 }
@@ -298,9 +298,9 @@ func (m *MsgConvertERC20ToCoin) GetReceiver() string {
 	return ""
 }
 
-func (m *MsgConvertERC20ToCoin) GetKavaERC20Address() string {
+func (m *MsgConvertERC20ToCoin) GetFuryERC20Address() string {
 	if m != nil {
-		return m.KavaERC20Address
+		return m.FuryERC20Address
 	}
 	return ""
 }
@@ -344,8 +344,8 @@ func (m *MsgConvertERC20ToCoinResponse) XXX_DiscardUnknown() {
 var xxx_messageInfo_MsgConvertERC20ToCoinResponse proto.InternalMessageInfo
 
 func init() {
-	proto.RegisterType((*MsgBridgeEthereumToKava)(nil), "bridge.v1beta1.MsgBridgeEthereumToKava")
-	proto.RegisterType((*MsgBridgeEthereumToKavaResponse)(nil), "bridge.v1beta1.MsgBridgeEthereumToKavaResponse")
+	proto.RegisterType((*MsgBridgeEthereumToFury)(nil), "bridge.v1beta1.MsgBridgeEthereumToFury")
+	proto.RegisterType((*MsgBridgeEthereumToFuryResponse)(nil), "bridge.v1beta1.MsgBridgeEthereumToFuryResponse")
 	proto.RegisterType((*MsgConvertCoinToERC20)(nil), "bridge.v1beta1.MsgConvertCoinToERC20")
 	proto.RegisterType((*MsgConvertCoinToERC20Response)(nil), "bridge.v1beta1.MsgConvertCoinToERC20Response")
 	proto.RegisterType((*MsgConvertERC20ToCoin)(nil), "bridge.v1beta1.MsgConvertERC20ToCoin")
@@ -393,7 +393,7 @@ var fileDescriptor_e83acf120314329f = []byte{
 	0xfd, 0x0b, 0x00, 0x00, 0xff, 0xff, 0xfc, 0xad, 0x83, 0x5f, 0x6d, 0x05, 0x00, 0x00,
 }
 
-func (this *MsgBridgeEthereumToKava) VerboseEqual(that interface{}) error {
+func (this *MsgBridgeEthereumToFury) VerboseEqual(that interface{}) error {
 	if that == nil {
 		if this == nil {
 			return nil
@@ -401,22 +401,22 @@ func (this *MsgBridgeEthereumToKava) VerboseEqual(that interface{}) error {
 		return fmt.Errorf("that == nil && this != nil")
 	}
 
-	that1, ok := that.(*MsgBridgeEthereumToKava)
+	that1, ok := that.(*MsgBridgeEthereumToFury)
 	if !ok {
-		that2, ok := that.(MsgBridgeEthereumToKava)
+		that2, ok := that.(MsgBridgeEthereumToFury)
 		if ok {
 			that1 = &that2
 		} else {
-			return fmt.Errorf("that is not of type *MsgBridgeEthereumToKava")
+			return fmt.Errorf("that is not of type *MsgBridgeEthereumToFury")
 		}
 	}
 	if that1 == nil {
 		if this == nil {
 			return nil
 		}
-		return fmt.Errorf("that is type *MsgBridgeEthereumToKava but is nil && this != nil")
+		return fmt.Errorf("that is type *MsgBridgeEthereumToFury but is nil && this != nil")
 	} else if this == nil {
-		return fmt.Errorf("that is type *MsgBridgeEthereumToKava but is not nil && this == nil")
+		return fmt.Errorf("that is type *MsgBridgeEthereumToFury but is not nil && this == nil")
 	}
 	if this.Relayer != that1.Relayer {
 		return fmt.Errorf("Relayer this(%v) Not Equal that(%v)", this.Relayer, that1.Relayer)
@@ -435,14 +435,14 @@ func (this *MsgBridgeEthereumToKava) VerboseEqual(that interface{}) error {
 	}
 	return nil
 }
-func (this *MsgBridgeEthereumToKava) Equal(that interface{}) bool {
+func (this *MsgBridgeEthereumToFury) Equal(that interface{}) bool {
 	if that == nil {
 		return this == nil
 	}
 
-	that1, ok := that.(*MsgBridgeEthereumToKava)
+	that1, ok := that.(*MsgBridgeEthereumToFury)
 	if !ok {
-		that2, ok := that.(MsgBridgeEthereumToKava)
+		that2, ok := that.(MsgBridgeEthereumToFury)
 		if ok {
 			that1 = &that2
 		} else {
@@ -471,7 +471,7 @@ func (this *MsgBridgeEthereumToKava) Equal(that interface{}) bool {
 	}
 	return true
 }
-func (this *MsgBridgeEthereumToKavaResponse) VerboseEqual(that interface{}) error {
+func (this *MsgBridgeEthereumToFuryResponse) VerboseEqual(that interface{}) error {
 	if that == nil {
 		if this == nil {
 			return nil
@@ -479,33 +479,33 @@ func (this *MsgBridgeEthereumToKavaResponse) VerboseEqual(that interface{}) erro
 		return fmt.Errorf("that == nil && this != nil")
 	}
 
-	that1, ok := that.(*MsgBridgeEthereumToKavaResponse)
+	that1, ok := that.(*MsgBridgeEthereumToFuryResponse)
 	if !ok {
-		that2, ok := that.(MsgBridgeEthereumToKavaResponse)
+		that2, ok := that.(MsgBridgeEthereumToFuryResponse)
 		if ok {
 			that1 = &that2
 		} else {
-			return fmt.Errorf("that is not of type *MsgBridgeEthereumToKavaResponse")
+			return fmt.Errorf("that is not of type *MsgBridgeEthereumToFuryResponse")
 		}
 	}
 	if that1 == nil {
 		if this == nil {
 			return nil
 		}
-		return fmt.Errorf("that is type *MsgBridgeEthereumToKavaResponse but is nil && this != nil")
+		return fmt.Errorf("that is type *MsgBridgeEthereumToFuryResponse but is nil && this != nil")
 	} else if this == nil {
-		return fmt.Errorf("that is type *MsgBridgeEthereumToKavaResponse but is not nil && this == nil")
+		return fmt.Errorf("that is type *MsgBridgeEthereumToFuryResponse but is not nil && this == nil")
 	}
 	return nil
 }
-func (this *MsgBridgeEthereumToKavaResponse) Equal(that interface{}) bool {
+func (this *MsgBridgeEthereumToFuryResponse) Equal(that interface{}) bool {
 	if that == nil {
 		return this == nil
 	}
 
-	that1, ok := that.(*MsgBridgeEthereumToKavaResponse)
+	that1, ok := that.(*MsgBridgeEthereumToFuryResponse)
 	if !ok {
-		that2, ok := that.(MsgBridgeEthereumToKavaResponse)
+		that2, ok := that.(MsgBridgeEthereumToFuryResponse)
 		if ok {
 			that1 = &that2
 		} else {
@@ -664,8 +664,8 @@ func (this *MsgConvertERC20ToCoin) VerboseEqual(that interface{}) error {
 	if this.Receiver != that1.Receiver {
 		return fmt.Errorf("Receiver this(%v) Not Equal that(%v)", this.Receiver, that1.Receiver)
 	}
-	if this.KavaERC20Address != that1.KavaERC20Address {
-		return fmt.Errorf("KavaERC20Address this(%v) Not Equal that(%v)", this.KavaERC20Address, that1.KavaERC20Address)
+	if this.FuryERC20Address != that1.FuryERC20Address {
+		return fmt.Errorf("FuryERC20Address this(%v) Not Equal that(%v)", this.FuryERC20Address, that1.FuryERC20Address)
 	}
 	if !this.Amount.Equal(that1.Amount) {
 		return fmt.Errorf("Amount this(%v) Not Equal that(%v)", this.Amount, that1.Amount)
@@ -697,7 +697,7 @@ func (this *MsgConvertERC20ToCoin) Equal(that interface{}) bool {
 	if this.Receiver != that1.Receiver {
 		return false
 	}
-	if this.KavaERC20Address != that1.KavaERC20Address {
+	if this.FuryERC20Address != that1.FuryERC20Address {
 		return false
 	}
 	if !this.Amount.Equal(that1.Amount) {
@@ -766,10 +766,10 @@ const _ = grpc.SupportPackageIsVersion4
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type MsgClient interface {
-	// BridgeEthereumToKava defines a method for bridging ERC20 tokens from
-	// Ethereum to Kava.
-	BridgeEthereumToKava(ctx context.Context, in *MsgBridgeEthereumToKava, opts ...grpc.CallOption) (*MsgBridgeEthereumToKavaResponse, error)
-	// ConvertCoinToERC20 defines a method for converting sdk.Coin to Kava ERC20.
+	// BridgeEthereumToFury defines a method for bridging ERC20 tokens from
+	// Ethereum to Fury.
+	BridgeEthereumToFury(ctx context.Context, in *MsgBridgeEthereumToFury, opts ...grpc.CallOption) (*MsgBridgeEthereumToFuryResponse, error)
+	// ConvertCoinToERC20 defines a method for converting sdk.Coin to Fury ERC20.
 	ConvertCoinToERC20(ctx context.Context, in *MsgConvertCoinToERC20, opts ...grpc.CallOption) (*MsgConvertCoinToERC20Response, error)
 	ConvertERC20ToCoin(ctx context.Context, in *MsgConvertERC20ToCoin, opts ...grpc.CallOption) (*MsgConvertERC20ToCoinResponse, error)
 }
@@ -782,9 +782,9 @@ func NewMsgClient(cc grpc1.ClientConn) MsgClient {
 	return &msgClient{cc}
 }
 
-func (c *msgClient) BridgeEthereumToKava(ctx context.Context, in *MsgBridgeEthereumToKava, opts ...grpc.CallOption) (*MsgBridgeEthereumToKavaResponse, error) {
-	out := new(MsgBridgeEthereumToKavaResponse)
-	err := c.cc.Invoke(ctx, "/bridge.v1beta1.Msg/BridgeEthereumToKava", in, out, opts...)
+func (c *msgClient) BridgeEthereumToFury(ctx context.Context, in *MsgBridgeEthereumToFury, opts ...grpc.CallOption) (*MsgBridgeEthereumToFuryResponse, error) {
+	out := new(MsgBridgeEthereumToFuryResponse)
+	err := c.cc.Invoke(ctx, "/bridge.v1beta1.Msg/BridgeEthereumToFury", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -811,10 +811,10 @@ func (c *msgClient) ConvertERC20ToCoin(ctx context.Context, in *MsgConvertERC20T
 
 // MsgServer is the server API for Msg service.
 type MsgServer interface {
-	// BridgeEthereumToKava defines a method for bridging ERC20 tokens from
-	// Ethereum to Kava.
-	BridgeEthereumToKava(context.Context, *MsgBridgeEthereumToKava) (*MsgBridgeEthereumToKavaResponse, error)
-	// ConvertCoinToERC20 defines a method for converting sdk.Coin to Kava ERC20.
+	// BridgeEthereumToFury defines a method for bridging ERC20 tokens from
+	// Ethereum to Fury.
+	BridgeEthereumToFury(context.Context, *MsgBridgeEthereumToFury) (*MsgBridgeEthereumToFuryResponse, error)
+	// ConvertCoinToERC20 defines a method for converting sdk.Coin to Fury ERC20.
 	ConvertCoinToERC20(context.Context, *MsgConvertCoinToERC20) (*MsgConvertCoinToERC20Response, error)
 	ConvertERC20ToCoin(context.Context, *MsgConvertERC20ToCoin) (*MsgConvertERC20ToCoinResponse, error)
 }
@@ -823,8 +823,8 @@ type MsgServer interface {
 type UnimplementedMsgServer struct {
 }
 
-func (*UnimplementedMsgServer) BridgeEthereumToKava(ctx context.Context, req *MsgBridgeEthereumToKava) (*MsgBridgeEthereumToKavaResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method BridgeEthereumToKava not implemented")
+func (*UnimplementedMsgServer) BridgeEthereumToFury(ctx context.Context, req *MsgBridgeEthereumToFury) (*MsgBridgeEthereumToFuryResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method BridgeEthereumToFury not implemented")
 }
 func (*UnimplementedMsgServer) ConvertCoinToERC20(ctx context.Context, req *MsgConvertCoinToERC20) (*MsgConvertCoinToERC20Response, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ConvertCoinToERC20 not implemented")
@@ -837,20 +837,20 @@ func RegisterMsgServer(s grpc1.Server, srv MsgServer) {
 	s.RegisterService(&_Msg_serviceDesc, srv)
 }
 
-func _Msg_BridgeEthereumToKava_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(MsgBridgeEthereumToKava)
+func _Msg_BridgeEthereumToFury_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MsgBridgeEthereumToFury)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(MsgServer).BridgeEthereumToKava(ctx, in)
+		return srv.(MsgServer).BridgeEthereumToFury(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: "/bridge.v1beta1.Msg/BridgeEthereumToKava",
+		FullMethod: "/bridge.v1beta1.Msg/BridgeEthereumToFury",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(MsgServer).BridgeEthereumToKava(ctx, req.(*MsgBridgeEthereumToKava))
+		return srv.(MsgServer).BridgeEthereumToFury(ctx, req.(*MsgBridgeEthereumToFury))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -896,8 +896,8 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 	HandlerType: (*MsgServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "BridgeEthereumToKava",
-			Handler:    _Msg_BridgeEthereumToKava_Handler,
+			MethodName: "BridgeEthereumToFury",
+			Handler:    _Msg_BridgeEthereumToFury_Handler,
 		},
 		{
 			MethodName: "ConvertCoinToERC20",
@@ -912,7 +912,7 @@ var _Msg_serviceDesc = grpc.ServiceDesc{
 	Metadata: "bridge/v1beta1/tx.proto",
 }
 
-func (m *MsgBridgeEthereumToKava) Marshal() (dAtA []byte, err error) {
+func (m *MsgBridgeEthereumToFury) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -922,12 +922,12 @@ func (m *MsgBridgeEthereumToKava) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgBridgeEthereumToKava) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgBridgeEthereumToFury) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgBridgeEthereumToKava) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgBridgeEthereumToFury) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -976,7 +976,7 @@ func (m *MsgBridgeEthereumToKava) MarshalToSizedBuffer(dAtA []byte) (int, error)
 	return len(dAtA) - i, nil
 }
 
-func (m *MsgBridgeEthereumToKavaResponse) Marshal() (dAtA []byte, err error) {
+func (m *MsgBridgeEthereumToFuryResponse) Marshal() (dAtA []byte, err error) {
 	size := m.Size()
 	dAtA = make([]byte, size)
 	n, err := m.MarshalToSizedBuffer(dAtA[:size])
@@ -986,12 +986,12 @@ func (m *MsgBridgeEthereumToKavaResponse) Marshal() (dAtA []byte, err error) {
 	return dAtA[:n], nil
 }
 
-func (m *MsgBridgeEthereumToKavaResponse) MarshalTo(dAtA []byte) (int, error) {
+func (m *MsgBridgeEthereumToFuryResponse) MarshalTo(dAtA []byte) (int, error) {
 	size := m.Size()
 	return m.MarshalToSizedBuffer(dAtA[:size])
 }
 
-func (m *MsgBridgeEthereumToKavaResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
+func (m *MsgBridgeEthereumToFuryResponse) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	i := len(dAtA)
 	_ = i
 	var l int
@@ -1101,10 +1101,10 @@ func (m *MsgConvertERC20ToCoin) MarshalToSizedBuffer(dAtA []byte) (int, error) {
 	}
 	i--
 	dAtA[i] = 0x22
-	if len(m.KavaERC20Address) > 0 {
-		i -= len(m.KavaERC20Address)
-		copy(dAtA[i:], m.KavaERC20Address)
-		i = encodeVarintTx(dAtA, i, uint64(len(m.KavaERC20Address)))
+	if len(m.FuryERC20Address) > 0 {
+		i -= len(m.FuryERC20Address)
+		copy(dAtA[i:], m.FuryERC20Address)
+		i = encodeVarintTx(dAtA, i, uint64(len(m.FuryERC20Address)))
 		i--
 		dAtA[i] = 0x1a
 	}
@@ -1159,7 +1159,7 @@ func encodeVarintTx(dAtA []byte, offset int, v uint64) int {
 	dAtA[offset] = uint8(v)
 	return base
 }
-func (m *MsgBridgeEthereumToKava) Size() (n int) {
+func (m *MsgBridgeEthereumToFury) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1184,7 +1184,7 @@ func (m *MsgBridgeEthereumToKava) Size() (n int) {
 	return n
 }
 
-func (m *MsgBridgeEthereumToKavaResponse) Size() (n int) {
+func (m *MsgBridgeEthereumToFuryResponse) Size() (n int) {
 	if m == nil {
 		return 0
 	}
@@ -1237,7 +1237,7 @@ func (m *MsgConvertERC20ToCoin) Size() (n int) {
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
-	l = len(m.KavaERC20Address)
+	l = len(m.FuryERC20Address)
 	if l > 0 {
 		n += 1 + l + sovTx(uint64(l))
 	}
@@ -1261,7 +1261,7 @@ func sovTx(x uint64) (n int) {
 func sozTx(x uint64) (n int) {
 	return sovTx(uint64((x << 1) ^ uint64((int64(x) >> 63))))
 }
-func (m *MsgBridgeEthereumToKava) Unmarshal(dAtA []byte) error {
+func (m *MsgBridgeEthereumToFury) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1284,10 +1284,10 @@ func (m *MsgBridgeEthereumToKava) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgBridgeEthereumToKava: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgBridgeEthereumToFury: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgBridgeEthereumToKava: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgBridgeEthereumToFury: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		case 1:
@@ -1475,7 +1475,7 @@ func (m *MsgBridgeEthereumToKava) Unmarshal(dAtA []byte) error {
 	}
 	return nil
 }
-func (m *MsgBridgeEthereumToKavaResponse) Unmarshal(dAtA []byte) error {
+func (m *MsgBridgeEthereumToFuryResponse) Unmarshal(dAtA []byte) error {
 	l := len(dAtA)
 	iNdEx := 0
 	for iNdEx < l {
@@ -1498,10 +1498,10 @@ func (m *MsgBridgeEthereumToKavaResponse) Unmarshal(dAtA []byte) error {
 		fieldNum := int32(wire >> 3)
 		wireType := int(wire & 0x7)
 		if wireType == 4 {
-			return fmt.Errorf("proto: MsgBridgeEthereumToKavaResponse: wiretype end group for non-group")
+			return fmt.Errorf("proto: MsgBridgeEthereumToFuryResponse: wiretype end group for non-group")
 		}
 		if fieldNum <= 0 {
-			return fmt.Errorf("proto: MsgBridgeEthereumToKavaResponse: illegal tag %d (wire type %d)", fieldNum, wire)
+			return fmt.Errorf("proto: MsgBridgeEthereumToFuryResponse: illegal tag %d (wire type %d)", fieldNum, wire)
 		}
 		switch fieldNum {
 		default:
@@ -1820,7 +1820,7 @@ func (m *MsgConvertERC20ToCoin) Unmarshal(dAtA []byte) error {
 			iNdEx = postIndex
 		case 3:
 			if wireType != 2 {
-				return fmt.Errorf("proto: wrong wireType = %d for field KavaERC20Address", wireType)
+				return fmt.Errorf("proto: wrong wireType = %d for field FuryERC20Address", wireType)
 			}
 			var stringLen uint64
 			for shift := uint(0); ; shift += 7 {
@@ -1848,7 +1848,7 @@ func (m *MsgConvertERC20ToCoin) Unmarshal(dAtA []byte) error {
 			if postIndex > l {
 				return io.ErrUnexpectedEOF
 			}
-			m.KavaERC20Address = string(dAtA[iNdEx:postIndex])
+			m.FuryERC20Address = string(dAtA[iNdEx:postIndex])
 			iNdEx = postIndex
 		case 4:
 			if wireType != 2 {

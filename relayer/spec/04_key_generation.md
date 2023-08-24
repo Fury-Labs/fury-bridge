@@ -12,7 +12,7 @@ so that they use the same value, and each peer should have the same list of
 party IDs that should participate and receive a key part.
 
 At the end of the keygen process, each node will log the associated
-public key, ethereum address, and kava address associated with the private key.
+public key, ethereum address, and fury address associated with the private key.
 Each peer should verify that all other peers have the correct data. If there
 is a discrepancy, the process is restarted.
 

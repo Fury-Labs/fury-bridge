@@ -1,9 +1,9 @@
 package signer
 
 import (
-	"github.com/kava-labs/kava-bridge/relayer/broadcast"
-	"github.com/kava-labs/kava-bridge/relayer/broadcast/pending_store"
-	"github.com/kava-labs/kava-bridge/relayer/broadcast/types"
+	"github.com/fury-labs/fury-bridge/relayer/broadcast"
+	"github.com/fury-labs/fury-bridge/relayer/broadcast/pending_store"
+	"github.com/fury-labs/fury-bridge/relayer/broadcast/types"
 )
 
 type BroadcastHandler struct {

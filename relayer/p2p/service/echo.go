@@ -16,8 +16,8 @@ import (
 var log = logging.Logger(ProtocolID)
 
 const (
-	ProtocolID  = "/kava-relayer/echo/1.0.0"
-	ServiceName = "kava-relayer.echo"
+	ProtocolID  = "/fury-relayer/echo/1.0.0"
+	ServiceName = "fury-relayer.echo"
 )
 
 type EchoService struct {

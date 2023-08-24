@@ -11,7 +11,7 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/common"
 
-	"github.com/kava-labs/kava-bridge/x/bridge/types"
+	"github.com/fury-labs/fury-bridge/x/bridge/types"
 )
 
 type queryServer struct {
@@ -138,7 +138,7 @@ func (s queryServer) ConversionPair(
 	params := s.keeper.GetParams(ctx)
 	for _, pair := range params.EnabledConversionPairs {
 		// Match either address bytes or denom string
-		if bytes.Equal(pair.KavaERC20Address, addrBytes.Bytes()) || pair.Denom == strings.TrimSpace(req.AddressOrDenom) {
+		if bytes.Equal(pair.FuryERC20Address, addrBytes.Bytes()) || pair.Denom == strings.TrimSpace(req.AddressOrDenom) {
 			return &types.QueryConversionPairResponse{
 				ConversionPair: pair,
 			}, nil

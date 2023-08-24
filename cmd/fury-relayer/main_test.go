@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/kava-labs/kava-bridge/cmd/kava-relayer/cmd/network"
+	"github.com/fury-labs/fury-bridge/cmd/fury-relayer/cmd/network"
 
 	"github.com/libp2p/go-libp2p-core/crypto"
 	crypto_pb "github.com/libp2p/go-libp2p-core/crypto/pb"
@@ -19,7 +19,7 @@ import (
 )
 
 const (
-	binName = "kava-relayer"
+	binName = "fury-relayer"
 )
 
 func TestMain(m *testing.M) {
@@ -40,14 +40,14 @@ func TestNoArgs(t *testing.T) {
 	cmd := execRelayer()
 	out, err := cmd.CombinedOutput()
 
-	assert.Contains(t, string(out), "The kava relayer processes ethereum and kava blocks to transfer ERC20 tokens between chains.")
+	assert.Contains(t, string(out), "The fury relayer processes ethereum and fury blocks to transfer ERC20 tokens between chains.")
 	assert.NoError(t, err)
 }
 
 func TestUnknownCommand(t *testing.T) {
 	cmd := execRelayer("some-command")
 	out, err := cmd.CombinedOutput()
-	assert.Contains(t, string(out), "Error: unknown command \"some-command\" for \"kava-relayer")
+	assert.Contains(t, string(out), "Error: unknown command \"some-command\" for \"fury-relayer")
 	assert.EqualError(t, err, "exit status 1")
 }
 

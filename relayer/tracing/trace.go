@@ -11,7 +11,7 @@ import (
 )
 
 const (
-	service = "kava-relayer"
+	service = "fury-relayer"
 )
 
 func TracerProvider(url string, production bool) (*tracesdk.TracerProvider, error) {

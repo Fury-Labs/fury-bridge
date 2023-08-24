@@ -53,7 +53,7 @@ export type LockEvent = TypedEvent<
   {
     token: string;
     sender: string;
-    toKavaAddr: string;
+    toFuryAddr: string;
     amount: BigNumber;
     lockSequence: BigNumber;
   }
@@ -103,7 +103,7 @@ export interface Bridge extends BaseContract {
   functions: {
     lock(
       token: string,
-      toKavaAddr: string,
+      toFuryAddr: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<ContractTransaction>;
@@ -121,7 +121,7 @@ export interface Bridge extends BaseContract {
 
   lock(
     token: string,
-    toKavaAddr: string,
+    toFuryAddr: string,
     amount: BigNumberish,
     overrides?: Overrides & { from?: string | Promise<string> }
   ): Promise<ContractTransaction>;
@@ -139,7 +139,7 @@ export interface Bridge extends BaseContract {
   callStatic: {
     lock(
       token: string,
-      toKavaAddr: string,
+      toFuryAddr: string,
       amount: BigNumberish,
       overrides?: CallOverrides
     ): Promise<void>;
@@ -159,14 +159,14 @@ export interface Bridge extends BaseContract {
     "Lock(address,address,address,uint256,uint256)"(
       token?: string | null,
       sender?: string | null,
-      toKavaAddr?: string | null,
+      toFuryAddr?: string | null,
       amount?: null,
       lockSequence?: null
     ): LockEventFilter;
     Lock(
       token?: string | null,
       sender?: string | null,
-      toKavaAddr?: string | null,
+      toFuryAddr?: string | null,
       amount?: null,
       lockSequence?: null
     ): LockEventFilter;
@@ -188,7 +188,7 @@ export interface Bridge extends BaseContract {
   estimateGas: {
     lock(
       token: string,
-      toKavaAddr: string,
+      toFuryAddr: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<BigNumber>;
@@ -207,7 +207,7 @@ export interface Bridge extends BaseContract {
   populateTransaction: {
     lock(
       token: string,
-      toKavaAddr: string,
+      toFuryAddr: string,
       amount: BigNumberish,
       overrides?: Overrides & { from?: string | Promise<string> }
     ): Promise<PopulatedTransaction>;

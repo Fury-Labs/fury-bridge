@@ -5,7 +5,7 @@ import (
 	"net"
 	"os"
 
-	"github.com/kava-labs/kava-bridge/relayer/p2p"
+	"github.com/fury-labs/fury-bridge/relayer/p2p"
 	ma "github.com/multiformats/go-multiaddr"
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"

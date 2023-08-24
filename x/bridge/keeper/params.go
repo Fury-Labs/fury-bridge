@@ -5,7 +5,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	sdkerrors "github.com/cosmos/cosmos-sdk/types/errors"
-	"github.com/kava-labs/kava-bridge/x/bridge/types"
+	"github.com/fury-labs/fury-bridge/x/bridge/types"
 )
 
 // GetParams returns the total set of evm parameters.
@@ -73,7 +73,7 @@ func (k Keeper) GetEnabledConversionPairFromERC20Address(
 ) (types.ConversionPair, error) {
 	params := k.GetParams(ctx)
 	for _, pair := range params.EnabledConversionPairs {
-		if bytes.Equal(pair.KavaERC20Address, address.Bytes()) {
+		if bytes.Equal(pair.FuryERC20Address, address.Bytes()) {
 			return pair, nil
 		}
 	}

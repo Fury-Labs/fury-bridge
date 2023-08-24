@@ -5,8 +5,8 @@ import (
 	"crypto/rand"
 	"testing"
 
-	"github.com/kava-labs/kava-bridge/relayer/p2p"
-	"github.com/kava-labs/kava-bridge/relayer/testutil"
+	"github.com/fury-labs/fury-bridge/relayer/p2p"
+	"github.com/fury-labs/fury-bridge/relayer/testutil"
 	"github.com/libp2p/go-libp2p"
 	"github.com/libp2p/go-libp2p-core/host"
 	swarm "github.com/libp2p/go-libp2p-swarm"

@@ -7,7 +7,7 @@ import "bridge/v1beta1/genesis.proto";
 import "gogoproto/gogo.proto";
 import "google/api/annotations.proto";
 
-option go_package                    = "github.com/kava-labs/kava-bridge/x/bridge/types";
+option go_package                    = "github.com/fury-labs/fury-bridge/x/bridge/types";
 option (gogoproto.equal_all)         = true;
 option (gogoproto.verbose_equal_all) = true;
 
@@ -15,29 +15,29 @@ option (gogoproto.verbose_equal_all) = true;
 service Query {
   // Params queries all parameters of the bridge module.
   rpc Params(QueryParamsRequest) returns (QueryParamsResponse) {
-    option (google.api.http).get = "/kava/bridge/v1beta1/params";
+    option (google.api.http).get = "/fury/bridge/v1beta1/params";
   }
 
   // ERC20BridgePairs queries the bridge address pairs.
   rpc ERC20BridgePairs(QueryERC20BridgePairsRequest) returns (QueryERC20BridgePairsResponse) {
-    option (google.api.http).get = "/kava/bridge/v1beta1/bridge-erc20-pairs";
+    option (google.api.http).get = "/fury/bridge/v1beta1/bridge-erc20-pairs";
   }
 
   // ERC20BridgePair queries a bridge address pair with either internal or
   // external address.
   rpc ERC20BridgePair(QueryERC20BridgePairRequest) returns (QueryERC20BridgePairResponse) {
-    option (google.api.http).get = "/kava/bridge/v1beta1/bridge-erc20-pairs/{address}";
+    option (google.api.http).get = "/fury/bridge/v1beta1/bridge-erc20-pairs/{address}";
   }
 
   // ConversionPairs queries the ERC20/sdk.Coin conversion pairs.
   rpc ConversionPairs(QueryConversionPairsRequest) returns (QueryConversionPairsResponse) {
-    option (google.api.http).get = "/kava/bridge/v1beta1/conversion-pairs";
+    option (google.api.http).get = "/fury/bridge/v1beta1/conversion-pairs";
   }
 
   // ConversionPair queries a conversion pair with either the ERC20 address or
   // sdk.Coin denom.
   rpc ConversionPair(QueryConversionPairRequest) returns (QueryConversionPairResponse) {
-    option (google.api.http).get = "/kava/bridge/v1beta1/conversion-pairs/{address_or_denom}";
+    option (google.api.http).get = "/fury/bridge/v1beta1/conversion-pairs/{address_or_denom}";
   }
 }
 

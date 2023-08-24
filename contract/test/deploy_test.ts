@@ -8,7 +8,7 @@ describe("deploy script", function () {
       const signers = await ethers.getSigners();
       const relayer = await signers[1].getAddress();
 
-      process.env.KAVA_BRIDGE_RELAYER_ADDRESS = relayer;
+      process.env.FURY_BRIDGE_RELAYER_ADDRESS = relayer;
       const bridgeAddress = await main();
 
       const Bridge = await ethers.getContractFactory("Bridge");

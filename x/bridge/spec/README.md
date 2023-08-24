@@ -3,20 +3,20 @@
 ## Abstract
 
 The `x/bridge` module handles cross-chain transfers of ERC-20 tokens between
-external blockchains (Ethereum) and Kava's EVM, and an internal bridge to
-convert between ERC20 tokens on Kava EVM and Kava Cosmos `sdk.Coin`.
+external blockchains (Ethereum) and Fury's EVM, and an internal bridge to
+convert between ERC20 tokens on Fury EVM and Fury Cosmos `sdk.Coin`.
 
 This allows the following:
 
-* Transfer between Ethereum ERC20 <-> Kava EVM ERC20. E.g. transferring WETH or
-  USDC to Kava EVM.
-* Conversion between Kava EVM ERC20 <-> Kava Cosmos `sdk.Coin`. E.g. converting
-  ERC20 WETH on Kava EVM to Cosmos `sdk.Coin` to be able to use WETH in native
-  Kava DeFi modules such as Mint, Lend, Swap, etc.
+* Transfer between Ethereum ERC20 <-> Fury EVM ERC20. E.g. transferring WETH or
+  USDC to Fury EVM.
+* Conversion between Fury EVM ERC20 <-> Fury Cosmos `sdk.Coin`. E.g. converting
+  ERC20 WETH on Fury EVM to Cosmos `sdk.Coin` to be able to use WETH in native
+  Fury DeFi modules such as Mint, Lend, Swap, etc.
 
-There is no direct path from Ethereum ERC20 to Kava Cosmos `sdk.Coin`. To get an
-ERC20 token on Ethereum into the Kava Cosmos ecosystem, tokens must be bridged
-to the Kava EVM first, then converted to an `sdk.Coin`.
+There is no direct path from Ethereum ERC20 to Fury Cosmos `sdk.Coin`. To get an
+ERC20 token on Ethereum into the Fury Cosmos ecosystem, tokens must be bridged
+to the Fury EVM first, then converted to an `sdk.Coin`.
 
 <p align="center">
   <img src="./images/high-level-overview.drawio.png">

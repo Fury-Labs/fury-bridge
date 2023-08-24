@@ -6,7 +6,7 @@ import (
 
 	sdk "github.com/cosmos/cosmos-sdk/types"
 
-	"github.com/kava-labs/kava-bridge/x/bridge/types"
+	"github.com/fury-labs/fury-bridge/x/bridge/types"
 )
 
 type msgServer struct {
@@ -21,11 +21,11 @@ func NewMsgServerImpl(keeper Keeper) types.MsgServer {
 
 var _ types.MsgServer = msgServer{}
 
-// BridgeEthereumToKava handles a bridge from Ethereum message.
-func (s msgServer) BridgeEthereumToKava(
+// BridgeEthereumToFury handles a bridge from Ethereum message.
+func (s msgServer) BridgeEthereumToFury(
 	goCtx context.Context,
-	msg *types.MsgBridgeEthereumToKava,
-) (*types.MsgBridgeEthereumToKavaResponse, error) {
+	msg *types.MsgBridgeEthereumToFury,
+) (*types.MsgBridgeEthereumToFuryResponse, error) {
 	ctx := sdk.UnwrapSDKContext(goCtx)
 
 	relayer, err := sdk.AccAddressFromBech32(msg.Relayer)
@@ -43,7 +43,7 @@ func (s msgServer) BridgeEthereumToKava(
 		return nil, fmt.Errorf("invalid EthereumERC20Address: %w", err)
 	}
 
-	if err := s.keeper.BridgeEthereumToKava(
+	if err := s.keeper.BridgeEthereumToFury(
 		ctx,
 		relayer,
 		externalAddress,
@@ -62,11 +62,11 @@ func (s msgServer) BridgeEthereumToKava(
 		),
 	)
 
-	return &types.MsgBridgeEthereumToKavaResponse{}, nil
+	return &types.MsgBridgeEthereumToFuryResponse{}, nil
 }
 
 // ConvertCoinToERC20 handles a MsgConvertCoinToERC20 message to convert
-// sdk.Coin to Kava EVM tokens.
+// sdk.Coin to Fury EVM tokens.
 func (s msgServer) ConvertCoinToERC20(
 	goCtx context.Context,
 	msg *types.MsgConvertCoinToERC20,
@@ -104,7 +104,7 @@ func (s msgServer) ConvertCoinToERC20(
 }
 
 // ConvertERC20ToCoin handles a MsgConvertERC20ToCoin message to convert
-// sdk.Coin to Kava EVM tokens.
+// sdk.Coin to Fury EVM tokens.
 func (s msgServer) ConvertERC20ToCoin(
 	goCtx context.Context,
 	msg *types.MsgConvertERC20ToCoin,
@@ -121,7 +121,7 @@ func (s msgServer) ConvertERC20ToCoin(
 		return nil, fmt.Errorf("invalid receiver address: %w", err)
 	}
 
-	contractAddr, err := types.NewInternalEVMAddressFromString(msg.KavaERC20Address)
+	contractAddr, err := types.NewInternalEVMAddressFromString(msg.FuryERC20Address)
 	if err != nil {
 		return nil, fmt.Errorf("invalid contract address: %w", err)
 	}

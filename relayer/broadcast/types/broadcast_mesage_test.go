@@ -6,8 +6,8 @@ import (
 	"time"
 
 	prototypes "github.com/gogo/protobuf/types"
-	"github.com/kava-labs/kava-bridge/relayer/broadcast/types"
-	"github.com/kava-labs/kava-bridge/relayer/testutil"
+	"github.com/fury-labs/fury-bridge/relayer/broadcast/types"
+	"github.com/fury-labs/fury-bridge/relayer/testutil"
 	"github.com/libp2p/go-libp2p-core/peer"
 	"github.com/stretchr/testify/require"
 )

@@ -1,62 +1,62 @@
 import { expect } from "chai";
 import { Signer, ContractReceipt, ContractTransaction } from "ethers";
 import { ethers } from "hardhat";
-import { WKAVA, WKAVA__factory as WKAVAFactory } from "../typechain-types";
+import { WFURY, WFURY__factory as WFURYFactory } from "../typechain-types";
 
-describe("WKAVA", function () {
-  let wkava: WKAVA;
-  let wkavaFactory: WKAVAFactory;
+describe("WFURY", function () {
+  let wfury: WFURY;
+  let wfuryFactory: WFURYFactory;
   let addr1: Signer;
 
   beforeEach(async function () {
-    wkavaFactory = await ethers.getContractFactory("WKAVA");
-    wkava = await wkavaFactory.deploy();
+    wfuryFactory = await ethers.getContractFactory("WFURY");
+    wfury = await wfuryFactory.deploy();
     addr1 = (await ethers.getSigners())[1];
   });
 
   describe("Initialization values", function () {
     it("should have correct name", async function () {
-      expect(await wkava.name()).to.be.equal("Wrapped Kava");
+      expect(await wfury.name()).to.be.equal("Wrapped Fury");
     });
 
     it("should have correct symbol", async function () {
-      expect(await wkava.symbol()).to.be.equal("WKAVA");
+      expect(await wfury.symbol()).to.be.equal("WFURY");
     });
 
     it("should have correct number of decimals", async function () {
-      expect(await wkava.decimals()).to.be.equal(18);
+      expect(await wfury.decimals()).to.be.equal(18);
     });
   });
 
   describe("deposit", function () {
     it("should allow users to deposit", async function () {
-      const userBalanceBefore = await wkava.balanceOf(await addr1.getAddress());
+      const userBalanceBefore = await wfury.balanceOf(await addr1.getAddress());
       expect(userBalanceBefore).to.equal(0);
 
       const depositAmt = 5000;
-      await wkava.connect(addr1).deposit({ value: depositAmt });
+      await wfury.connect(addr1).deposit({ value: depositAmt });
 
-      const userBalanceAfter = await wkava.balanceOf(await addr1.getAddress());
+      const userBalanceAfter = await wfury.balanceOf(await addr1.getAddress());
       expect(userBalanceAfter).to.equal(depositAmt);
     });
 
     it("should accept ethereum sent directly to the contract", async function () {
-      const userBalanceBefore = await wkava.balanceOf(await addr1.getAddress());
+      const userBalanceBefore = await wfury.balanceOf(await addr1.getAddress());
       expect(userBalanceBefore).to.equal(0);
 
       const depositAmt = ethers.utils.parseEther("1.0");
       await addr1.sendTransaction({
-        to: wkava.address,
+        to: wfury.address,
         value: depositAmt, // Sends exactly 1.0 ether
       });
 
-      const userBalanceAfter = await wkava.balanceOf(await addr1.getAddress());
+      const userBalanceAfter = await wfury.balanceOf(await addr1.getAddress());
       expect(userBalanceAfter).to.equal(depositAmt);
     });
 
     it("should emit Deposit event", async function () {
       const depositAmt = 5000;
-      const tx: ContractTransaction = await wkava
+      const tx: ContractTransaction = await wfury
         .connect(addr1)
         .deposit({ value: depositAmt });
       const receipt: ContractReceipt = await tx.wait();
@@ -74,26 +74,26 @@ describe("WKAVA", function () {
     const depositAmt = 5000;
 
     beforeEach(async function () {
-      await wkava.connect(addr1).deposit({ value: depositAmt });
+      await wfury.connect(addr1).deposit({ value: depositAmt });
     });
 
     it("should allow users to withdraw", async function () {
-      const userBalanceBefore = await wkava.balanceOf(await addr1.getAddress());
+      const userBalanceBefore = await wfury.balanceOf(await addr1.getAddress());
       expect(userBalanceBefore).to.equal(depositAmt);
 
       const withdrawAmt = depositAmt / 2;
-      await wkava.connect(addr1).withdraw(withdrawAmt);
+      await wfury.connect(addr1).withdraw(withdrawAmt);
 
-      const userBalanceAfter = await wkava.balanceOf(await addr1.getAddress());
+      const userBalanceAfter = await wfury.balanceOf(await addr1.getAddress());
       expect(userBalanceAfter).to.equal(depositAmt - withdrawAmt);
 
-      await wkava.connect(addr1).withdraw(withdrawAmt);
-      const userBalanceFinal = await wkava.balanceOf(await addr1.getAddress());
+      await wfury.connect(addr1).withdraw(withdrawAmt);
+      const userBalanceFinal = await wfury.balanceOf(await addr1.getAddress());
       expect(userBalanceFinal).to.equal(0);
     });
 
     it("should emit Withdrawal event", async function () {
-      const tx: ContractTransaction = await wkava
+      const tx: ContractTransaction = await wfury
         .connect(addr1)
         .withdraw(depositAmt);
       const receipt: ContractReceipt = await tx.wait();

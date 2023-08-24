@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/kava-labs/kava-bridge/relayer/mp_tss/types"
+	"github.com/fury-labs/fury-bridge/relayer/mp_tss/types"
 	"github.com/stretchr/testify/require"
 )
 

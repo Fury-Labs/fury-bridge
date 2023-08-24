@@ -1,6 +1,6 @@
 # Signing
 
-The Kava bridge will use an ECDSA threshold signature scheme with threshold `t`
+The Fury bridge will use an ECDSA threshold signature scheme with threshold `t`
 and `n` peers, where `t <= n`. The scheme is secure against a dishonest majority
 up to `t = n - 1` without compromising the integrity of the private key. In
 other words, `t+1` out of `n` peers are required to sign.
@@ -16,8 +16,8 @@ usage.
 
 ## Transaction Monitoring
 
-Relayer monitors transactions on both Ethereum and Kava blockchains for bridge
-transactions. Bridge transactions on both Ethereum and Kava have a unique
+Relayer monitors transactions on both Ethereum and Fury blockchains for bridge
+transactions. Bridge transactions on both Ethereum and Fury have a unique
 incrementing sequence used to determine the transaction order.
 
 ## Leader
@@ -25,7 +25,7 @@ incrementing sequence used to determine the transaction order.
 A leader is used for determining which peers participate in a signing party and
 coordinating retries when peers may go offline.
 
-When a bridge transaction is found on either Ethereum or Kava, the transaction
+When a bridge transaction is found on either Ethereum or Fury, the transaction
 hash is used to deterministically pick a random leader.
 
 ```go
@@ -114,4 +114,4 @@ reported to the leader to restart the session without the culprits.
 ## Output
 
 At the end of signing, the signed message is output and each node broadcasts it
-to the Ethereum or Kava chain.
+to the Ethereum or Fury chain.

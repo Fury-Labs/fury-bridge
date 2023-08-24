@@ -30,19 +30,19 @@ import "../Bridge.sol";
 
 contract ERC20EvilMock {
     uint256 private _reentered;
-    address private _toKavaAddr;
+    address private _toFuryAddr;
 
     constructor() {
         _reentered = 0;
     }
 
-    // Lock attack requires a separate function to set thei kava address
+    // Lock attack requires a separate function to set thei fury address
     function attackLock(
         address target,
         address toAddr,
         uint256 amount
     ) external {
-        _toKavaAddr = toAddr;
+        _toFuryAddr = toAddr;
         Bridge(target).lock(address(this), toAddr, amount);
     }
 
@@ -54,7 +54,7 @@ contract ERC20EvilMock {
     ) public returns (bool) {
         if (_reentered < 3) {
             _reentered = _reentered + 1;
-            Bridge(msg.sender).lock(address(this), _toKavaAddr, amount);
+            Bridge(msg.sender).lock(address(this), _toFuryAddr, amount);
         }
 
         return true;

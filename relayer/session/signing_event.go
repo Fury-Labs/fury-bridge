@@ -2,8 +2,8 @@ package session
 
 import (
 	"github.com/binance-chain/tss-lib/tss"
-	"github.com/kava-labs/kava-bridge/relayer/mp_tss"
-	"github.com/kava-labs/kava-bridge/relayer/mp_tss/types"
+	"github.com/fury-labs/fury-bridge/relayer/mp_tss"
+	"github.com/fury-labs/fury-bridge/relayer/mp_tss/types"
 	"github.com/libp2p/go-libp2p-core/peer"
 )
 

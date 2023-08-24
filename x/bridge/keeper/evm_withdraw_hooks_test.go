@@ -7,10 +7,10 @@ import (
 	sdk "github.com/cosmos/cosmos-sdk/types"
 	"github.com/ethereum/go-ethereum/accounts/abi"
 	"github.com/ethereum/go-ethereum/common"
-	"github.com/kava-labs/kava-bridge/contract"
-	"github.com/kava-labs/kava-bridge/x/bridge/keeper"
-	"github.com/kava-labs/kava-bridge/x/bridge/testutil"
-	"github.com/kava-labs/kava-bridge/x/bridge/types"
+	"github.com/fury-labs/fury-bridge/contract"
+	"github.com/fury-labs/fury-bridge/x/bridge/keeper"
+	"github.com/fury-labs/fury-bridge/x/bridge/testutil"
+	"github.com/fury-labs/fury-bridge/x/bridge/types"
 	"github.com/stretchr/testify/suite"
 	"github.com/tharsis/ethermint/crypto/ethsecp256k1"
 	evmtypes "github.com/tharsis/ethermint/x/evm/types"
@@ -61,7 +61,7 @@ func (suite *EVMHooksTestSuite) submitBridgeERC20Msg(
 	amount sdk.Int,
 	receiver common.Address,
 ) {
-	msg := types.NewMsgBridgeEthereumToKava(
+	msg := types.NewMsgBridgeEthereumToFury(
 		suite.RelayerAddress.String(),
 		contractAddr.String(),
 		amount,
@@ -69,7 +69,7 @@ func (suite *EVMHooksTestSuite) submitBridgeERC20Msg(
 		sdk.NewInt(1),
 	)
 
-	_, err := suite.msgServer.BridgeEthereumToKava(sdk.WrapSDKContext(suite.Ctx), &msg)
+	_, err := suite.msgServer.BridgeEthereumToFury(sdk.WrapSDKContext(suite.Ctx), &msg)
 	suite.Require().NoError(err)
 }
 
@@ -299,9 +299,9 @@ func (suite *EVMHooksTestSuite) TestERC20Withdraw_EmitsEvent() {
 
 	suite.EventsContains(suite.GetEvents(),
 		sdk.NewEvent(
-			types.EventTypeBridgeKavaToEthereum,
+			types.EventTypeBridgeFuryToEthereum,
 			sdk.NewAttribute(types.AttributeKeyEthereumERC20Address, suite.pair.GetExternalAddress().String()),
-			sdk.NewAttribute(types.AttributeKeyKavaERC20Address, suite.pair.GetInternalAddress().String()),
+			sdk.NewAttribute(types.AttributeKeyFuryERC20Address, suite.pair.GetInternalAddress().String()),
 			sdk.NewAttribute(types.AttributeKeyReceiver, withdrawToAddr.String()),
 			sdk.NewAttribute(types.AttributeKeyAmount, withdrawAmount.String()),
 			sdk.NewAttribute(types.AttributeKeySequence, "1"),
@@ -313,9 +313,9 @@ func (suite *EVMHooksTestSuite) TestERC20Withdraw_EmitsEvent() {
 	// Second one has incremented sequence
 	suite.EventsContains(suite.GetEvents(),
 		sdk.NewEvent(
-			types.EventTypeBridgeKavaToEthereum,
+			types.EventTypeBridgeFuryToEthereum,
 			sdk.NewAttribute(types.AttributeKeyEthereumERC20Address, suite.pair.GetExternalAddress().String()),
-			sdk.NewAttribute(types.AttributeKeyKavaERC20Address, suite.pair.GetInternalAddress().String()),
+			sdk.NewAttribute(types.AttributeKeyFuryERC20Address, suite.pair.GetInternalAddress().String()),
 			sdk.NewAttribute(types.AttributeKeyReceiver, withdrawToAddr.String()),
 			sdk.NewAttribute(types.AttributeKeyAmount, withdrawAmount.String()),
 			sdk.NewAttribute(types.AttributeKeySequence, "2"),
@@ -353,7 +353,7 @@ func (suite *EVMHooksTestSuite) TestERC20Withdraw_IgnoreUnregisteredERC20() {
 	// Send Withdraw TX to the erc20 contract that is not a registered pair
 	_ = suite.Withdraw(unregisteredContractAddr, withdrawToAddr, withdrawAmount)
 
-	suite.EventsDoNotContain(suite.GetEvents(), types.EventTypeBridgeKavaToEthereum)
+	suite.EventsDoNotContain(suite.GetEvents(), types.EventTypeBridgeFuryToEthereum)
 }
 
 func (suite *EVMHooksTestSuite) TestERC20Withdraw_BridgeDisabled() {

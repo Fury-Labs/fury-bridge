@@ -3,7 +3,7 @@ package relayer.v1beta1;
 
 import "gogoproto/gogo.proto";
 
-option go_package = "github.com/kava-labs/kava-bridge/relayer/broadcast/types";
+option go_package = "github.com/fury-labs/fury-bridge/relayer/broadcast/types";
 
 option (gogoproto.goproto_getters_all) = false;
 

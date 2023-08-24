@@ -30,8 +30,8 @@
     - [Query](#bridge.v1beta1.Query)
   
 - [bridge/v1beta1/tx.proto](#bridge/v1beta1/tx.proto)
-    - [MsgBridgeEthereumToKava](#bridge.v1beta1.MsgBridgeEthereumToKava)
-    - [MsgBridgeEthereumToKavaResponse](#bridge.v1beta1.MsgBridgeEthereumToKavaResponse)
+    - [MsgBridgeEthereumToFury](#bridge.v1beta1.MsgBridgeEthereumToFury)
+    - [MsgBridgeEthereumToFuryResponse](#bridge.v1beta1.MsgBridgeEthereumToFuryResponse)
     - [MsgConvertCoinToERC20](#bridge.v1beta1.MsgConvertCoinToERC20)
     - [MsgConvertCoinToERC20Response](#bridge.v1beta1.MsgConvertCoinToERC20Response)
     - [MsgConvertERC20ToCoin](#bridge.v1beta1.MsgConvertERC20ToCoin)
@@ -71,13 +71,13 @@
 <a name="bridge.v1beta1.ConversionPair"></a>
 
 ### ConversionPair
-ConversionPair defines a Kava ERC20 address and corresponding denom that is
+ConversionPair defines a Fury ERC20 address and corresponding denom that is
 allowed to be converted between ERC20 and sdk.Coin
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `kava_erc20_address` | [bytes](#bytes) |  | ERC20 address of the token on the Kava EVM |
+| `fury_erc20_address` | [bytes](#bytes) |  | ERC20 address of the token on the Fury EVM |
 | `denom` | [string](#string) |  | Denom of the corresponding sdk.Coin |
 
 
@@ -104,13 +104,13 @@ allowed to be converted between ERC20 and sdk.Coin
 <a name="bridge.v1beta1.ERC20BridgePair"></a>
 
 ### ERC20BridgePair
-ERC20BridgePair defines an ERC20 token bridged between external and Kava EVM
+ERC20BridgePair defines an ERC20 token bridged between external and Fury EVM
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | `external_erc20_address` | [bytes](#bytes) |  | external_erc20_address represents the external EVM ERC20 address |
-| `internal_erc20_address` | [bytes](#bytes) |  | internal_erc20_address represents the corresponding internal Kava EVM ERC20 address |
+| `internal_erc20_address` | [bytes](#bytes) |  | internal_erc20_address represents the corresponding internal Fury EVM ERC20 address |
 
 
 
@@ -136,7 +136,7 @@ ERC20BridgePair defines an ERC20 token bridged between external and Kava EVM
 <a name="bridge.v1beta1.EnabledERC20Token"></a>
 
 ### EnabledERC20Token
-EnabledERC20Token defines an external ERC20 that is allowed to be bridged to Kava
+EnabledERC20Token defines an external ERC20 that is allowed to be bridged to Fury
 
 
 | Field | Type | Label | Description |
@@ -177,10 +177,10 @@ Params defines the bridge module params
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `bridge_enabled` | [bool](#bool) |  | Flag for enabling incoming/outgoing bridge transactions AND Kava ERC20/sdk.Coin conversions. |
-| `enabled_erc20_tokens` | [EnabledERC20Token](#bridge.v1beta1.EnabledERC20Token) | repeated | List of ERC20Tokens that are allowed to be bridged to Kava |
+| `bridge_enabled` | [bool](#bool) |  | Flag for enabling incoming/outgoing bridge transactions AND Fury ERC20/sdk.Coin conversions. |
+| `enabled_erc20_tokens` | [EnabledERC20Token](#bridge.v1beta1.EnabledERC20Token) | repeated | List of ERC20Tokens that are allowed to be bridged to Fury |
 | `relayer` | [bytes](#bytes) |  | Permissioned relayer address that is allowed to submit bridge messages |
-| `enabled_conversion_pairs` | [ConversionPair](#bridge.v1beta1.ConversionPair) | repeated | enabled_conversion_pairs defines the list of conversion pairs allowed to be converted between Kava ERC20 and sdk.Coin |
+| `enabled_conversion_pairs` | [ConversionPair](#bridge.v1beta1.ConversionPair) | repeated | enabled_conversion_pairs defines the list of conversion pairs allowed to be converted between Fury ERC20 and sdk.Coin |
 
 
 
@@ -351,11 +351,11 @@ Query defines the gRPC querier service for bridge module
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
 | ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `Params` | [QueryParamsRequest](#bridge.v1beta1.QueryParamsRequest) | [QueryParamsResponse](#bridge.v1beta1.QueryParamsResponse) | Params queries all parameters of the bridge module. | GET|/kava/bridge/v1beta1/params|
-| `ERC20BridgePairs` | [QueryERC20BridgePairsRequest](#bridge.v1beta1.QueryERC20BridgePairsRequest) | [QueryERC20BridgePairsResponse](#bridge.v1beta1.QueryERC20BridgePairsResponse) | ERC20BridgePairs queries the bridge address pairs. | GET|/kava/bridge/v1beta1/bridge-erc20-pairs|
-| `ERC20BridgePair` | [QueryERC20BridgePairRequest](#bridge.v1beta1.QueryERC20BridgePairRequest) | [QueryERC20BridgePairResponse](#bridge.v1beta1.QueryERC20BridgePairResponse) | ERC20BridgePair queries a bridge address pair with either internal or external address. | GET|/kava/bridge/v1beta1/bridge-erc20-pairs/{address}|
-| `ConversionPairs` | [QueryConversionPairsRequest](#bridge.v1beta1.QueryConversionPairsRequest) | [QueryConversionPairsResponse](#bridge.v1beta1.QueryConversionPairsResponse) | ConversionPairs queries the ERC20/sdk.Coin conversion pairs. | GET|/kava/bridge/v1beta1/conversion-pairs|
-| `ConversionPair` | [QueryConversionPairRequest](#bridge.v1beta1.QueryConversionPairRequest) | [QueryConversionPairResponse](#bridge.v1beta1.QueryConversionPairResponse) | ConversionPair queries a conversion pair with either the ERC20 address or sdk.Coin denom. | GET|/kava/bridge/v1beta1/conversion-pairs/{address_or_denom}|
+| `Params` | [QueryParamsRequest](#bridge.v1beta1.QueryParamsRequest) | [QueryParamsResponse](#bridge.v1beta1.QueryParamsResponse) | Params queries all parameters of the bridge module. | GET|/fury/bridge/v1beta1/params|
+| `ERC20BridgePairs` | [QueryERC20BridgePairsRequest](#bridge.v1beta1.QueryERC20BridgePairsRequest) | [QueryERC20BridgePairsResponse](#bridge.v1beta1.QueryERC20BridgePairsResponse) | ERC20BridgePairs queries the bridge address pairs. | GET|/fury/bridge/v1beta1/bridge-erc20-pairs|
+| `ERC20BridgePair` | [QueryERC20BridgePairRequest](#bridge.v1beta1.QueryERC20BridgePairRequest) | [QueryERC20BridgePairResponse](#bridge.v1beta1.QueryERC20BridgePairResponse) | ERC20BridgePair queries a bridge address pair with either internal or external address. | GET|/fury/bridge/v1beta1/bridge-erc20-pairs/{address}|
+| `ConversionPairs` | [QueryConversionPairsRequest](#bridge.v1beta1.QueryConversionPairsRequest) | [QueryConversionPairsResponse](#bridge.v1beta1.QueryConversionPairsResponse) | ConversionPairs queries the ERC20/sdk.Coin conversion pairs. | GET|/fury/bridge/v1beta1/conversion-pairs|
+| `ConversionPair` | [QueryConversionPairRequest](#bridge.v1beta1.QueryConversionPairRequest) | [QueryConversionPairResponse](#bridge.v1beta1.QueryConversionPairResponse) | ConversionPair queries a conversion pair with either the ERC20 address or sdk.Coin denom. | GET|/fury/bridge/v1beta1/conversion-pairs/{address_or_denom}|
 
  <!-- end services -->
 
@@ -368,10 +368,10 @@ Query defines the gRPC querier service for bridge module
 
 
 
-<a name="bridge.v1beta1.MsgBridgeEthereumToKava"></a>
+<a name="bridge.v1beta1.MsgBridgeEthereumToFury"></a>
 
-### MsgBridgeEthereumToKava
-MsgBridgeEthereumToKava defines a ERC20 bridge transfer from Ethereum to Kava.
+### MsgBridgeEthereumToFury
+MsgBridgeEthereumToFury defines a ERC20 bridge transfer from Ethereum to Fury.
 
 
 | Field | Type | Label | Description |
@@ -379,7 +379,7 @@ MsgBridgeEthereumToKava defines a ERC20 bridge transfer from Ethereum to Kava.
 | `relayer` | [string](#string) |  | Address of the bridge relayer. |
 | `ethereum_erc20_address` | [string](#string) |  | Originating Ethereum ERC20 contract address. |
 | `amount` | [string](#string) |  | ERC20 token amount to transfer. |
-| `receiver` | [string](#string) |  | Receiver hex address on Kava. |
+| `receiver` | [string](#string) |  | Receiver hex address on Fury. |
 | `sequence` | [string](#string) |  | Unique sequence per bridge event. |
 
 
@@ -387,11 +387,11 @@ MsgBridgeEthereumToKava defines a ERC20 bridge transfer from Ethereum to Kava.
 
 
 
-<a name="bridge.v1beta1.MsgBridgeEthereumToKavaResponse"></a>
+<a name="bridge.v1beta1.MsgBridgeEthereumToFuryResponse"></a>
 
-### MsgBridgeEthereumToKavaResponse
-MsgBridgeEthereumToKavaResponse defines the response value from
-Msg/BridgeEthereumToKava.
+### MsgBridgeEthereumToFuryResponse
+MsgBridgeEthereumToFuryResponse defines the response value from
+Msg/BridgeEthereumToFury.
 
 
 
@@ -401,13 +401,13 @@ Msg/BridgeEthereumToKava.
 <a name="bridge.v1beta1.MsgConvertCoinToERC20"></a>
 
 ### MsgConvertCoinToERC20
-MsgConvertCoinToERC20 defines a conversion from sdk.Coin to Kava ERC20.
+MsgConvertCoinToERC20 defines a conversion from sdk.Coin to Fury ERC20.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| `initiator` | [string](#string) |  | Kava bech32 address initiating the conversion. |
-| `receiver` | [string](#string) |  | EVM hex address that will receive the converted Kava ERC20 tokens. |
+| `initiator` | [string](#string) |  | Fury bech32 address initiating the conversion. |
+| `receiver` | [string](#string) |  | EVM hex address that will receive the converted Fury ERC20 tokens. |
 | `amount` | [cosmos.base.v1beta1.Coin](#cosmos.base.v1beta1.Coin) |  | Amount is the sdk.Coin amount to convert. |
 
 
@@ -429,14 +429,14 @@ Msg/ConvertCoinToERC20.
 <a name="bridge.v1beta1.MsgConvertERC20ToCoin"></a>
 
 ### MsgConvertERC20ToCoin
-MsgConvertERC20ToCoin defines a conversion from Kava ERC20 to sdk.Coin.
+MsgConvertERC20ToCoin defines a conversion from Fury ERC20 to sdk.Coin.
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | `initiator` | [string](#string) |  | EVM 0x hex address initiating the conversion. |
-| `receiver` | [string](#string) |  | Kava bech32 address that will receive the converted sdk.Coin. |
-| `kava_erc20_address` | [string](#string) |  | EVM 0x hex address of the ERC20 contract. |
+| `receiver` | [string](#string) |  | Fury bech32 address that will receive the converted sdk.Coin. |
+| `fury_erc20_address` | [string](#string) |  | EVM 0x hex address of the ERC20 contract. |
 | `amount` | [string](#string) |  | ERC20 token amount to convert. |
 
 
@@ -468,8 +468,8 @@ Msg defines the bridge Msg service.
 
 | Method Name | Request Type | Response Type | Description | HTTP Verb | Endpoint |
 | ----------- | ------------ | ------------- | ------------| ------- | -------- |
-| `BridgeEthereumToKava` | [MsgBridgeEthereumToKava](#bridge.v1beta1.MsgBridgeEthereumToKava) | [MsgBridgeEthereumToKavaResponse](#bridge.v1beta1.MsgBridgeEthereumToKavaResponse) | BridgeEthereumToKava defines a method for bridging ERC20 tokens from Ethereum to Kava. | |
-| `ConvertCoinToERC20` | [MsgConvertCoinToERC20](#bridge.v1beta1.MsgConvertCoinToERC20) | [MsgConvertCoinToERC20Response](#bridge.v1beta1.MsgConvertCoinToERC20Response) | ConvertCoinToERC20 defines a method for converting sdk.Coin to Kava ERC20. | |
+| `BridgeEthereumToFury` | [MsgBridgeEthereumToFury](#bridge.v1beta1.MsgBridgeEthereumToFury) | [MsgBridgeEthereumToFuryResponse](#bridge.v1beta1.MsgBridgeEthereumToFuryResponse) | BridgeEthereumToFury defines a method for bridging ERC20 tokens from Ethereum to Fury. | |
+| `ConvertCoinToERC20` | [MsgConvertCoinToERC20](#bridge.v1beta1.MsgConvertCoinToERC20) | [MsgConvertCoinToERC20Response](#bridge.v1beta1.MsgConvertCoinToERC20Response) | ConvertCoinToERC20 defines a method for converting sdk.Coin to Fury ERC20. | |
 | `ConvertERC20ToCoin` | [MsgConvertERC20ToCoin](#bridge.v1beta1.MsgConvertERC20ToCoin) | [MsgConvertERC20ToCoinResponse](#bridge.v1beta1.MsgConvertERC20ToCoinResponse) |  | |
 
  <!-- end services -->

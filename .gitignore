@@ -3,10 +3,10 @@ c.out
 coverage.html
 
 # Ignore any built binaries ensureing
-kava-bridged
-!kava-bridged/
-kava-relayer
-!kava-relayer/
+fury-bridged
+!fury-bridged/
+fury-relayer
+!fury-relayer/
 
 contrib/devnet/geth/data/geth
 

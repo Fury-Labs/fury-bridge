@@ -86,14 +86,14 @@ func (m *GenesisState) GetERC20BridgePairs() ERC20BridgePairs {
 // Params defines the bridge module params
 type Params struct {
 	// Flag for enabling incoming/outgoing bridge transactions AND
-	// Kava ERC20/sdk.Coin conversions.
+	// Fury ERC20/sdk.Coin conversions.
 	BridgeEnabled bool `protobuf:"varint,1,opt,name=bridge_enabled,json=bridgeEnabled,proto3" json:"bridge_enabled,omitempty"`
-	// List of ERC20Tokens that are allowed to be bridged to Kava
+	// List of ERC20Tokens that are allowed to be bridged to Fury
 	EnabledERC20Tokens EnabledERC20Tokens `protobuf:"bytes,2,rep,name=enabled_erc20_tokens,json=enabledErc20Tokens,proto3,castrepeated=EnabledERC20Tokens" json:"enabled_erc20_tokens"`
 	// Permissioned relayer address that is allowed to submit bridge messages
 	Relayer github_com_cosmos_cosmos_sdk_types.AccAddress `protobuf:"bytes,3,opt,name=relayer,proto3,casttype=github.com/cosmos/cosmos-sdk/types.AccAddress" json:"relayer,omitempty"`
 	// enabled_conversion_pairs defines the list of conversion pairs allowed to be
-	// converted between Kava ERC20 and sdk.Coin
+	// converted between Fury ERC20 and sdk.Coin
 	EnabledConversionPairs ConversionPairs `protobuf:"bytes,4,rep,name=enabled_conversion_pairs,json=enabledConversionPairs,proto3,castrepeated=ConversionPairs" json:"enabled_conversion_pairs"`
 }
 
@@ -158,7 +158,7 @@ func (m *Params) GetEnabledConversionPairs() ConversionPairs {
 	return nil
 }
 
-// EnabledERC20Token defines an external ERC20 that is allowed to be bridged to Kava
+// EnabledERC20Token defines an external ERC20 that is allowed to be bridged to Fury
 type EnabledERC20Token struct {
 	// Address of the contract on Ethereum
 	Address HexBytes `protobuf:"bytes,1,opt,name=address,proto3,casttype=HexBytes" json:"address,omitempty"`

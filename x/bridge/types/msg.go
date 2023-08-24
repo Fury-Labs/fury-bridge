@@ -9,21 +9,21 @@ import (
 
 // ensure Msg interface compliance at compile time
 var (
-	_ sdk.Msg            = &MsgBridgeEthereumToKava{}
+	_ sdk.Msg            = &MsgBridgeEthereumToFury{}
 	_ sdk.Msg            = &MsgConvertCoinToERC20{}
 	_ sdk.Msg            = &MsgConvertERC20ToCoin{}
 	_ legacytx.LegacyMsg = &MsgConvertERC20ToCoin{}
 )
 
-// NewMsgBridgeEthereumToKava returns a new MsgBridgeEthereumToKava
-func NewMsgBridgeEthereumToKava(
+// NewMsgBridgeEthereumToFury returns a new MsgBridgeEthereumToFury
+func NewMsgBridgeEthereumToFury(
 	relayer string,
 	ethereumERC20Address string,
 	amount sdk.Int,
 	receiver string,
 	sequence sdk.Int,
-) MsgBridgeEthereumToKava {
-	return MsgBridgeEthereumToKava{
+) MsgBridgeEthereumToFury {
+	return MsgBridgeEthereumToFury{
 		Relayer:              relayer,
 		EthereumERC20Address: ethereumERC20Address,
 		Amount:               amount,
@@ -33,7 +33,7 @@ func NewMsgBridgeEthereumToKava(
 }
 
 // GetSigners returns the addresses of signers that must sign.
-func (msg MsgBridgeEthereumToKava) GetSigners() []sdk.AccAddress {
+func (msg MsgBridgeEthereumToFury) GetSigners() []sdk.AccAddress {
 	sender, err := sdk.AccAddressFromBech32(msg.Relayer)
 	if err != nil {
 		panic(err)
@@ -42,7 +42,7 @@ func (msg MsgBridgeEthereumToKava) GetSigners() []sdk.AccAddress {
 }
 
 // ValidateBasic does a simple validation check that doesn't require access to any other information.
-func (msg MsgBridgeEthereumToKava) ValidateBasic() error {
+func (msg MsgBridgeEthereumToFury) ValidateBasic() error {
 	_, err := sdk.AccAddressFromBech32(msg.Relayer)
 	if err != nil {
 		return sdkerrors.Wrap(sdkerrors.ErrInvalidAddress, err.Error())
@@ -127,7 +127,7 @@ func NewMsgConvertERC20ToCoin(
 	return MsgConvertERC20ToCoin{
 		Initiator:        initiator.String(),
 		Receiver:         receiver.String(),
-		KavaERC20Address: contractAddr.String(),
+		FuryERC20Address: contractAddr.String(),
 		Amount:           amount,
 	}
 }
@@ -148,7 +148,7 @@ func (msg MsgConvertERC20ToCoin) ValidateBasic() error {
 		)
 	}
 
-	if !common.IsHexAddress(msg.KavaERC20Address) {
+	if !common.IsHexAddress(msg.FuryERC20Address) {
 		return sdkerrors.Wrap(
 			sdkerrors.ErrInvalidAddress,
 			"erc20 contract address is not a valid hex address",

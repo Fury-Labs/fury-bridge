@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/kava-labs/kava-bridge/cmd/kava-relayer/cmd"
+	"github.com/fury-labs/fury-bridge/cmd/fury-relayer/cmd"
 )
 
 func main() {

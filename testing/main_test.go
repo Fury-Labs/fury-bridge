@@ -13,8 +13,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/kava-labs/kava-bridge/app"
-	"github.com/kava-labs/kava-bridge/relayer"
+	"github.com/fury-labs/fury-bridge/app"
+	"github.com/fury-labs/fury-bridge/relayer"
 
 	txtypes "github.com/cosmos/cosmos-sdk/types/tx"
 	"github.com/ethereum/go-ethereum"
@@ -28,8 +28,8 @@ import (
 )
 
 const (
-	bridgeBinName  = "kava-bridged"
-	relayerBinName = "kava-relayer"
+	bridgeBinName  = "fury-bridged"
+	relayerBinName = "fury-relayer"
 
 	testUserMnemonic    = "news tornado sponsor drastic dolphin awful plastic select true lizard width idle ability pigeon runway lift oppose isolate maple aspect safe jungle author hole"
 	testRelayerMnemonic = "never reject sniff east arctic funny twin feed upper series stay shoot vivid adapt defense economy pledge fetch invite approve ceiling admit gloom exit"
@@ -45,14 +45,14 @@ func buildBin(binName string) (func(), error) {
 }
 
 func TestMain(m *testing.M) {
-	// build the kava test chain w/ birdge module
+	// build the fury test chain w/ birdge module
 	cleanupBridge, err := buildBin(bridgeBinName)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
 		os.Exit(1)
 	}
 
-	// build the kava relayer
+	// build the fury relayer
 	cleanupRelayer, err := buildBin(relayerBinName)
 	if err != nil {
 		fmt.Fprintln(os.Stderr, err)
@@ -70,7 +70,7 @@ func TestMain(m *testing.M) {
 	os.Exit(r)
 }
 
-func TestEthToKavaRelaying(t *testing.T) {
+func TestEthToFuryRelaying(t *testing.T) {
 	//
 	// Initialize Ethereum Client
 	//
@@ -80,7 +80,7 @@ func TestEthToKavaRelaying(t *testing.T) {
 	require.NoError(t, err)
 
 	//
-	// Initialize Kava Connection
+	// Initialize Fury Connection
 	//
 	app.SetSDKConfig()
 	conn, err := grpc.Dial("localhost:9090", grpc.WithInsecure())
@@ -102,7 +102,7 @@ func TestEthToKavaRelaying(t *testing.T) {
 		"start",
 		"--eth-rpc", "http://localhost:8555",
 		"--eth-bridge-address", "0xb588617416D0B0A3C29618bf8Fb6aC0cAd4Ede7f",
-		"--kava-grpc", "http://localhost:9090",
+		"--fury-grpc", "http://localhost:9090",
 		// NOTE: this will be replaced with TSS
 		"--relayer-mnemonic", testRelayerMnemonic,
 	)
@@ -186,12 +186,12 @@ func TestEthToKavaRelaying(t *testing.T) {
 	require.NoError(t, err)
 
 	//
-	// Search Kava Chain For Transaction With Lock Sequence
+	// Search Fury Chain For Transaction With Lock Sequence
 	//
 	txClient := txtypes.NewServiceClient(conn)
 
 	txRequest := txtypes.GetTxsEventRequest{
-		Events: []string{fmt.Sprintf("bridge_ethereum_to_kava.sequence='%s'", lockLog.LockSequence)},
+		Events: []string{fmt.Sprintf("bridge_ethereum_to_fury.sequence='%s'", lockLog.LockSequence)},
 	}
 
 	timeout := time.Now().Add(60 * time.Second)
@@ -199,7 +199,7 @@ func TestEthToKavaRelaying(t *testing.T) {
 
 	for {
 		if time.Now().After(timeout) {
-			t.Fatal("timed out waiting for successful kava transaction")
+			t.Fatal("timed out waiting for successful fury transaction")
 		}
 
 		txsResponse, err = txClient.GetTxsEvent(context.Background(), &txRequest)
@@ -211,7 +211,7 @@ func TestEthToKavaRelaying(t *testing.T) {
 	}
 
 	//
-	// Create instance to communicate with weth contract on kava evm
+	// Create instance to communicate with weth contract on fury evm
 	//
 	// TODO: we should query this address from module, for now we rely on weth deployment being the
 	// first evm tx signed by the bridge module
@@ -220,7 +220,7 @@ func TestEthToKavaRelaying(t *testing.T) {
 	require.NoError(t, err)
 
 	//
-	// Assert balance on kava evm matches value locked
+	// Assert balance on fury evm matches value locked
 	//
 	balance, err := evmTokenInstance.BalanceOf(nil, user.Address)
 	require.Equal(t, int64(1e15), balance.Int64())

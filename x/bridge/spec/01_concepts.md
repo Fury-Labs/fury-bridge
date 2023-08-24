@@ -1,8 +1,8 @@
 # Concepts
 
-The bridge module deploys ERC20 contracts and mints ERC20 tokens on the Kava EVM
+The bridge module deploys ERC20 contracts and mints ERC20 tokens on the Fury EVM
 for cross-chain ERC20 token transfers. This module also supports a intra-bridge
-to convert between Kava EVM ERC20 tokens and Kava Cosmos coins.
+to convert between Fury EVM ERC20 tokens and Fury Cosmos coins.
 
 ## Requirements
 
@@ -18,45 +18,45 @@ Signer
 ## ERC20
 
 In the following documents, Ethereum ERC20 will refer to an ERC20 token deployed
-on the Ethereum network. Kava ERC20 will refer to an ERC20 token deployed on the
-Kava EVM.
+on the Ethereum network. Fury ERC20 will refer to an ERC20 token deployed on the
+Fury EVM.
 
 ## Sequence
 
 There are two different incrementing sequences, one on the Bridge contract and
-`x/bridge` module. These are unique for each deposit (Ethereum to Kava) and
-each withdraw (Kava to Ethereum), but are not unique in that a deposit sequence
+`x/bridge` module. These are unique for each deposit (Ethereum to Fury) and
+each withdraw (Fury to Ethereum), but are not unique in that a deposit sequence
 value can be the same as a withdraw sequence. This is used by the relayer to
 properly order transactions.
 
 ## Assumptions
 
-Kava ERC20 contracts are **trusted**, as they are only deployed by the bridge
-module account. Kava ERC20 contracts deployed by non-module accounts are not
+Fury ERC20 contracts are **trusted**, as they are only deployed by the bridge
+module account. Fury ERC20 contracts deployed by non-module accounts are not
 supported at this moment.
 
 ## Ethereum Bridge
 
-### Ethereum ERC20 to Kava Transfers
+### Ethereum ERC20 to Fury Transfers
 
 Before being able to bridge Ethereum ERC20 tokens, they need to be added to the
 enabled ERC20 tokens in params.
 
-In order to bridge an approved Ethereum ERC20 tokens to Kava, the following
+In order to bridge an approved Ethereum ERC20 tokens to Fury, the following
 steps are taken:
 
 1. Account locks ERC20 tokens in the bridge contract on Ethereum. This emits an
-   event with the Ethereum ERC20 address, Ethereum sender address, receiver Kava
+   event with the Ethereum ERC20 address, Ethereum sender address, receiver Fury
    address, amount, and sequence.
 2. After a reasonable number of confirmations, the relayer will sign and submit
-   a `MsgBridgeEthereumToKava` message to the Kava chain.
+   a `MsgBridgeEthereumToFury` message to the Fury chain.
 3. The bridge module will verify the message for the following conditions. If
    any of these are false, the transaction will be rejected.
    * The signer address of the message matches the one set in params.
    * The Ethereum ERC20 token is contained in the enabled list set in params.
-4. The target Kava ERC20 address is fetched in the module state. If it doesn't
-   exist in state, i.e. the Kava ERC20 contract does not exist, it is deployed.
-5. The bridge module mints Kava ERC20 tokens for the destination Kava address.
+4. The target Fury ERC20 address is fetched in the module state. If it doesn't
+   exist in state, i.e. the Fury ERC20 contract does not exist, it is deployed.
+5. The bridge module mints Fury ERC20 tokens for the destination Fury address.
 
 ```mermaid
 stateDiagram-v2
@@ -65,9 +65,9 @@ stateDiagram-v2
     }
 
     Contract --> Relayer
-    Relayer --> BridgeModule: MsgBridgeEthereumToKava
+    Relayer --> BridgeModule: MsgBridgeEthereumToFury
 
-    state Kava {
+    state Fury {
         Reject: Reject TX
         BridgeModule: Bridge Module
 
@@ -84,19 +84,19 @@ stateDiagram-v2
 
         DeployERC20: Deploy ERC20
         MintERC20: Mint ERC20 amount for receiver
-        if_erc20_deployed --> DeployERC20: Kava ERC20 not deployed
-        if_erc20_deployed --> MintERC20: Kava ERC20 exists
+        if_erc20_deployed --> DeployERC20: Fury ERC20 not deployed
+        if_erc20_deployed --> MintERC20: Fury ERC20 exists
         DeployERC20 --> MintERC20
     }
 ```
 
-### Kava ERC20 to Ethereum Transfers
+### Fury ERC20 to Ethereum Transfers
 
-Transferring from Kava to Ethereum follows a similar pattern. Of the following
+Transferring from Fury to Ethereum follows a similar pattern. Of the following
 steps, only step 1 is implemented in the bridge module and the subsequent steps
 are done by the relayer.
 
-1. Account calls `Withdraw(withdrawal Ethereum Address, amount)` on a Kava ERC20
+1. Account calls `Withdraw(withdrawal Ethereum Address, amount)` on a Fury ERC20
    contract. This burns the account tokens and emits a `Withdraw` event
    containing the receiver Ethereum address and corresponding amount.
 2. Module `PostTxProcessing` EVM hook scans for `Withdraw` events from enabled
@@ -121,8 +121,8 @@ contract has lock/unlock and only `x/bridge` has mint/burn.
 
 ```mermaid
 sequenceDiagram
-    participant acc as Kava Account
-    participant KRC20 as Kava ERC20
+    participant acc as Fury Account
+    participant KRC20 as Fury ERC20
     participant M as x/bridge Module
     participant R as Relayer
     participant B as Ethereum Bridge Contract
@@ -143,38 +143,38 @@ sequenceDiagram
 
 ## ERC20 and Cosmos Coin Conversions
 
-### Kava ERC20 to Kava Cosmos Coin
+### Fury ERC20 to Fury Cosmos Coin
 
-ERC20 tokens on the Kava EVM can be converted to Kava `sdk.Coin`s and vice
+ERC20 tokens on the Fury EVM can be converted to Fury `sdk.Coin`s and vice
 versa.
 
-To convert Kava ERC20 to Kava Cosmos Coin, the following steps are taken. Note
+To convert Fury ERC20 to Fury Cosmos Coin, the following steps are taken. Note
 that any method calls on ERC20 will only apply to contracts which are enabled in
 params and exist in state.
 
-1. Account calls `ConvertToCoin(toKavaAddr, amount)` on the desired ERC20
+1. Account calls `ConvertToCoin(toFuryAddr, amount)` on the desired ERC20
    contract. This does two things:
-   * Emit a `ConvertToCoin(toKavaAddr, amount)` event.
+   * Emit a `ConvertToCoin(toFuryAddr, amount)` event.
    * Transfer token amount to the module account address.
-2. Similar to Kava ERC20 to Ethereum transfers, a `PostTxProcessing` EVM hook
+2. Similar to Fury ERC20 to Ethereum transfers, a `PostTxProcessing` EVM hook
    will look for corresponding transactions only emitted from enabled
    `ConversionPair`s that contain both a `ConvertToCoin` and `Transfer`
    event.
 3. Bridge module mints `sdk.Coin` with the corresponding amount. The denom is
    defined in the `ConversionPair`.
-4. Minted coins are sent to the provided `toKavaAddr`.
+4. Minted coins are sent to the provided `toFuryAddr`.
 
-### Kava Cosmos Coin to Kava ERC20
+### Fury Cosmos Coin to Fury ERC20
 
 Similar to how only ERC20 tokens that originate from Ethereum can be bridged
-from Kava to Ethereum, converting cosmos coins to Kava ERC20 can only be done
-with coins that originated from the Kava EVM. This means assets that are native
-Cosmos coins such as SWP, HARD, native KAVA, IBC tokens, etc. **cannot** be
-converted this way. New token pairs must be added to the [params](https://github.com/Kava-Labs/kava-bridge/blob/main/x/bridge/spec/05_params.md) and added to the module via governance proposal.
+from Fury to Ethereum, converting cosmos coins to Fury ERC20 can only be done
+with coins that originated from the Fury EVM. This means assets that are native
+Cosmos coins such as SWP, HARD, native FURY, IBC tokens, etc. **cannot** be
+converted this way. New token pairs must be added to the [params](https://github.com/Four4Two/fury-bridge/blob/main/x/bridge/spec/05_params.md) and added to the module via governance proposal.
 
-Conversions back to Kava ERC20 are as follows.
+Conversions back to Fury ERC20 are as follows.
 
-1. **Kava** account submits `ConvertCoinToERC20` message. This contains the
+1. **Fury** account submits `ConvertCoinToERC20` message. This contains the
    sendTo Ethereum address, and coins (containing both denom and amount).
 2. Module checks if the account balance is greater than the desired conversion
    amount and checks enabled `ConversionPair`s to see if this is
